@@ -120,7 +120,7 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
             ? Writer\WriterInterface::LVL_2
             : Writer\WriterInterface::LVL_1;
         $writer = $this->getWriter();
-        $writer->write($this->_getTestMessageText($test), $writeLevel);
+        $writer->writeLine($this->_getTestMessageText($test), $writeLevel);
         $writer->writeH5(sprintf('%2$d / %1$s', $this->getTestStatusMessage($status), $test->getAssertionCount()), Writer\WriterInterface::LVL_2);
         ob_end_flush();
     }
@@ -134,7 +134,11 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
             }
             
             if ($test->getStatus() === Test\TestInterface::FAILURE) {
-                return sprintf('Test %2$s failed. Reason: %1$s' . PHP_EOL, $message->getMessage(), $test->getKey());
+                return sprintf('Test %2$s failed:' . PHP_EOL . '%1$s' . PHP_EOL, $message->getMessage(), $test->getKey());
+            }
+
+            if ($test->getStatus() === Test\TestInterface::ERROR) {
+                return sprintf('Test %2$s erred:' . PHP_EOL . '%1$s' . PHP_EOL, (string) $message, $test->getKey());
             }
         }
         
