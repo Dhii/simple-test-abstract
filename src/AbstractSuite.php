@@ -141,7 +141,6 @@ abstract class AbstractSuite extends Test\AbstractSupervisor implements SuiteInt
     
     public function runAll()
     {
-        
         foreach ($this->getTests() as $_test)
         {
             $runner = $this->_getRunner();
@@ -153,7 +152,6 @@ abstract class AbstractSuite extends Test\AbstractSupervisor implements SuiteInt
             $this->_updateStatusCounts($statusCounts, $runner->getTestStatusCount());
             $this->_afterRunTest($runner, $_test);
         }
-        
     }
     
     public function getWriter()

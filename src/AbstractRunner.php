@@ -2,6 +2,8 @@
 
 namespace Dhii\SimpleTest;
 
+use Dhii\SimpleTest\Writer;
+
 abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerInterface
 {
     protected $writer;
@@ -113,9 +115,13 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
     protected function _afterTest(Test\TestInterface $test, CaseInterface $case)
     {
         $case->afterTest();
+        $status = $test->getStatus();
+        $writeLevel = $test->isSuccessful()
+            ? Writer\WriterInterface::LVL_2
+            : Writer\WriterInterface::LVL_1;
         $writer = $this->getWriter();
-        $writer->write($this->_getTestMessageText($test), Writer\WriterInterface::LVL_2);
-        $writer->writeH5(sprintf('%2$d / %1$s', $this->getTestStatusMessage($test->getStatus()), $test->getAssertionCount()), Writer\WriterInterface::LVL_2);
+        $writer->write($this->_getTestMessageText($test), $writeLevel);
+        $writer->writeH5(sprintf('%2$d / %1$s', $this->getTestStatusMessage($status), $test->getAssertionCount()), Writer\WriterInterface::LVL_2);
         ob_end_flush();
     }
     
@@ -128,7 +134,7 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
             }
             
             if ($test->getStatus() === Test\TestInterface::FAILURE) {
-                return sprintf('Test failed. Reason: %1$s' . PHP_EOL, $message->getMessage());
+                return sprintf('Test %2$s failed. Reason: %1$s' . PHP_EOL, $message->getMessage(), $test->getKey());
             }
         }
         
