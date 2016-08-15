@@ -1,0 +1,19 @@
+{
+    "name": "dhii/simple-test",
+    "description": "A simple unit testing framework, for inclusion with other tools.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dhii Team",
+            "email": "development@dhii.co"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dhii\\SimpleTest\\": "src/"
+        }
+    }
+}
