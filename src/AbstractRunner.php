@@ -57,7 +57,7 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
             $methodName = $test->getMethodName();
             $case = new $className($this->_getAssertionMaker());
             $this->_beforeTest($test, $case);
-            call_user_func_array(array($case, $methodName), array());
+            $case->{$methodName}();
         } catch (Assertion\FailedExceptionInterface $exF) {
             return $this->_processTestResult(
                     $test,
