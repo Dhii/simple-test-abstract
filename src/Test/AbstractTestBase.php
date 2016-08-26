@@ -3,20 +3,16 @@
 namespace Dhii\SimpleTest\Test;
 
 /**
- * Common functionality for tests.
+ * Common functionality for test-representing objects.
  *
  * @since [*next-version*]
  */
-abstract class AbstractTest implements TestInterface
+abstract class AbstractTestBase implements TestInterface
 {
     protected $caseName;
     protected $methodName;
-    protected $status;
-    protected $key;
-    protected $message;
-    protected $assertionCount;
     protected $suiteCode;
-    protected $runnerCode;
+    protected $key;
 
     /**
      * @inheritdoc
@@ -60,25 +56,6 @@ abstract class AbstractTest implements TestInterface
      * @inheritdoc
      * @since [*next-version*]
      */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-        return $this;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
     public function getKey()
     {
         return $this->key;
@@ -98,98 +75,20 @@ abstract class AbstractTest implements TestInterface
      * @inheritdoc
      * @since [*next-version*]
      */
-    public function getStatusCodes()
-    {
-        return array(
-            self::ERROR,
-            self::FAILURE,
-            self::SUCCESS
-        );
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-        return $this;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function isSuccessful()
-    {
-        return $this->getStatus() === self::SUCCESS;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function setAssertionCount($assertionCount)
-    {
-        $this->assertionCount = intval($assertionCount);
-        return $this;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function getAssertionCount()
-    {
-        return $this->assertionCount;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
     public function getSuiteCode()
     {
         return $this->suiteCode;
     }
 
     /**
-     * @inheritdoc
+     * Set the code for this test's suite.
+     *
+     * @param string The code of the suite to which this case belongs.
      * @since [*next-version*]
      */
     public function setSuiteCode($code)
     {
         $this->suiteCode = $code;
-
-        return $this;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function getRunnerCode()
-    {
-        return $this->runnerCode;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function setRunnerCode($code)
-    {
-        $this->runnerCode = $code;
 
         return $this;
     }

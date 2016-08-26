@@ -83,7 +83,7 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      * @inheritdoc
      * @since [*next-version*]
      */
-    public function run(Test\TestInterface $test)
+    public function run(Test\TestBaseInterface $test)
     {
         return $this->_run($test);
     }
@@ -92,9 +92,10 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      * Low-level running of a test.
      *
      * @since [*next-version*]
-     * @param Test\TestInterface $test The test to run.
+     * @param Test\TestBaseInterface $test The test to run.
+     * @return Test\ResultInterface The result of the test run.
      */
-    protected function _run(Test\TestInterface $test)
+    protected function _run(Test\TestBaseInterface $test)
     {
         $assertionMaker = $this->_getAssertionMaker();
         $assertionCount = $assertionMaker->getAssertionTotalCount();
@@ -109,7 +110,7 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
         } catch (Assertion\FailedExceptionInterface $exF) {
             return $this->_processTestResult(
                     $test,
-                    Test\TestInterface::FAILURE,
+                    Test\ResultInterface::FAILURE,
                     $exF,
                     $case,
                     $assertionMaker->getAssertionTotalCount() - $assertionCount,
@@ -119,7 +120,7 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
         } catch (\Exception $exE) {
             return $this->_processTestResult(
                     $test,
-                    Test\TestInterface::ERROR,
+                    Test\ResultInterface::ERROR,
                     $exE,
                     $case,
                     $assertionMaker->getAssertionTotalCount() - $assertionCount,
@@ -129,7 +130,7 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
 
         return $this->_processTestResult(
                 $test,
-                Test\TestInterface::SUCCESS,
+                Test\ResultInterface::SUCCESS,
                 '',
                 $case,
                 $assertionMaker->getAssertionTotalCount() - $assertionCount,
@@ -143,29 +144,54 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      * Updates statistics, assigns statuses, etc.
      *
      * @since [*next-version*]
-     * @param Test\TestInterface $test The test, the result of which to process.
+     * @param Test\TestBaseInterface $test The test, the result of which to process.
      * @param string $status The status of the test.
      * @param mixed $message The message of the test.
      * @param CaseInterface $case The test case, to which the test belonged.
      * @param int $assertionCount The number of assertions made in the test.
      * @param int $oldAssertionStatusCount The total number of assertions made before the test.
      * @param int $newAssertionStatusCount The total number of assertions made after the test.
-     * @return string The status of the test.
+     * @return Test\ResultInterface The status of the test.
      */
-    protected function _processTestResult(Test\TestInterface $test, $status, $message, CaseInterface $case, $assertionCount, $oldAssertionStatusCount, $newAssertionStatusCount)
+    protected function _processTestResult(Test\TestBaseInterface $test, $status, $message, CaseInterface $case, $assertionCount, $oldAssertionStatusCount, $newAssertionStatusCount)
     {
-        $test->setStatus($status);
-        if (!$test->isSuccessful()) {
-            $test->setMessage($message);
-        }
+        $result = $this->_createResultFromTest(
+                $test,
+                $message,
+                $status,
+                $assertionCount,
+                $this->getCode());
 
-        $test->setAssertionCount($assertionCount);
-        $this->_addStatusCount($test->getStatus());
+        $this->_addStatusCount($result->getStatus());
         $this->_updateAssertionStatusCounts($oldAssertionStatusCount, $newAssertionStatusCount);
 
-        $this->_afterTest($test, $case);
+        $this->_afterTest($result, $case);
 
         return $status;
+    }
+
+    /**
+     * Creates an instance of a test result using a test instance as base.
+     *
+     * @param Test\TestBaseInterface $test The test, from which to create a result object.
+     * @param mixed $message The message of the test result.
+     * @param string $status The status code of the test result.
+     * @param int $assertionCount The number of assertions in the test.
+     * @param string $runnerCode The code name of the runner, which ran the test.
+     * @since [*next-version*]
+     * @return Test\ResultInterface
+     */
+    protected function _createResultFromTest(Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode)
+    {
+        return new Test\DefaultResult(
+                $test->getCaseName(),
+                $test->getMethodName(),
+                $test->getKey(),
+                $message,
+                $status,
+                $assertionCount,
+                $test->getSuiteCode(),
+                $runnerCode);
     }
 
     /**
@@ -175,7 +201,7 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      * @param Test\TestInterface $test The test that is about to be run.
      * @param CaseInterface $case The test case that the test belongs to.
      */
-    protected function _beforeTest(Test\TestInterface $test, CaseInterface $case)
+    protected function _beforeTest(Test\TestBaseInterface $test, CaseInterface $case)
     {
         ob_start();
         $this->getWriter()->writeH4(sprintf('Running Test %1$s', $test->getKey()), Writer\WriterInterface::LVL_2);
@@ -186,30 +212,30 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      * Runs right after a test is run.
      *
      * @since [*next-version*]
-     * @param Test\TestInterface $test The test that was ran.
+     * @param Test\ResultInterface $result The result of the test that was ran.
      * @param CaseInterface $case The test case that the test belongs to.
      */
-    protected function _afterTest(Test\TestInterface $test, CaseInterface $case)
+    protected function _afterTest(Test\ResultInterface $result, CaseInterface $case)
     {
         $case->afterTest();
-        $status = $test->getStatus();
-        $writeLevel = $test->isSuccessful()
+        $status = $result->getStatus();
+        $writeLevel = $result->isSuccessful()
             ? Writer\WriterInterface::LVL_2
             : Writer\WriterInterface::LVL_1;
         $writer = $this->getWriter();
-        $writer->writeLine($this->_getTestMessageText($test), $writeLevel);
-        $writer->writeH5(sprintf('%2$d / %1$s', $this->getTestStatusMessage($status), $test->getAssertionCount()), Writer\WriterInterface::LVL_2);
+        $writer->writeLine($this->_getTestMessageText($result), $writeLevel);
+        $writer->writeH5(sprintf('%2$d / %1$s', $this->getTestStatusMessage($status), $result->getAssertionCount()), Writer\WriterInterface::LVL_2);
         ob_end_flush();
     }
 
     /**
-     * Retrieves a normalized text message of a run test.
+     * Retrieves a normalized text message of a test result.
      *
      * @since [*next-version*]
-     * @param Test\TestInterface $test The test, for which to get the message.
+     * @param Test\ResultInterface $test The test result, for which to get the message.
      * @return string The normalized text of a test message.
      */
-    protected function _getTestMessageText(Test\TestInterface $test)
+    protected function _getTestMessageText(Test\ResultInterface $test)
     {
         $message = $test->getMessage();
         if ($message instanceof \Exception) {
@@ -217,11 +243,11 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
                 return '';
             }
 
-            if ($test->getStatus() === Test\TestInterface::FAILURE) {
+            if ($test->getStatus() === Test\ResultInterface::FAILURE) {
                 return sprintf('Test %2$s failed:' . PHP_EOL . '%1$s' . PHP_EOL, $message->getMessage(), $test->getKey());
             }
 
-            if ($test->getStatus() === Test\TestInterface::ERROR) {
+            if ($test->getStatus() === Test\ResultInterface::ERROR) {
                 return sprintf('Test %2$s erred:' . PHP_EOL . '%1$s' . PHP_EOL, (string) $message, $test->getKey());
             }
         }

@@ -23,6 +23,7 @@ interface RunnerInterface extends Test\AccountableInterface, Assertion\Accountab
      * Runs a test.
      *
      * @param Test\TestInterface $test The test to run.
+     * @return Test\ResultInterface The result of the test.
      */
-    public function run(Test\TestInterface $test);
+    public function run(Test\TestBaseInterface $test);
 }

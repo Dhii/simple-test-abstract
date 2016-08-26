@@ -53,6 +53,7 @@ abstract class AbstractSuite extends Test\AbstractSupervisor implements SuiteInt
      */
     protected function _addTest(Test\TestInterface $test)
     {
+        $test->setSuiteCode($this->getCode());
         $this->tests[$test->getKey()] = $test;
         
         return $this;
