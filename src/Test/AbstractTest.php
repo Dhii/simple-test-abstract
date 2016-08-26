@@ -7,6 +7,6 @@ namespace Dhii\SimpleTest\Test;
  *
  * @since [*next-version*]
  */
-class AbstractTest extends AbstractTestBase
+abstract class AbstractTest extends AbstractTestBase
 {
 }

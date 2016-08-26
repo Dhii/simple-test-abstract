@@ -7,7 +7,7 @@ namespace Dhii\SimpleTest\Test;
  *
  * @since [*next-version*]
  */
-class AbstractResult extends AbstractTestBase implements ResultInterface
+abstract class AbstractResult extends AbstractTestBase implements ResultInterface
 {
     protected $status;
     protected $message;
