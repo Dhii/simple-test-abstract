@@ -41,6 +41,10 @@ abstract class AbstractSuite extends Test\AbstractSupervisor implements SuiteInt
      */
     public function addTest(Test\TestInterface $test)
     {
+        if ($test->getSuiteCode()) {
+            throw new \InvalidArgumentException(sprintf('Could not add test "%3$s" to suite "%1$s": test already belongs to suite "%2$s"', $this->getCode(), $test->getSuiteCode(), $test->getKey()));
+        }
+
         $this->_addTest($test);
 
         return $this;
@@ -83,7 +87,7 @@ abstract class AbstractSuite extends Test\AbstractSupervisor implements SuiteInt
     protected function _addTests($tests)
     {
         foreach ($tests as $_test) {
-            $this->_addTest($_test);
+            $this->addTest($_test);
         }
 
         return $this;
