@@ -11,7 +11,6 @@ use Dhii\SimpleTest\Test;
  */
 abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterface
 {
-    protected $tests = array();
     protected $results = array();
 
     /**
@@ -31,7 +30,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      */
     protected function _getTests()
     {
-        return $this->tests;
+        return $this->items;
     }
 
     /**
@@ -59,7 +58,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     protected function _addTest(Test\TestInterface $test)
     {
         $test->setSuiteCode($this->getCode());
-        $this->tests[$test->getKey()] = $test;
+        $this->_addItem($test);
 
         return $this;
     }
