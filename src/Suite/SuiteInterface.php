@@ -11,11 +11,6 @@ use Dhii\SimpleTest\Test;
  */
 interface SuiteInterface
 {
-    /**
-     * @since [*next-version*]
-     * @return Test\TestInterface[]|\Traversable All tests in this suite,
-     */
-    public function getTests();
 
     /**
      * Add a single test.

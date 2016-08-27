@@ -59,27 +59,46 @@ class MyTestCase extends TestCase\AbstractCaseAssertive
     }
 }
 
-$writer = new SimpleTest\Writer\DefaultWriter;
-//$writer->setLevel(2);
+class MyTestSource extends AbstractSource
+{
+    public function getTests() {
+        $testClass = 'Dhii\\SimpleTest\\Test\\MyTestCase';
+        $errorTest = new SimpleTest\Test\DefaultTest($testClass, 'testError', sprintf('%1$s::%2$s', $testClass, 'testError'));
+        $tests = array(
+            new SimpleTest\Test\DefaultTest($testClass, 'testNothing', sprintf('%1$s::%2$s', $testClass, 'testNothing')),
+            new SimpleTest\Test\DefaultTest($testClass, 'testFailure', sprintf('%1$s::%2$s', $testClass, 'testFailure')),
+            new SimpleTest\Test\DefaultTest($testClass, 'testSuccess', sprintf('%1$s::%2$s', $testClass, 'testSuccess')),
+//            $errorTest, // This won't work, because you can't add the same test twice - to any suite
+            $errorTest
+        );
+        
+        return $tests;
+    }
+}
+
+// Demonstrates how everything is de-coupled, and uses DI
+$writer = new SimpleTest\Writer\DefaultWriter();
 $tester = new SimpleTest\Tester\DefaultTester($writer);
 $assertionMaker = new SimpleTest\Assertion\DefaultMaker();
 $runner = new SimpleTest\Runner\DefaultRunner($writer, $assertionMaker);
-
 $suite = new SimpleTest\Suite\DefaultSuite('default', $runner);
-//$suite->addCaseSet('Dhii\\SimpleTest\\Test\\MyTestCase');
-$testClass = 'Dhii\\SimpleTest\\Test\\MyTestCase';
-$errorTest = new SimpleTest\Test\DefaultTest($testClass, 'testError', sprintf('%1$s::%2$s', $testClass, 'testError'));
-$tests = array(
-    new SimpleTest\Test\DefaultTest($testClass, 'testNothing', sprintf('%1$s::%2$s', $testClass, 'testNothing')),
-    new SimpleTest\Test\DefaultTest($testClass, 'testFailure', sprintf('%1$s::%2$s', $testClass, 'testFailure')),
-    new SimpleTest\Test\DefaultTest($testClass, 'testSuccess', sprintf('%1$s::%2$s', $testClass, 'testSuccess')),
-//    $errorTest,
-    $errorTest
-);
-$suite->addTests($tests);
-var_dump($errorTest->getSuiteCode());
 
+/* Demonstrates how tests can be added from any Traversable or array.
+ * However, tests cannot be added to a suite from another suite,
+ * even though a suite is a Traversable, because a test cannot exist in 2 suites
+ * simultaneously.
+ */
+$suite->addTests(new MyTestSource());
+
+// Demonstrates how a suite can be iterable to access each test in it.
+//foreach ($suite as $_idx => $_test)
+//{
+//    var_dump($_idx, $_test);
+//}
+
+// Demonstrates how the writer will only write messages up until a certain level.
+//$writer->setLevel(2);
+
+// Demonstrates how the tests in suites can be run
 $tester->addSuite($suite);
 $tester->runAll();
-
-//var_dump($suite->getTests());

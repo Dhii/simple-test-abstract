@@ -9,7 +9,7 @@ use Dhii\SimpleTest\Test;
  *
  * @since [*next-version*]
  */
-abstract class AbstractSuite implements SuiteInterface
+abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterface
 {
     protected $tests = array();
     protected $results = array();
