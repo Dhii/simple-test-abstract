@@ -2,128 +2,63 @@
 
 namespace Dhii\SimpleTest\Test;
 
+use Exception;
+
 /**
- * Common functionality for test collections.
+ * Common functionality for collections.
  *
  * @since [*next-version*]
  */
-abstract class AbstractCollection implements \Iterator
+abstract class AbstractCollection implements CollectionInterface
 {
-    protected $itemIndex = 0;
+    protected $items = array();
 
     /**
      * @inheritdoc
      * @since [*next-version*]
      */
-    public function current()
+    public function getItems()
     {
-        $index = $this->_getItemIndex();
-        $key = $this->_getIndexKey($index);
-        if (is_null($key)) {
-            throw new \OutOfBoundsException(sprintf('Could not retrieve item at index %1$s: Index is out of bounds', $index));
-        }
-
-        $items = $this->_getItems();
-        if (!isset($items[$key])) {
-            throw new \OutOfBoundsException(sprintf('Could not retrieve item at index %1$s ($2$s): Item does not exist', $index, $key));
-        }
-
-        return $items[$key];
+        return $this->items;
     }
 
     /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function key()
-    {
-        return $this->_getItemIndex();
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function next()
-    {
-        $index = $this->_getItemIndex();
-        $this->_setItemIndex(++$index);
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function rewind()
-    {
-        $this->_setItemIndex(0);
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function valid()
-    {
-        $index = $this->_getItemIndex();
-        $key = $this->_getIndexKey($index);
-        if (is_null($key)) {
-            return false;
-        }
-
-        $items = $this->_getItems();
-        return isset($items[$key]);
-    }
-
-    /**
-     * Sets the internal position pointer.
+     * Adds items to the collection.
      *
      * @since [*next-version*]
-     * @param int $index The new position for the pointer.
-     * @return AbstractSource This instance.
+     * @param array|\Traversable $items Items to add
      */
-    protected function _setItemIndex($index)
+    protected function _addItems($items)
     {
-        $this->itemIndex = $index;
+        foreach ($items as $_key => $_item) {
+            $this->_validateItem($_item);
+            $this->_addItem($_item);
+        }
+    }
+
+    /**
+     * Add an item to the collection.
+     *
+     * @since [*next-version*]
+     * @param mixed $item The item to add.
+     */
+    protected function _addItem($item)
+    {
+        $this->items[$this->_getItemKey($item)] = $item;
 
         return $this;
     }
 
-    /**
-     * Sets the internal position pointer.
-     *
-     * @since [*next-version*]
-     * @return int This internal pointer value.
-     */
-    protected function _getItemIndex()
+    protected function _getItemKey($item)
     {
-        return $this->itemIndex;
+        return count($this->items);
     }
 
     /**
-     * Retrieve the key at the specified item index.
-     *
-     * The key can be the same if items are a numeric array.
-     * If the items are stored as an associative array, however, this will
-     * not be the case. This method allows working with assoc arrays still.
+     * Determines if item is a valid member of the collection.
      *
      * @since [*next-version*]
-     * @param int $index The index, for which to retrieve the key.
-     * @return string|int The key at the specified index.
+     * @throws Exception If the item is invalid;
      */
-    protected function _getIndexKey($index)
-    {
-        $keys = array_keys($this->_getItems());
-        return isset($keys[$index])
-            ? $keys[$index]
-            : null;
-    }
-
-    /**
-     * Retrieve all items in this collection
-     *
-     * @since [*next-version*]
-     * @return mixed[]
-     */
-    abstract protected function _getItems();
+    abstract protected function _validateItem($item);
 }

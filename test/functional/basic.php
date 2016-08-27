@@ -61,7 +61,12 @@ class MyTestCase extends TestCase\AbstractCaseAssertive
 
 class MyTestSource extends AbstractSource
 {
-    public function getTests() {
+    /**
+     * Demonstrates how a test source can be fed by an array.
+     * 
+     * @return SimpleTest\Test\DefaultTest[]
+     */
+    public function getItems1() {
         $testClass = 'Dhii\\SimpleTest\\Test\\MyTestCase';
         $errorTest = new SimpleTest\Test\DefaultTest($testClass, 'testError', sprintf('%1$s::%2$s', $testClass, 'testError'));
         $tests = array(
@@ -73,6 +78,18 @@ class MyTestSource extends AbstractSource
         );
         
         return $tests;
+    }
+    
+    /**
+     * Demonstrates how a test source can be fed from a locator.
+     * 
+     * @return \Traversable
+     */
+    public function getItems()
+    {
+        $locator = new SimpleTest\Locator\DefaultClassLocator();
+        $locator->setClass('Dhii\\SimpleTest\\Test\\MyTestCase');
+        return $locator->locate();
     }
 }
 
