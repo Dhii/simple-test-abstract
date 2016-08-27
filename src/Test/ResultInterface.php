@@ -2,12 +2,14 @@
 
 namespace Dhii\SimpleTest\Test;
 
+use Dhii\SimpleTest\Assertion;
+
 /**
  * Represents a test result.
  *
  * @since [*next-version*]
  */
-interface ResultInterface extends TestBaseInterface, UsageAccountableInterface
+interface ResultInterface extends TestBaseInterface, UsageAccountableInterface, Assertion\AccountableInterface
 {
     const FAILURE = 'failed';
     const ERROR = 'errored';
@@ -54,12 +56,4 @@ interface ResultInterface extends TestBaseInterface, UsageAccountableInterface
      * @return string The code of the runner that ran this test.
      */
     public function getRunnerCode();
-
-    /**
-     * Retrieve the amount of assertions that were made during this test.
-     *
-     * @since [*next-version*]
-     * @return int The code of the runner that ran this test.
-     */
-    public function getAssertionCount();
 }
