@@ -7,7 +7,7 @@ namespace Dhii\SimpleTest\Test;
  *
  * @since [*next-version*]
  */
-interface ResultInterface extends TestBaseInterface
+interface ResultInterface extends TestBaseInterface, UsageAccountableInterface
 {
     const FAILURE = 'failed';
     const ERROR = 'errored';
@@ -62,22 +62,4 @@ interface ResultInterface extends TestBaseInterface
      * @return int The code of the runner that ran this test.
      */
     public function getAssertionCount();
-
-    /**
-     * Retrieve the time that was taken to run this test.
-     *
-     * @since [*next-version*]
-     * @see microtime()
-     * @return float The amount of time taken to run this test, in seconds.
-     */
-    public function getTimeTaken();
-
-    /**
-     * Retrieve the amount of memory that was taken to run this test.
-     *
-     * @since [*next-version*]
-     * @see memory_get_usage()
-     * @return int The amount of memory taken to run this test, in bytes.
-     */
-    public function getMemoryTaken();
 }
