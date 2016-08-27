@@ -2,14 +2,12 @@
 
 namespace Dhii\SimpleTest\Test;
 
-use Dhii\SimpleTest\Assertion;
-
 /**
  * Represents a test result.
  *
  * @since [*next-version*]
  */
-interface ResultInterface extends TestBaseInterface, UsageAccountableInterface, Assertion\AccountableInterface
+interface ResultInterface extends TestBaseInterface
 {
     const FAILURE = 'failed';
     const ERROR = 'errored';

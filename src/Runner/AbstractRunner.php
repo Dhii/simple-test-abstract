@@ -1,29 +1,22 @@
 <?php
 
-namespace Dhii\SimpleTest;
+namespace Dhii\SimpleTest\Runner;
 
+use Dhii\SimpleTest;
+use Dhii\SimpleTest\Test;
 use Dhii\SimpleTest\Writer;
+use Dhii\SimpleTest\TestCase;
+use Dhii\SimpleTest\Assertion;
 
 /**
  * Common functionality for test runners.
  *
  * @since [*next-version*]
  */
-abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerInterface
+abstract class AbstractRunner implements RunnerInterface
 {
     protected $writer;
     protected $assertionMaker;
-
-    /**
-     * @since [*next-version*]
-     * @param Writer\WriterInterface $writer The writer that this runner will use to output data.
-     * @param Assertion\DefaultMaker $assertionMaker The assertion maker that test cases run by this runner will use.
-     */
-    public function __construct(Writer\WriterInterface $writer, Assertion\DefaultMaker $assertionMaker)
-    {
-        $this->_setWriter($writer);
-        $this->_setAssertionMaker($assertionMaker);
-    }
 
     /**
      * Sets a writer instance for this runner.
@@ -42,7 +35,8 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      * @inheritdoc
      * @since [*next-version*]
      */
-    public function getWriter() {
+    public function getWriter()
+    {
         return $this->writer;
     }
 
@@ -98,44 +92,78 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
     protected function _run(Test\TestBaseInterface $test)
     {
         $assertionMaker = $this->_getAssertionMaker();
-        $assertionCount = $assertionMaker->getAssertionTotalCount();
-        $assertionStatusCount = $assertionMaker->getAssertionStatusCount();
+        $countAssertions = $assertionMaker instanceof Assertion\AccountableInterface;
+        if ($countAssertions) {
+            $assertionCount = $assertionMaker->getAssertionCount();
+        }
+        $timeBeforeTest = microtime(true);
+        $memoryBeforeTest = memory_get_usage();
 
         try {
             $className = $test->getCaseName();
             $methodName = $test->getMethodName();
-            $case = new $className($this->_getAssertionMaker());
-            $this->_beforeTest($test, $case);
+            $case = new $className();
+
+            if (!($case instanceof TestCase\CaseInterface)) {
+                throw new SimpleTest\Exception(sprintf('Could not run test "%1$s": not a valid test case'));
+            }
+
+            if ($case instanceof TestCase\AssertiveInterface) {
+                $case->setAssertionMaker($assertionMaker);
+            }
+
+            $this->_beforeTest($test);
+            $case->beforeTest();
             $case->{$methodName}();
         } catch (Assertion\FailedExceptionInterface $exF) {
-            return $this->_processTestResult(
-                    $test,
-                    Test\ResultInterface::FAILURE,
-                    $exF,
-                    $case,
-                    $assertionMaker->getAssertionTotalCount() - $assertionCount,
-                    $assertionStatusCount,
-                    $assertionMaker->getAssertionStatusCount());
+            $case->afterTest();
+            $result = $this->_processTestResult(
+                    $test, // The test
+                    Test\ResultInterface::FAILURE, // Test status
+                    $exF, // Message
+                    $case, // Test case
+                    $countAssertions // Assertion count
+                        ? $assertionMaker->getAssertionTotalCount() - $assertionCount
+                        : 0,
+                    microtime(true) - $timeBeforeTest, // Time taken
+                    memory_get_usage() - $memoryBeforeTest // Memory taken
+            );
+            $this->_afterTest($result);
 
+            return $result;
         } catch (\Exception $exE) {
-            return $this->_processTestResult(
-                    $test,
-                    Test\ResultInterface::ERROR,
-                    $exE,
+            $case->afterTest();
+            $result = $this->_processTestResult(
+                    $test, // The test
+                    Test\ResultInterface::ERROR, // Test status
+                    $exE, // Message
                     $case,
-                    $assertionMaker->getAssertionTotalCount() - $assertionCount,
-                    $assertionStatusCount,
-                    $assertionMaker->getAssertionStatusCount());
+                    $countAssertions // Assertion count
+                        ? $assertionMaker->getAssertionTotalCount() - $assertionCount
+                        : 0,
+                    microtime(true) - $timeBeforeTest, // Time taken
+                    memory_get_usage() - $memoryBeforeTest // Memory taken
+            );
+            $this->_afterTest($result);
+
+            return $result;
         }
 
-        return $this->_processTestResult(
-                $test,
-                Test\ResultInterface::SUCCESS,
-                '',
-                $case,
-                $assertionMaker->getAssertionTotalCount() - $assertionCount,
-                $assertionStatusCount,
-                $assertionMaker->getAssertionStatusCount());
+        $case->afterTest();
+        $result = $this->_processTestResult(
+                $test, // The test
+                Test\ResultInterface::SUCCESS, // Test status
+                '', // Message
+                $case, // Test case
+                $countAssertions // Assertion count
+                    ? $assertionMaker->getAssertionTotalCount() - $assertionCount
+                    : 0,
+                microtime(true) - $timeBeforeTest, // Time taken
+                memory_get_usage() - $memoryBeforeTest // Memory taken
+        );
+        $this->_afterTest($result);
+
+        return $result;
     }
 
     /**
@@ -147,27 +175,23 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      * @param Test\TestBaseInterface $test The test, the result of which to process.
      * @param string $status The status of the test.
      * @param mixed $message The message of the test.
-     * @param CaseInterface $case The test case, to which the test belonged.
      * @param int $assertionCount The number of assertions made in the test.
-     * @param int $oldAssertionStatusCount The total number of assertions made before the test.
-     * @param int $newAssertionStatusCount The total number of assertions made after the test.
+     * @param float $time The time, in seconds, that was taken to run the test.
+     * @param int $memory The memory, in bytes, that was taken to run the test.
      * @return Test\ResultInterface The status of the test.
      */
-    protected function _processTestResult(Test\TestBaseInterface $test, $status, $message, CaseInterface $case, $assertionCount, $oldAssertionStatusCount, $newAssertionStatusCount)
+    protected function _processTestResult(Test\TestBaseInterface $test, $status, $message, $assertionCount, $time, $memory)
     {
         $result = $this->_createResultFromTest(
                 $test,
                 $message,
                 $status,
                 $assertionCount,
-                $this->getCode());
+                $this->getCode(),
+                $time,
+                $memory);
 
-        $this->_addStatusCount($result->getStatus());
-        $this->_updateAssertionStatusCounts($oldAssertionStatusCount, $newAssertionStatusCount);
-
-        $this->_afterTest($result, $case);
-
-        return $status;
+        return $result;
     }
 
     /**
@@ -178,10 +202,12 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      * @param string $status The status code of the test result.
      * @param int $assertionCount The number of assertions in the test.
      * @param string $runnerCode The code name of the runner, which ran the test.
+     * @param float $time The time, in seconds, that was taken to run the test.
+     * @param int $memory The memory, in bytes, that was taken to run the test.
      * @since [*next-version*]
      * @return Test\ResultInterface
      */
-    protected function _createResultFromTest(Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode)
+    protected function _createResultFromTest(Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode, $time, $memory)
     {
         return new Test\DefaultResult(
                 $test->getCaseName(),
@@ -191,7 +217,9 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
                 $status,
                 $assertionCount,
                 $test->getSuiteCode(),
-                $runnerCode);
+                $runnerCode,
+                $time,
+                $memory);
     }
 
     /**
@@ -199,13 +227,14 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      *
      * @since [*next-version*]
      * @param Test\TestInterface $test The test that is about to be run.
-     * @param CaseInterface $case The test case that the test belongs to.
+     * @return AbstractRunner This instance.
      */
-    protected function _beforeTest(Test\TestBaseInterface $test, CaseInterface $case)
+    protected function _beforeTest(Test\TestBaseInterface $test)
     {
         ob_start();
         $this->getWriter()->writeH4(sprintf('Running Test %1$s', $test->getKey()), Writer\WriterInterface::LVL_2);
-        $case->beforeTest();
+
+        return $this;
     }
 
     /**
@@ -213,18 +242,16 @@ abstract class AbstractRunner extends Test\AbstractSupervisor implements RunnerI
      *
      * @since [*next-version*]
      * @param Test\ResultInterface $result The result of the test that was ran.
-     * @param CaseInterface $case The test case that the test belongs to.
      */
-    protected function _afterTest(Test\ResultInterface $result, CaseInterface $case)
+    protected function _afterTest(Test\ResultInterface $result)
     {
-        $case->afterTest();
         $status = $result->getStatus();
         $writeLevel = $result->isSuccessful()
             ? Writer\WriterInterface::LVL_2
             : Writer\WriterInterface::LVL_1;
         $writer = $this->getWriter();
         $writer->writeLine($this->_getTestMessageText($result), $writeLevel);
-        $writer->writeH5(sprintf('%2$d / %1$s', $this->getTestStatusMessage($status), $result->getAssertionCount()), Writer\WriterInterface::LVL_2);
+        $writer->writeH5(sprintf('%1$s', $result->getAssertionCount()), Writer\WriterInterface::LVL_2);
         ob_end_flush();
     }
 

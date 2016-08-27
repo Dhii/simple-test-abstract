@@ -3,7 +3,7 @@
 namespace Dhii\SimpleTest\Test;
 
 /**
- * Represents a test.
+ * Something that can act like a test.
  *
  * @since [*next-version*]
  */
@@ -13,8 +13,8 @@ interface TestInterface extends TestBaseInterface
     /**
      * Set the code for this test's suite.
      *
-     * @param string The code of the suite to which this case belongs.
      * @since [*next-version*]
+     * @param string $code The code of the suite to which this case belongs.
      */
     public function setSuiteCode($code);
 }

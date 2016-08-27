@@ -137,49 +137,4 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
 
         return $this;
     }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function getTimeTaken()
-    {
-        return $this->timeTaken;
-    }
-
-    /**
-     * Set the amount of time taken to run the test.
-     *
-     * @since [*next-version*]
-     * @param int $seconds The number of seconds taken to run the test.
-     * @return AbstractResult This instance.
-     */
-    protected function _setTimeTaken($seconds)
-    {
-        $this->timeTaken = $seconds;
-
-       return $this;
-    }
-
-    /**
-     * @inheritdoc
-     * @since [*next-version*]
-     */
-    public function getMemoryTaken()
-    {
-        return $this->memoryTaken;
-    }
-
-    /**
-     * Set the amount of memory allocated to run the test.
-     *
-     * @param int $bytes The number of bytes that was taken to run the test.
-     * @return AbstractResult This instance.
-     */
-    protected function _setMemoryTaken($bytes)
-    {
-        $this->memoryTaken = $bytes;
-
-        return $this;
-    }
 }

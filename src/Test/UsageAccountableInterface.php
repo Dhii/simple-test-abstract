@@ -3,6 +3,8 @@
 namespace Dhii\SimpleTest\Test;
 
 /**
+ * Something that can have usage stats retrieved.
+ *
  * @since [*next-version*]
  */
 interface UsageAccountableInterface

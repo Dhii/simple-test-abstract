@@ -1,6 +1,6 @@
 <?php
 
-namespace Dhii\SimpleTest;
+namespace Dhii\SimpleTest\Runner;
 
 use Dhii\SimpleTest\Test;
 
@@ -9,7 +9,7 @@ use Dhii\SimpleTest\Test;
  *
  * @since [*next-version*]
  */
-interface RunnerInterface extends Test\AccountableInterface, Assertion\AccountableInterface
+interface RunnerInterface
 {
     /**
      * Retrieve the code name of this runner.

@@ -24,6 +24,9 @@ abstract class AbstractTestBase implements TestInterface
     }
 
     /**
+     * Sets the name of the test case class for this test.
+     *
+     * @since [*next-version*]
      * @param string $name Name of the case, to which this test belongs.
      * @return AbstractTest This instance.
      */
@@ -43,6 +46,9 @@ abstract class AbstractTestBase implements TestInterface
     }
 
     /**
+     * Sets the name of the method for this test.
+     *
+     * @since [*next-version*]
      * @param string $name Name of the method, which this case represents.
      * @return AbstractTest This instance.
      */
@@ -62,12 +68,16 @@ abstract class AbstractTestBase implements TestInterface
     }
 
     /**
+     * Set the key of this tets.
+     *
+     * @since [*next-version*]
      * @param string $key Name of the method, which this case represents.
      * @return AbstractTest This instance.
      */
     protected function _setKey($key)
     {
         $this->key = $key;
+
         return $this;
     }
 
@@ -83,8 +93,9 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * Set the code for this test's suite.
      *
-     * @param string The code of the suite to which this case belongs.
      * @since [*next-version*]
+     * @param string The code of the suite to which this case belongs.
+     * @return AbstractTestBase This instance.
      */
     public function setSuiteCode($code)
     {

@@ -4,39 +4,59 @@ namespace Dhii\SimpleTest\Assertion;
 
 use Dhii\SimpleTest;
 
-abstract class AbstractMaker extends AbstractAccountable implements MakerInterface
+/**
+ * Common functionality for assertion makers.
+ *
+ * @since [*next-version*]
+ */
+abstract class AbstractMaker implements MakerInterface
 {
+    /**
+     * @inheritdoc
+     * @since [*next-version*]
+     * @throws SimpleTest\Exception If assertion is not callable.
+     * @return AbstractMaker This instance.
+     */
     public function make($assertion, $message)
     {
         if (!is_callable($assertion)) {
             throw new SimpleTest\Exception('Could not make assertion: Assertion must be callable');
         }
-        $status = call_user_func_array($assertion, array())
-                ? self::SUCCESS
-                : self::FAILURE;
-        $this->_addAssertionStatusCount($status);
-        
-        if ($status !== self::SUCCESS) {
+        $result = call_user_func_array($assertion, array());
+        $isSuccessful = $this->_processAssertionResult($result);
+
+        if (!$isSuccessful) {
             $this->_failAssertion($message);
         }
-        
-        return $this;   
+
+        return $this;
     }
 
+    /**
+     * Process a made assertion according to its result.
+     *
+     * @since [*next-version*]
+     * @param mixed $result A result of a made assertions.
+     * @return bool True if the assertion was successful; false otherwise.
+     */
+    protected function _processAssertionResult($result)
+    {
+        $status = $result === true
+                ? self::SUCCESS
+                : self::FAILURE;
+
+        return $status === self::SUCCESS;
+    }
+
+    /**
+     * React to a failed assertion with the specified message.
+     *
+     * @since [*next-version*]
+     * @param string $message The message for the failure exception.
+     * @throws FailedException
+     */
     protected function _failAssertion($message)
     {
         throw new FailedException($message);
-    }
-    
-    protected function _mergeCounts($base, $new)
-    {
-        $statusCounts = array_merge($base, $new);
-        foreach ($new as $_status => $_count) {
-            if (array_key_exists($statusCounts[$_status])) {
-                $statusCounts[$_status] = intval($new[$_status]) - intval($base[$_status]);
-            }
-        }
-        
-        return $statusCounts;
     }
 }
