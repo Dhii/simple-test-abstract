@@ -57,9 +57,15 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
             return null;
         }
 
-        return $this->class instanceof ReflectionClass
-                ? $this->class
-                : new ReflectionClass($this->class);
+        if ($this->class instanceof ReflectionClass) {
+            return $this->class;
+        }
+
+        if (!class_exists($this->class)) {
+            throw new RuntimeException(sprintf('Could not get class for class locator: Class "%1$s" does not exist', $this->class));
+        }
+
+        return new ReflectionClass($this->class);
     }
 
     /**
