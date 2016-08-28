@@ -40,15 +40,19 @@ abstract class AbstractTester implements TesterInterface
     /**
      * @inheritdoc
      * @since [*next-version*]
+     * @return AbstractTester This instance.
      */
     public function addSuite(Suite\SuiteInterface $suite)
     {
         $this->suites[$suite->getCode()] = $suite;
+
+        return $this;
     }
 
     /**
      * @inheritdoc
      * @since [*next-version*]
+     * @return AbstractTester This instance.
      */
     public function runAll()
     {
