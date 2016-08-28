@@ -3,6 +3,7 @@
 namespace Dhii\SimpleTest\Suite;
 
 use Dhii\SimpleTest\Test;
+use Dhii\SimpleTest\Coordinator;
 
 /**
  * Most basic common test suite functionality.
@@ -12,6 +13,32 @@ use Dhii\SimpleTest\Test;
 abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterface
 {
     protected $results = array();
+    protected $coordinator;
+
+    /**
+     * Sets the coordinator to be used by this instance.
+     *
+     * @since [*next-version*]
+     * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
+     * @return AbstractSuite This instance.
+     */
+    protected function _setCoordinator(Coordinator\CoordinatorInterface $coordinator)
+    {
+        $this->coordinator = $coordinator;
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the coordinator that is used by this instance.
+     *
+     * @since [*next-version*]
+     * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
+     */
+    protected function _getCoordinator()
+    {
+        return $this->coordinator;
+    }
 
     /**
      * @inheritdoc
@@ -39,11 +66,13 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      */
     public function addTest(Test\TestInterface $test)
     {
+        $this->_getCoordinator()->beforeAddTest($test, $this);
         if ($test->getSuiteCode()) {
             throw new \InvalidArgumentException(sprintf('Could not add test "%3$s" to suite "%1$s": test already belongs to suite "%2$s"', $this->getCode(), $test->getSuiteCode(), $test->getKey()));
         }
 
         $this->_addTest($test);
+        $this->_getCoordinator()->afterAddTest($test, $this);
 
         return $this;
     }
@@ -251,7 +280,9 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      */
     protected function _recordResult(Test\ResultInterface $result)
     {
+        $this->_getCoordinator()->beforeRecordTestResult($result, $this);
         $this->results[$result->getKey()] = $result;
+        $this->_getCoordinator()->afterRecordTestResult($result, $this);
 
         return $this;
     }
