@@ -7,6 +7,6 @@ namespace Dhii\SimpleTest\Assertion;
  *
  * @since [*next-version*]
  */
-class DefaultMaker extends AbstractMaker
+class DefaultMaker extends AbstractAccountableMaker
 {
 }
