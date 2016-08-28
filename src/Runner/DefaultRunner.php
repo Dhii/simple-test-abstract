@@ -2,7 +2,7 @@
 
 namespace Dhii\SimpleTest\Runner;
 
-use Dhii\SimpleTest\Writer;
+use Dhii\SimpleTest\Coordinator;
 use Dhii\SimpleTest\Assertion;
 
 /**
@@ -14,12 +14,12 @@ class DefaultRunner extends AbstractRunner
 {
     /**
      * @since [*next-version*]
-     * @param Writer\WriterInterface $writer The writer that this runner will use to output data.
+     * @param Coordinator\CoordinatorInterface $coordinator The coordinator that this runner will notify.
      * @param Assertion\MakerInterface $assertionMaker The assertion maker that test cases run by this runner will use.
      */
-    public function __construct(Writer\WriterInterface $writer, Assertion\MakerInterface $assertionMaker)
+    public function __construct(Coordinator\CoordinatorInterface $coordinator, Assertion\MakerInterface $assertionMaker)
     {
-        $this->_setWriter($writer);
+        $this->_setCoordinator($coordinator);
         $this->_setAssertionMaker($assertionMaker);
     }
 

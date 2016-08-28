@@ -4,9 +4,9 @@ namespace Dhii\SimpleTest\Runner;
 
 use Dhii\SimpleTest;
 use Dhii\SimpleTest\Test;
-use Dhii\SimpleTest\Writer;
 use Dhii\SimpleTest\TestCase;
 use Dhii\SimpleTest\Assertion;
+use Dhii\SimpleTest\Coordinator;
 
 /**
  * Common functionality for test runners.
@@ -15,29 +15,32 @@ use Dhii\SimpleTest\Assertion;
  */
 abstract class AbstractRunner implements RunnerInterface
 {
-    protected $writer;
+    protected $coordinator;
     protected $assertionMaker;
 
     /**
-     * Sets a writer instance for this runner.
+     * Sets the coordinator to be used by this instance.
      *
      * @since [*next-version*]
-     * @param Writer\WriterInterface $writer A writer that this runner should use to output data.
+     * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
      * @return AbstractRunner This instance.
      */
-    protected function _setWriter(Writer\WriterInterface $writer)
+    protected function _setCoordinator(Coordinator\CoordinatorInterface $coordinator)
     {
-        $this->writer = $writer;
+        $this->coordinator = $coordinator;
+
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * Retrieve the coordinator that is used by this instance.
+     *
      * @since [*next-version*]
+     * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
      */
-    public function getWriter()
+    protected function _getCoordinator()
     {
-        return $this->writer;
+        return $this->coordinator;
     }
 
     /**
@@ -229,7 +232,7 @@ abstract class AbstractRunner implements RunnerInterface
     protected function _beforeTest(Test\TestBaseInterface $test)
     {
         ob_start();
-        $this->getWriter()->writeH4(sprintf('Running Test %1$s', $test->getKey()), Writer\WriterInterface::LVL_2);
+        $this->_getCoordinator()->beforeRunTest($test, $this);
 
         return $this;
     }
@@ -243,39 +246,7 @@ abstract class AbstractRunner implements RunnerInterface
     protected function _afterTest(Test\ResultInterface $result)
     {
         $status = $result->getStatus();
-        $writeLevel = $result->isSuccessful()
-            ? Writer\WriterInterface::LVL_2
-            : Writer\WriterInterface::LVL_1;
-        $writer = $this->getWriter();
-        $writer->writeLine($this->_getTestMessageText($result), $writeLevel);
-        $writer->writeH5(sprintf('Assertions: %1$s', $result->getAssertionCount()), Writer\WriterInterface::LVL_2);
+        $this->_getCoordinator()->afterRunTest($result, $this);
         ob_end_flush();
-    }
-
-    /**
-     * Retrieves a normalized text message of a test result.
-     *
-     * @since [*next-version*]
-     * @param Test\ResultInterface $test The test result, for which to get the message.
-     * @return string The normalized text of a test message.
-     */
-    protected function _getTestMessageText(Test\ResultInterface $test)
-    {
-        $message = $test->getMessage();
-        if ($message instanceof \Exception) {
-            if ($test->isSuccessful()) {
-                return '';
-            }
-
-            if ($test->getStatus() === Test\ResultInterface::FAILURE) {
-                return sprintf('Test %2$s failed:' . PHP_EOL . '%1$s' . PHP_EOL, $message->getMessage(), $test->getKey());
-            }
-
-            if ($test->getStatus() === Test\ResultInterface::ERROR) {
-                return sprintf('Test %2$s erred:' . PHP_EOL . '%1$s' . PHP_EOL, (string) $message, $test->getKey());
-            }
-        }
-
-        return (string) $message . PHP_EOL;
     }
 }
