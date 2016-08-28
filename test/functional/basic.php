@@ -16,7 +16,7 @@ class MyTestSource extends AbstractSource
 {
     /**
      * Demonstrates how a test source can be fed by an array.
-     * 
+     *
      * @return SimpleTest\Test\DefaultTest[]
      */
     public function getItems1() {
@@ -29,13 +29,13 @@ class MyTestSource extends AbstractSource
 //            $errorTest, // This won't work, because you can't add the same test twice - to any suite
             $errorTest
         );
-        
+
         return $tests;
     }
-    
+
     /**
      * Demonstrates how a test source can be fed from a class locator.
-     * 
+     *
      * @return \Traversable
      */
     public function getItems2()
@@ -44,10 +44,10 @@ class MyTestSource extends AbstractSource
         $locator->setClass('Dhii\\SimpleTest\\Test\\MyTestCaseTest');
         return $locator->locate();
     }
-    
+
     /**
      * Demonstrates how a test source can be fed from a file locator.
-     * 
+     *
      * @return \Traversable
      */
     public function getItems()
@@ -62,9 +62,9 @@ class MyTestSource extends AbstractSource
             __DIR__.'/MyTestCaseTest.php',
             __DIR__.'/More/MyTestCase1Test.php',
             __DIR__.'/More/EvenMore/MyTestCase2Test.php',
-        )); // All files in a specific directory and subdirectories
-        
-        
+        )); // A set of specific test files
+
+
         return $locator->locate();
     }
 }
@@ -82,7 +82,9 @@ $suite = new SimpleTest\Suite\DefaultSuite('default', $runner);
  * simultaneously.
  */
 $testSource = new MyTestSource();
-$suite->addTests($testSource);
+// The below statements are equivalend
+//$suite->addTests($testSource);
+$suite->addTests($testSource->getItems());
 
 // Demonstrates how a suite can be iterable to access each test in it.
 //foreach ($suite as $_idx => $_test)
