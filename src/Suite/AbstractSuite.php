@@ -130,8 +130,32 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      */
     public function runAll()
     {
+        $this->_beforeRunAll();
         $this->_runAll();
+        $this->_afterRunAll();
 
+        return $this;
+    }
+
+    /**
+     * Executes before this suite runs all tests in it.
+     *
+     * @since [*next-version*]
+     * @return AbstractSuite This instance.
+     */
+    protected function _beforeRunAll()
+    {
+        return $this;
+    }
+
+    /**
+     * Executes after this suite runs all tests in it.
+     *
+     * @since [*next-version*]
+     * @return AbstractSuite This instance.
+     */
+    protected function _afterRunAll()
+    {
         return $this;
     }
 
