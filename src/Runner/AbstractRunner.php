@@ -121,9 +121,8 @@ abstract class AbstractRunner implements RunnerInterface
                     $test, // The test
                     Test\ResultInterface::FAILURE, // Test status
                     $exF, // Message
-                    $case, // Test case
                     $countAssertions // Assertion count
-                        ? $assertionMaker->getAssertionTotalCount() - $assertionCount
+                        ? $assertionMaker->getAssertionCount() - $assertionCount
                         : 0,
                     microtime(true) - $timeBeforeTest, // Time taken
                     memory_get_usage() - $memoryBeforeTest // Memory taken
@@ -137,9 +136,8 @@ abstract class AbstractRunner implements RunnerInterface
                     $test, // The test
                     Test\ResultInterface::ERROR, // Test status
                     $exE, // Message
-                    $case,
                     $countAssertions // Assertion count
-                        ? $assertionMaker->getAssertionTotalCount() - $assertionCount
+                        ? $assertionMaker->getAssertionCount() - $assertionCount
                         : 0,
                     microtime(true) - $timeBeforeTest, // Time taken
                     memory_get_usage() - $memoryBeforeTest // Memory taken
@@ -154,9 +152,8 @@ abstract class AbstractRunner implements RunnerInterface
                 $test, // The test
                 Test\ResultInterface::SUCCESS, // Test status
                 '', // Message
-                $case, // Test case
                 $countAssertions // Assertion count
-                    ? $assertionMaker->getAssertionTotalCount() - $assertionCount
+                    ? $assertionMaker->getAssertionCount() - $assertionCount
                     : 0,
                 microtime(true) - $timeBeforeTest, // Time taken
                 memory_get_usage() - $memoryBeforeTest // Memory taken
