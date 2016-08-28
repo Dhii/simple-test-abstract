@@ -9,55 +9,8 @@ if (!class_exists('Dhii\\SimpleTest\\ExceptionInterface')) {
     require_once(__DIR__ . '/../../vendor/autoload.php');
 }
 
-class MyTestCase extends TestCase\AbstractCaseAssertive
-{
-    public function beforeCase()
-    {
-//        parent::beforeCase();
-//        var_dump('Before Case');
-    }
-
-    public function afterCase()
-    {
-//        parent::beforeCase();
-//        var_dump('After Case');
-    }
-
-    public function beforeTest()
-    {
-//        parent::beforeCase();
-//        var_dump('Before Test');
-    }
-
-    public function afterTest()
-    {
-//        parent::beforeCase();
-//        var_dump('After Test');
-    }
-
-    public function testNothing()
-    {
-//        var_dump('Testing nothing');
-    }
-
-    public function testFailure()
-    {
-//        var_dump('Testing failure');
-        $this->assertTrue(false, 'Gotta be right');
-    }
-
-    public function testSuccess()
-    {
-//        var_dump('Testing failure');
-        $this->assertFalse(false, 'Gotta be wrong');
-    }
-
-    public function testError()
-    {
-//        var_dump('Testing failure');
-        throw new \Exception('Something went wrong');
-    }
-}
+//require_once(__DIR__.'/MyTestCaseTest1.php');
+//require_once(__DIR__.'/MyTestCaseTest1.php');
 
 class MyTestSource extends AbstractSource
 {
@@ -67,7 +20,7 @@ class MyTestSource extends AbstractSource
      * @return SimpleTest\Test\DefaultTest[]
      */
     public function getItems1() {
-        $testClass = 'Dhii\\SimpleTest\\Test\\MyTestCase';
+        $testClass = 'Dhii\\SimpleTest\\Test\\MyTestCaseTest';
         $errorTest = new SimpleTest\Test\DefaultTest($testClass, 'testError', sprintf('%1$s::%2$s', $testClass, 'testError'));
         $tests = array(
             new SimpleTest\Test\DefaultTest($testClass, 'testNothing', sprintf('%1$s::%2$s', $testClass, 'testNothing')),
@@ -81,14 +34,37 @@ class MyTestSource extends AbstractSource
     }
     
     /**
-     * Demonstrates how a test source can be fed from a locator.
+     * Demonstrates how a test source can be fed from a class locator.
+     * 
+     * @return \Traversable
+     */
+    public function getItems2()
+    {
+        $locator = new SimpleTest\Locator\DefaultClassLocator();
+        $locator->setClass('Dhii\\SimpleTest\\Test\\MyTestCaseTest');
+        return $locator->locate();
+    }
+    
+    /**
+     * Demonstrates how a test source can be fed from a file locator.
      * 
      * @return \Traversable
      */
     public function getItems()
     {
-        $locator = new SimpleTest\Locator\DefaultClassLocator();
-        $locator->setClass('Dhii\\SimpleTest\\Test\\MyTestCase');
+        $locator = new SimpleTest\Locator\DefaultFilePathLocator();
+//        $locator->addPath(__DIR__.'/*'); // All files in a folder
+//        $locator->addPath(__DIR__.'/MyTestCaseTest.php'); // A specific file
+//        $locator->addPath(dirname(__DIR__).'/*/*'); // A file pattern
+//        $dir = new \RecursiveDirectoryIterator(dirname(__DIR__)); // This can be any iterator, including a \RecursiveIteratorIterator
+//        $locator->addPath($dir); // All files in a specific directory and subdirectories
+        $locator->addPath(array(
+            __DIR__.'/MyTestCaseTest.php',
+            __DIR__.'/More/MyTestCase1Test.php',
+            __DIR__.'/More/EvenMore/MyTestCase2Test.php',
+        )); // All files in a specific directory and subdirectories
+        
+        
         return $locator->locate();
     }
 }
@@ -105,7 +81,8 @@ $suite = new SimpleTest\Suite\DefaultSuite('default', $runner);
  * even though a suite is a Traversable, because a test cannot exist in 2 suites
  * simultaneously.
  */
-$suite->addTests(new MyTestSource());
+$testSource = new MyTestSource();
+$suite->addTests($testSource);
 
 // Demonstrates how a suite can be iterable to access each test in it.
 //foreach ($suite as $_idx => $_test)
