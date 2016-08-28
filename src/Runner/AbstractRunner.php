@@ -251,7 +251,7 @@ abstract class AbstractRunner implements RunnerInterface
             : Writer\WriterInterface::LVL_1;
         $writer = $this->getWriter();
         $writer->writeLine($this->_getTestMessageText($result), $writeLevel);
-        $writer->writeH5(sprintf('%1$s', $result->getAssertionCount()), Writer\WriterInterface::LVL_2);
+        $writer->writeH5(sprintf('Assertions: %1$s', $result->getAssertionCount()), Writer\WriterInterface::LVL_2);
         ob_end_flush();
     }
 
