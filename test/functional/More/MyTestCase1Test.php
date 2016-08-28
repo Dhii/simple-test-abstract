@@ -49,7 +49,8 @@ class MyTestCase1Test extends TestCase\AbstractCaseAssertive
     public function testFailure()
     {
 //        var_dump('Testing failure');
-        $this->assertTrue(false, 'Gotta be right');
+        $this->assertTrue(true, 'Gotta be right 1');
+        $this->assertTrue(false, 'Gotta be right 2');
     }
 
     /**
