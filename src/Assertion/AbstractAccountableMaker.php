@@ -9,7 +9,7 @@ namespace Dhii\SimpleTest\Assertion;
  */
 class AbstractAccountableMaker extends AbstractMaker implements AccountableInterface
 {
-    protected $assertionCount;
+    protected $assertionCount = 0;
 
     /**
      * @inheritdoc
