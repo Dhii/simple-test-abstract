@@ -26,9 +26,9 @@ class AbstractAccountableMaker extends AbstractMaker implements AccountableInter
      */
     protected function _processAssertionResult($result)
     {
-        parent::_processAssertionResult($result);
+        $result = parent::_processAssertionResult($result);
         $this->assertionCount++;
 
-        return $this;
+        return $result;
     }
 }
