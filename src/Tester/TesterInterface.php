@@ -3,7 +3,6 @@
 namespace Dhii\SimpleTest\Tester;
 
 use Dhii\SimpleTest\Suite;
-use Dhii\SimpleTest\Writer;
 
 /**
  * Something that can act as a tester.
@@ -12,7 +11,7 @@ use Dhii\SimpleTest\Writer;
  *
  * @since [*next-version*]
  */
-interface TesterInterface extends Writer\WriterAwareInterface
+interface TesterInterface
 {
     /**
      * Adds a suite to be run by this tester.

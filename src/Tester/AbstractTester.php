@@ -3,7 +3,7 @@
 namespace Dhii\SimpleTest\Tester;
 
 use Dhii\SimpleTest\Suite;
-use Dhii\SimpleTest\Writer;
+use Dhii\SimpleTest\Coordinator;
 
 /**
  * Common functionality for testers.
@@ -13,28 +13,31 @@ use Dhii\SimpleTest\Writer;
 abstract class AbstractTester implements TesterInterface
 {
     protected $suites;
-    protected $writer;
+    protected $coordinator;
 
     /**
-     * Sets a writer to be used by this tester.
+     * Sets the coordinator to be used by this instance.
      *
      * @since [*next-version*]
-     * @param Writer\WriterInterface $writer A writer that will be used by this tester to output data.
+     * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
      * @return AbstractTester This instance.
      */
-    protected function _setWriter(Writer\WriterInterface $writer)
+    protected function _setCoordinator(Coordinator\CoordinatorInterface $coordinator)
     {
-        $this->writer = $writer;
+        $this->coordinator = $coordinator;
+
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * Retrieve the coordinator that is used by this instance.
+     *
      * @since [*next-version*]
+     * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
      */
-    public function getWriter()
+    protected function _getCoordinator()
     {
-        return $this->writer;
+        return $this->coordinator;
     }
 
     /**
@@ -44,7 +47,9 @@ abstract class AbstractTester implements TesterInterface
      */
     public function addSuite(Suite\SuiteInterface $suite)
     {
+        $this->_getCoordinator()->beforeAddSuite($suite, $this);
         $this->suites[$suite->getCode()] = $suite;
+        $this->_getCoordinator()->afterAddSuite($suite, $this);
 
         return $this;
     }
@@ -87,8 +92,9 @@ abstract class AbstractTester implements TesterInterface
      * @since [*next-version*]
      * @return AbstractTester This instance.
      */
-    protected function _beforeRunSuite(Suite\SuiteInterface $_suite)
+    protected function _beforeRunSuite(Suite\SuiteInterface $suite)
     {
+        $this->_getCoordinator()->beforeRunSuite($suite, $this);
         return $this;
     }
 
@@ -98,8 +104,10 @@ abstract class AbstractTester implements TesterInterface
      * @since [*next-version*]
      * @return AbstractTester This instance.
      */
-    protected function _afterRunSuite(Suite\SuiteInterface $_suite)
+    protected function _afterRunSuite(Suite\SuiteInterface $suite)
     {
+        $this->_getCoordinator()->afterRunSuite($suite, $this);
+
         return $this;
     }
 
@@ -111,6 +119,8 @@ abstract class AbstractTester implements TesterInterface
      */
     protected function _afterRunAll()
     {
+        $this->_getCoordinator()->afterRunAllSuites($this, $this);
+
         return $this;
     }
 
@@ -122,6 +132,8 @@ abstract class AbstractTester implements TesterInterface
      */
     protected function _beforeRunAll()
     {
+        $this->_getCoordinator()->beforeRunAllSuites($this, $this);
+
         return $this;
     }
 
