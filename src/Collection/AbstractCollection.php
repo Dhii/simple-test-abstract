@@ -3,6 +3,7 @@
 namespace Dhii\SimpleTest\Collection;
 
 use Exception;
+use UnexpectedValueException;
 
 /**
  * Common functionality for collections.
@@ -52,6 +53,25 @@ abstract class AbstractCollection implements CollectionInterface
         return $this;
     }
 
+    /**
+     * Set the internal items list.
+     *
+     * The internal list will be replaced with the one given.
+     *
+     * @since [*next-version*]
+     *
+     * @param array|\Traversable $items The item list to set.
+     *
+     * @return AbstractCollection This instance.
+     */
+    protected function _setItems($items)
+    {
+        $this->_validateItemList($items);
+        $this->items = $items;
+
+        return $this;
+    }
+
     protected function _getItemKey($item)
     {
         return count($this->items);
@@ -84,5 +104,21 @@ abstract class AbstractCollection implements CollectionInterface
         }
 
         return true;
+    }
+
+    /**
+     * Throws an exception if the given value is not a valid item list.
+     *
+     * @since [*next-version*]
+     *
+     * @param mixed $items An item list.
+     *
+     * @throws UnexpectedValueException If the list is not a valid item list.
+     */
+    protected function _validateItemList($items)
+    {
+        if (!is_array($items) && !($items instanceof \Traversable)) {
+            throw new UnexpectedValueException(sprintf('Must be a valid item list'));
+        }
     }
 }
