@@ -1,9 +1,12 @@
 <?php
 
-namespace Dhii\SimpleTest\Test;
+namespace Dhii\SimpleTest\Collection;
 
 /**
  * Common functionality for collections that can be iterated over in a foreach loop.
+ *
+ * Caches items on rewind, allowing convenient auto-generation of items,
+ * while still having performance in the loop.
  *
  * @since [*next-version*]
  */

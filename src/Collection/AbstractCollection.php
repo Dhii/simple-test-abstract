@@ -1,6 +1,6 @@
 <?php
 
-namespace Dhii\SimpleTest\Test;
+namespace Dhii\SimpleTest\Collection;
 
 use Exception;
 
@@ -58,7 +58,25 @@ abstract class AbstractCollection implements CollectionInterface
      * Determines if item is a valid member of the collection.
      *
      * @since [*next-version*]
-     * @throws Exception If the item is invalid;
+     * @throws \Exception If the item is invalid;
      */
     abstract protected function _validateItem($item);
+
+    /**
+     * Determines if item is a valid member of the collection.
+     *
+     * @since [*next-version*]
+     * @param mixed $item The item to evaluate.
+     * @return boolean True if the item is valid; false otherwise.
+     */
+    protected function _isValidItem($item)
+    {
+        try {
+            $this->_validateItem($item);
+        } catch (Exception $ex) {
+            return false;
+        }
+
+        return true;
+    }
 }

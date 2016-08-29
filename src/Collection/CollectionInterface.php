@@ -1,6 +1,6 @@
 <?php
 
-namespace Dhii\SimpleTest\Test;
+namespace Dhii\SimpleTest\Collection;
 
 /**
  * Something that can act like a collection.
@@ -13,7 +13,7 @@ interface CollectionInterface
      * Retrieve the items of the collection.
      *
      * @since [*next-version*]
-     * @return mixed[] The array of items, by original key.
+     * @return object[] The array of items, by original key.
      */
     public function getItems();
 }

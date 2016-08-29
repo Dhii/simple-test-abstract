@@ -133,41 +133,7 @@ abstract class AbstractAccountable extends AbstractSuite implements
             return $result->getStatus() === $status
                     ? $result
                     : null;
-        });
-    }
-
-    /**
-     * Search the results of this suite according to arbitrary criteria.
-     *
-     * @since [*next-version*]
-     * @param callable $eval A callable that evaluates a test result to determine whether it matches a criteria.
-     *  This callable must return the result passed as the first argument, an instance of {@see Test\ResultInterface}, if it is a match.
-     *  The second argument is a boolean value passed by reference which, if set to false, will prevent any further evaluation, and cause the search to stop.
-     * @return \Dhii\SimpleTest\Test\ResultInterface
-     * @throws \InvalidArgumentException If the evaluator is not callable.
-     */
-    protected function _search($eval)
-    {
-        if (!is_callable($eval)) {
-            throw new \InvalidArgumentException('Could not search for test: The evaluator is not callable');
-        }
-
-        $results  = array();
-        $isContinue = true;
-        foreach ($this->getResults() as $_key => $_result) {
-            /* @var $_test Test\ResultInterface */
-            $result = call_user_func_array($eval, array($_result, &$isContinue));
-
-            if ($result instanceof Test\ResultInterface) {
-                $results[$result->getKey()] = $result;
-            }
-
-            if (!$isContinue) {
-                break;
-            }
-        }
-
-        return $results;
+        }, $this->getResults());
     }
 
     /**

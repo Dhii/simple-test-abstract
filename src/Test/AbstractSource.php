@@ -3,13 +3,14 @@
 namespace Dhii\SimpleTest\Test;
 
 use InvalidArgumentException;
+use Dhii\SimpleTest\Collection;
 
 /**
  * Common functionality for test sources.
  *
  * @since [*next-version*]
  */
-abstract class AbstractSource extends AbstractIterableCollection implements SourceInterface
+abstract class AbstractSource extends Collection\AbstractSearchableCollection implements SourceInterface
 {
     /**
      * @inheritdoc
@@ -30,7 +31,7 @@ abstract class AbstractSource extends AbstractIterableCollection implements Sour
             throw new InvalidArgumentException(sprintf('Item must be a valid test'));
         }
     }
-    
+
     /**
      * @inheritdoc
      * @since [*next-version*]
