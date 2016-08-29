@@ -2,6 +2,8 @@
 
 namespace Dhii\SimpleTest\Collection;
 
+use UnexpectedValueException;
+
 /**
  * Common functionality for collections that can be iterated over in a foreach loop.
  *
@@ -22,7 +24,7 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      */
     public function current()
     {
-        return current($this->_getCachedItems());
+        return $this->_arrayCurrent($this->_getCachedItems());
     }
 
     /**
@@ -32,7 +34,7 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      */
     public function key()
     {
-        return key($this->_getCachedItems());
+        return $this->_arrayKey($this->_getCachedItems());
     }
 
     /**
@@ -42,7 +44,7 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      */
     public function next()
     {
-        next($this->_getCachedItems());
+        $this->_arrayNext($this->_getCachedItems());
     }
 
     /**
@@ -62,7 +64,7 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      */
     public function valid()
     {
-        return key($this->_getCachedItems()) !== null;
+        return $this->_arrayKey($this->_getCachedItems()) !== null;
     }
 
     /**
@@ -78,7 +80,7 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
     {
         if (is_null($this->cachedItems)) {
             $this->cachedItems = $this->_getItemsForCache();
-            reset($this->cachedItems);
+            $this->_arrayRewind($this->cachedItems);
         }
 
         return $this->cachedItems;
@@ -95,9 +97,7 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
     {
         $items = $this->getItems();
 
-        return $items instanceof \Traversable
-                ? iterator_to_array($items, true)
-                : $items;
+        return $items;
     }
 
     /**
@@ -112,5 +112,87 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
         $this->cachedItems = null;
 
         return $this;
+    }
+
+    /**
+     * Retrieve the current element from a list.
+     *
+     * @since [*next-version*]
+     * @param array|\Traversable $array The list to get the current element of.
+     * @return mixed The current element in the list.
+     */
+    protected function _arrayCurrent(&$array)
+    {
+        return $array instanceof \Traversable
+            ? $this->_getIterator($array)->current()
+            : current($array);
+    }
+
+    /**
+     * Retrieve the current key from a list.
+     *
+     * @since [*next-version*]
+     * @param array|\Traversable $array The list to get the current key of.
+     * @return string|int The current key in the list.
+     */
+    protected function _arrayKey(&$array)
+    {
+        return $array instanceof \Traversable
+            ? $this->_getIterator($array)->key()
+            : key($array);
+    }
+
+
+    /**
+     * Move the pointer of the list to the beginning
+     *
+     * @since [*next-version*]
+     * @param array|\Traversable $array The list to rewind.
+     * @return mixed|bool The value of the first list item.
+     */
+    protected function _arrayRewind(&$array)
+    {
+        return $array instanceof \Traversable
+            ? $this->_getIterator($array)->rewind()
+            : reset($array);
+    }
+
+
+    /**
+     * Move the pointer of the list forward and return the element there.
+     *
+     * @since [*next-version*]
+     * @param array|\Traversable $array The list to move the pointer of.
+     * @return mixed|null The element at the next position in the list.
+     */
+    protected function _arrayNext(&$array)
+    {
+        return $array instanceof \Traversable
+            ? $this->_getIterator($array)->next()
+            : next($array);
+    }
+
+    /**
+     * Retrieve the bottom-most iterator of this iterator.
+     *
+     * If this is an iterator, gets itself.
+     * If this is an {@see \IteratorAggregate}, return its inner-most iterator, recursively.
+     *
+     *
+     * @since [*next-version*]
+     * @param \Traversable $iterator An iterator.
+     * @return \Iterator The final iterator.
+     */
+    protected function _getIterator(\Traversable $iterator)
+    {
+        if ($iterator instanceof \Iterator) {
+            return $iterator;
+        }
+
+        if (!($iterator instanceof \IteratorAggregate)) {
+            throw new UnexpectedValueException(sprintf('Could not retrieve iterator'));
+        }
+
+        $this->_getIterator($iterator->getIterator());
     }
 }
