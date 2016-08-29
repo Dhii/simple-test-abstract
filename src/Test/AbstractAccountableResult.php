@@ -13,6 +13,9 @@ class AbstractAccountableResult extends AbstractResult implements
     UsageAccountableInterface,
     Assertion\AccountableInterface
 {
+    protected $timeTaken;
+    protected $memoryTaken;
+
     /**
      * @inheritdoc
      * @since [*next-version*]

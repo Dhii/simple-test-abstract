@@ -13,8 +13,6 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
     protected $message;
     protected $assertionCount;
     protected $runnerCode;
-    protected $timeTaken;
-    protected $memoryTaken;
 
     /**
      * @inheritdoc
