@@ -91,11 +91,11 @@ class AbstractAccountableTester extends AbstractTester implements
      * @inheritdoc
      * @since [*next-version*]
      */
-    public function runAll()
+    protected function _runAll()
     {
         $timeBeforeRun = microtime(true);
         $memoryBeforeRun = memory_get_usage();
-        parent::runAll();
+        parent::_runAll();
         $this->_setMemoryTaken(memory_get_usage() - $memoryBeforeRun);
         $this->_setTimeTaken(microtime(true) - $timeBeforeRun);
     }
