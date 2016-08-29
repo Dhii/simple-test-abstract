@@ -19,7 +19,9 @@ abstract class AbstractTester implements TesterInterface
      * Sets the coordinator to be used by this instance.
      *
      * @since [*next-version*]
+     *
      * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
+     *
      * @return AbstractTester This instance.
      */
     protected function _setCoordinator(Coordinator\CoordinatorInterface $coordinator)
@@ -33,6 +35,7 @@ abstract class AbstractTester implements TesterInterface
      * Retrieve the coordinator that is used by this instance.
      *
      * @since [*next-version*]
+     *
      * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
      */
     protected function _getCoordinator()
@@ -41,8 +44,10 @@ abstract class AbstractTester implements TesterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @return AbstractTester This instance.
      */
     public function addSuite(Suite\SuiteInterface $suite)
@@ -55,8 +60,10 @@ abstract class AbstractTester implements TesterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @return AbstractTester This instance.
      */
     public function runAll()
@@ -72,6 +79,7 @@ abstract class AbstractTester implements TesterInterface
      * Low-level running of tests in this tester's suites.
      *
      * @since [*next-version*]
+     *
      * @return AbstractTester This instance.
      */
     protected function _runAll()
@@ -90,11 +98,13 @@ abstract class AbstractTester implements TesterInterface
      * Executes after tests in one of this tester's suites are executed.
      *
      * @since [*next-version*]
+     *
      * @return AbstractTester This instance.
      */
     protected function _beforeRunSuite(Suite\SuiteInterface $suite)
     {
         $this->_getCoordinator()->beforeRunSuite($suite, $this);
+
         return $this;
     }
 
@@ -102,6 +112,7 @@ abstract class AbstractTester implements TesterInterface
      * Executes after tests in one of this tester's suites are executed.
      *
      * @since [*next-version*]
+     *
      * @return AbstractTester This instance.
      */
     protected function _afterRunSuite(Suite\SuiteInterface $suite)
@@ -115,6 +126,7 @@ abstract class AbstractTester implements TesterInterface
      * Executes after tests in this tester's suites are executed.
      *
      * @since [*next-version*]
+     *
      * @return AbstractTester This instance.
      */
     protected function _afterRunAll()
@@ -128,6 +140,7 @@ abstract class AbstractTester implements TesterInterface
      * Executes before tests in this tester's suites are executed.
      *
      * @since [*next-version*]
+     *
      * @return AbstractTester This instance.
      */
     protected function _beforeRunAll()
@@ -139,6 +152,7 @@ abstract class AbstractTester implements TesterInterface
 
     /**
      * @since [*next-version*]
+     *
      * @return Suite\SuiteInterface[]
      */
     protected function _getSuites()

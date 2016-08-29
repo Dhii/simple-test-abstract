@@ -17,6 +17,7 @@ interface ClassLocatorInterface extends LocatorInterface
      * Set the class for this locator to locate tests from.
      *
      * @since [*next-version*]
+     *
      * @param string|ReflectionClass $class A class name or reflection instance.
      */
     public function setClass($class);

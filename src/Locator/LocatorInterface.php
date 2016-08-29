@@ -17,6 +17,7 @@ interface LocatorInterface
      * Gets a list of tests located.
      *
      * @since [*next-version*]
+     *
      * @return Test\TestInterface[]|\Traversable A list of tests.
      */
     public function locate();

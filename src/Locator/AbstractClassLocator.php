@@ -17,8 +17,10 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     protected $class;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @throws RuntimeException If class not specified.
      */
     public function locate()
@@ -31,8 +33,10 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @throws InvalidArgumentException If class is not a class name or reflection.
      */
     public function setClass($class)
@@ -48,13 +52,14 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
      * Retrieve the reflection of the class, in which to locate the tests.
      *
      * @since [*next-version*]
+     *
      * @return ReflectionClass|null A reflection of the class, in which to locate test methods, if class specified;
-     *  otherwise, null;
+     *                              otherwise, null;
      */
     protected function _getClass()
     {
         if (empty($this->class)) {
-            return null;
+            return;
         }
 
         if ($this->class instanceof ReflectionClass) {
@@ -72,9 +77,11 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
      * Creates a test instance from a class and method name.
      *
      * @since [*next-version*]
-     * @param string $className Name of the test case class.
-     * @param string $methodName Name of the test method.
-     * @param string|null $key The key of the test.
+     *
+     * @param string      $className  Name of the test case class.
+     * @param string      $methodName Name of the test method.
+     * @param string|null $key        The key of the test.
+     *
      * @return Test\Test\TestInterface
      */
     abstract protected function _createTest($className, $methodName, $key);
@@ -83,8 +90,10 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
      * Generates a test identifier.
      *
      * @since [*next-version*]
-     * @param string $className Name of the test case class.
+     *
+     * @param string $className  Name of the test case class.
      * @param string $methodName Name of the test method.
+     *
      * @return string A suite-wide unique test identifier.
      */
     protected function _generateTestKey($className, $methodName)
@@ -96,8 +105,10 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
 
     /**
      * @since [*next-version*]
+     *
      * @param ReflectionClass $class The reflection of the class, for which to get the tests.
-     *  That class must be a descendant of {@see CaseInterface}.
+     *                               That class must be a descendant of {@see CaseInterface}.
+     *
      * @return Test\TestInterface[]
      */
     protected function _getClassTests(ReflectionClass $class)
@@ -109,8 +120,8 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
                 continue;
             }
 
-            $key = $this->_generateTestKey($class->getName(), $_method->getName());
-            $test = $this->_createTest($class->getName(), $_method->getName(), $key);
+            $key                      = $this->_generateTestKey($class->getName(), $_method->getName());
+            $test                     = $this->_createTest($class->getName(), $_method->getName(), $key);
             $methods[$test->getKey()] = $test;
         }
 
@@ -121,6 +132,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
      * Determines if a method is a valid test method.
      *
      * @since [*next-version*]
+     *
      * @return bool True if the method matches; false otherwise.
      */
     abstract protected function _matchMethod(ReflectionMethod $method);
@@ -129,7 +141,9 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
      * Retrieve a reflection of a class by its name or from an instance.
      *
      * @since [*next-version*]
+     *
      * @param object|string $object An object, or a class name.
+     *
      * @return \ReflectionClass The reflection instance.
      */
     protected function _getObjectReflection($object)

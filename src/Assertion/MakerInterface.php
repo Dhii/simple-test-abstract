@@ -16,8 +16,9 @@ interface MakerInterface
      * React with specified message if the given assetion fails.
      *
      * @since [*next-version*]
+     *
      * @param callable $assertion The assertion to make.
-     * @param string $message The message in case the assertion fails.
+     * @param string   $message   The message in case the assertion fails.
      */
     public function make($assertion, $message);
 }

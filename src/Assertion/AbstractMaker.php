@@ -12,9 +12,12 @@ use Dhii\SimpleTest;
 abstract class AbstractMaker implements MakerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @throws SimpleTest\Exception If assertion is not callable.
+     *
      * @return AbstractMaker This instance.
      */
     public function make($assertion, $message)
@@ -22,7 +25,7 @@ abstract class AbstractMaker implements MakerInterface
         if (!is_callable($assertion)) {
             throw new SimpleTest\Exception('Could not make assertion: Assertion must be callable');
         }
-        $result = call_user_func_array($assertion, array());
+        $result       = call_user_func_array($assertion, array());
         $isSuccessful = $this->_processAssertionResult($result);
 
         if (!$isSuccessful) {
@@ -36,7 +39,9 @@ abstract class AbstractMaker implements MakerInterface
      * Process a made assertion according to its result.
      *
      * @since [*next-version*]
+     *
      * @param mixed $result A result of a made assertions.
+     *
      * @return bool True if the assertion was successful; false otherwise.
      */
     protected function _processAssertionResult($result)
@@ -52,7 +57,9 @@ abstract class AbstractMaker implements MakerInterface
      * React to a failed assertion with the specified message.
      *
      * @since [*next-version*]
+     *
      * @param string $message The message for the failure exception.
+     *
      * @throws FailedException
      */
     protected function _failAssertion($message)

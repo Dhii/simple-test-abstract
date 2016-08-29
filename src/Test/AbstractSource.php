@@ -13,7 +13,8 @@ use Dhii\SimpleTest\Collection;
 abstract class AbstractSource extends Collection\AbstractSearchableCollection implements SourceInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTests()
@@ -22,7 +23,8 @@ abstract class AbstractSource extends Collection\AbstractSearchableCollection im
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     protected function _validateItem($item)
@@ -33,8 +35,10 @@ abstract class AbstractSource extends Collection\AbstractSearchableCollection im
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @param Test\TestInterface $item
      */
     protected function _getItemKey($item)

@@ -15,7 +15,8 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
     protected $runnerCode;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getStatus()
@@ -29,16 +30,19 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
      * A status represents the outcome of a test.
      *
      * @since [*next-version*]
+     *
      * @param string A status for this test.
      */
     protected function _setStatus($status)
     {
         $this->status = $status;
+
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getMessage()
@@ -50,16 +54,19 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
      * Set the message for this test.
      *
      * @since [*next-version*]
+     *
      * @param mixed Something that represents a message.
      */
     protected function _setMessage($message)
     {
         $this->message = $message;
+
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getStatusCodes()
@@ -67,12 +74,13 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
         return array(
             self::ERROR,
             self::FAILURE,
-            self::SUCCESS
+            self::SUCCESS,
         );
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function isSuccessful()
@@ -81,7 +89,8 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getAssertionCount()
@@ -93,16 +102,19 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
      * Set the amount of assertions that were made during this test.
      *
      * @since [*next-version*]
+     *
      * @param int The code of the runner that ran this test.
      */
     protected function _setAssertionCount($assertionCount)
     {
         $this->assertionCount = intval($assertionCount);
+
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getRunnerCode()
@@ -114,6 +126,7 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
      * Set the code of the runner that ran this test.
      *
      * @since [*next-version*]
+     *
      * @param string The code of the runner that ran this test.
      */
     protected function _setRunnerCode($code)
@@ -127,6 +140,7 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
      * Sets the code name of the suite that ran the test, of which this instance represents the result.
      *
      * @param string $code The code name of the suite that ran the test.
+     *
      * @return AbstractResult This instance.
      */
     protected function _setSuiteCode($code)

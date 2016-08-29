@@ -19,7 +19,9 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Sets the coordinator to be used by this instance.
      *
      * @since [*next-version*]
+     *
      * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
+     *
      * @return AbstractSuite This instance.
      */
     protected function _setCoordinator(Coordinator\CoordinatorInterface $coordinator)
@@ -33,6 +35,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Retrieve the coordinator that is used by this instance.
      *
      * @since [*next-version*]
+     *
      * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
      */
     protected function _getCoordinator()
@@ -41,7 +44,8 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTests()
@@ -53,6 +57,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Low-level multiple tests retrieval.
      *
      * @since [*next-version*]
+     *
      * @return Test\TestInterface[]|\Traversable The tests in this suite.
      */
     protected function _getTests()
@@ -61,7 +66,8 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function addTest(Test\TestInterface $test)
@@ -81,7 +87,9 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Low-level single test adding.
      *
      * @since [*next-version*]
+     *
      * @param Test\TestInterface $test The test to add.
+     *
      * @return AbstractSuite This instance.
      */
     protected function _addTest(Test\TestInterface $test)
@@ -93,7 +101,8 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function addTests($tests)
@@ -107,7 +116,9 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Low-level multiple test adding.
      *
      * @since [*next-version*]
+     *
      * @param Test\TestInterface[]|\Traversable $tests The tests to add.
+     *
      * @return AbstractSuite This instance.
      */
     protected function _addTests($tests)
@@ -120,7 +131,8 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getCode()
@@ -132,6 +144,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Low-level suite code retrieval.
      *
      * @since [*next-version*]
+     *
      * @return string The code of this suite.
      */
     protected function _getCode()
@@ -143,18 +156,23 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Low-level suite code setting.
      *
      * @since [*next-version*]
+     *
      * @param string $code The suite code to set.
+     *
      * @return AbstractSuite This instance.
      */
     protected function _setCode($code)
     {
         $this->code = $code;
+
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @return AbstractSuite This instance.
      */
     public function runAll()
@@ -170,6 +188,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Executes before this suite runs all tests in it.
      *
      * @since [*next-version*]
+     *
      * @return AbstractSuite This instance.
      */
     protected function _beforeRunAll()
@@ -181,6 +200,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Executes after this suite runs all tests in it.
      *
      * @since [*next-version*]
+     *
      * @return AbstractSuite This instance.
      */
     protected function _afterRunAll()
@@ -192,6 +212,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Low-level run all tests.
      *
      * @since [*next-version*]
+     *
      * @return AbstractSuite This instance.
      */
     protected function _runAll()
@@ -211,7 +232,9 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Executed before a test is run by this suite.
      *
      * @since [*next-version*]
+     *
      * @param Test\TestInterface $test The test that is about to be run.
+     *
      * @return AbstractSuite This instance.
      */
     protected function _beforeRunTest(Test\TestInterface $test)
@@ -223,7 +246,9 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Executed after a test is run by this suite.
      *
      * @since [*next-version*]
+     *
      * @param Test\ResultInterface $result The test that is about to be run.
+     *
      * @return AbstractSuite This instance.
      */
     protected function _afterRunTest(Test\ResultInterface $result)
@@ -238,17 +263,21 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * provide the test case with an assertion maker instance.
      *
      * @since [*next-version*]
+     *
      * @param Test\TestInterface $test The test to run.
+     *
      * @return Test\ResultInterface The result of the test.
      */
     protected function _runTest(Test\TestInterface $test)
     {
         $runner = $this->_getRunner();
+
         return $runner->run($test);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getResults()
@@ -257,7 +286,8 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getResult($code)
@@ -275,7 +305,9 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
      * Records the given test result in this suite.
      *
      * @since [*next-version*]
+     *
      * @param Test\ResultInterface $result The result to record.
+     *
      * @return AbstractSuite This instance.
      */
     protected function _recordResult(Test\ResultInterface $result)

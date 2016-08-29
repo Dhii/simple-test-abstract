@@ -15,6 +15,7 @@ interface RunnerInterface
      * Retrieve the code name of this runner.
      *
      * @since [*next-version*]
+     *
      * @return string This runner's code.
      */
     public function getCode();
@@ -23,6 +24,7 @@ interface RunnerInterface
      * Runs a test.
      *
      * @param Test\TestInterface $test The test to run.
+     *
      * @return Test\ResultInterface The result of the test.
      */
     public function run(Test\TestBaseInterface $test);

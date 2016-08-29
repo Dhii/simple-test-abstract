@@ -12,8 +12,10 @@ use Dhii\SimpleTest\Test;
 class DefaultClassLocator extends AbstractClassLocator
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @return Test\DefaultTest
      */
     protected function _createTest($className, $methodName, $key)
@@ -35,23 +37,28 @@ class DefaultClassLocator extends AbstractClassLocator
      * Checks if the given string starts with the specified prefix.
      *
      * @since [*next-version*]
-     * @param string $string The string to check.
+     *
+     * @param string $string         The string to check.
      * @param string $requiredPrefix The prefix.
+     *
      * @return bool True if the string starts witht the required prefix;
-     *  otherwise false.
+     *              otherwise false.
      */
     protected function _stringStartsWith($string, $requiredPrefix)
     {
         $requiredLength = strlen($requiredPrefix);
-        $prefix = substr($string, 0, $requiredLength);
+        $prefix         = substr($string, 0, $requiredLength);
 
         return $prefix === $requiredPrefix;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @param array|\Traversable $items
+     *
      * @return DefaultResultSet The new result set.
      */
     protected function _createResultSet($items)

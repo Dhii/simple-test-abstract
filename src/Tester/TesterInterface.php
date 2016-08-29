@@ -17,6 +17,7 @@ interface TesterInterface
      * Adds a suite to be run by this tester.
      *
      * @since [*next-version*]
+     *
      * @param Suite\SuiteInterface $suite The suite to add.
      */
     public function addSuite(Suite\SuiteInterface $suite);

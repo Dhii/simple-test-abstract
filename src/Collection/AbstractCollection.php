@@ -14,7 +14,8 @@ abstract class AbstractCollection implements CollectionInterface
     protected $items = array();
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getItems()
@@ -26,6 +27,7 @@ abstract class AbstractCollection implements CollectionInterface
      * Adds items to the collection.
      *
      * @since [*next-version*]
+     *
      * @param array|\Traversable $items Items to add
      */
     protected function _addItems($items)
@@ -40,6 +42,7 @@ abstract class AbstractCollection implements CollectionInterface
      * Add an item to the collection.
      *
      * @since [*next-version*]
+     *
      * @param mixed $item The item to add.
      */
     protected function _addItem($item)
@@ -58,6 +61,7 @@ abstract class AbstractCollection implements CollectionInterface
      * Determines if item is a valid member of the collection.
      *
      * @since [*next-version*]
+     *
      * @throws \Exception If the item is invalid;
      */
     abstract protected function _validateItem($item);
@@ -66,8 +70,10 @@ abstract class AbstractCollection implements CollectionInterface
      * Determines if item is a valid member of the collection.
      *
      * @since [*next-version*]
+     *
      * @param mixed $item The item to evaluate.
-     * @return boolean True if the item is valid; false otherwise.
+     *
+     * @return bool True if the item is valid; false otherwise.
      */
     protected function _isValidItem($item)
     {

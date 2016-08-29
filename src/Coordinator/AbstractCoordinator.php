@@ -15,8 +15,9 @@ class AbstractCoordinator implements CoordinatorInterface
      * Triggers a "catch-all" `_any()` method.
      *
      * @since [*next-version*]
-     * @param string $name Name of the non-existing method.
-     * @param array $arguments The arguments for the method.
+     *
+     * @param string $name      Name of the non-existing method.
+     * @param array  $arguments The arguments for the method.
      */
     public function __call($name, $arguments)
     {
@@ -27,9 +28,12 @@ class AbstractCoordinator implements CoordinatorInterface
      * Handles calls to a non-defined method.
      *
      * @since [*next-version*]
+     *
      * @param string $target The method that was called
-     * @param mixed $data The data to handle.
+     * @param mixed  $data   The data to handle.
      * @param object $source The object that called called the method.
      */
-    protected function _any($target, $data = null, $source = null) {}
+    protected function _any($target, $data = null, $source = null)
+    {
+    }
 }

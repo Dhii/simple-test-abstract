@@ -14,7 +14,8 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     protected $assertionMaker;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function assertTrue($value, $message)
@@ -25,7 +26,8 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function assertFalse($value, $message)
@@ -36,7 +38,8 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function assert($assertion, $message)
@@ -47,7 +50,8 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function setAssertionMaker(Assertion\MakerInterface $assertionMaker)
@@ -61,6 +65,7 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
      * Retrieve the assertion maker used by this instance.
      *
      * @since [*next-version*]
+     *
      * @return Assertion\MakerInterface
      */
     protected function _getAssertionMaker()

@@ -13,6 +13,7 @@ interface TestBaseInterface
      * Retrieve the class name of this test's test case.
      *
      * @since [*next-version*]
+     *
      * @return string Name of the test case, of which this instance represents a test.
      */
     public function getCaseName();
@@ -21,6 +22,7 @@ interface TestBaseInterface
      * Retrieve the name of this test's method.
      *
      * @since [*next-version*]
+     *
      * @return string Name of the test method, which is represented by this instance.
      */
     public function getMethodName();
@@ -31,6 +33,7 @@ interface TestBaseInterface
      * A key is a test-suite-unique identifier.
      *
      * @since [*next-version*]
+     *
      * @return string The key of this test.
      */
     public function getKey();
@@ -39,6 +42,7 @@ interface TestBaseInterface
      * Retrieve the code of this test's suite.
      *
      * @since [*next-version*]
+     *
      * @return string The code of the suite to which this case belongs.
      */
     public function getSuiteCode();

@@ -22,6 +22,7 @@ interface WriterInterface
      * A verbosity determines what data gets output, and what data doesn't.
      *
      * @since [*next-version*]
+     *
      * @param int $level The verbosity level for this writer.
      */
     public function setLevel($level);
@@ -30,6 +31,7 @@ interface WriterInterface
      * Retrieve the verbosity level of this writer.
      *
      * @since [*next-version*]
+     *
      * @return int This writer's verbosity level.
      */
     public function getLevel();
@@ -38,8 +40,9 @@ interface WriterInterface
      * Output some data.
      *
      * @since [*next-version*]
-     * @param string $text The data to output.
-     * @param int $level The verbosity level of the data.
+     *
+     * @param string $text  The data to output.
+     * @param int    $level The verbosity level of the data.
      */
     public function write($text, $level = null);
 
@@ -47,8 +50,9 @@ interface WriterInterface
      * Output some data with a new line at the end.
      *
      * @see write()
-     * @param string $text The data to output.
-     * @param int $level The verbosity level of the data.
+     *
+     * @param string $text  The data to output.
+     * @param int    $level The verbosity level of the data.
      */
     public function writeLine($text, $level = null);
 
@@ -56,8 +60,9 @@ interface WriterInterface
      * Output a level 2 heading.
      *
      * @see write()
-     * @param string $text The data to output.
-     * @param int $level The verbosity level of the data.
+     *
+     * @param string $text  The data to output.
+     * @param int    $level The verbosity level of the data.
      */
     public function writeH2($text, $level = null);
 
@@ -65,8 +70,9 @@ interface WriterInterface
      * Output a level 4 heading.
      *
      * @see write()
-     * @param string $text The data to output.
-     * @param int $level The verbosity level of the data.
+     *
+     * @param string $text  The data to output.
+     * @param int    $level The verbosity level of the data.
      */
     public function writeH4($text, $level = null);
 
@@ -74,8 +80,9 @@ interface WriterInterface
      * Output a level 4 heading.
      *
      * @see write()
-     * @param string $text The data to output.
-     * @param int $level The verbosity level of the data.
+     *
+     * @param string $text  The data to output.
+     * @param int    $level The verbosity level of the data.
      */
     public function writeH5($text, $level = null);
 }

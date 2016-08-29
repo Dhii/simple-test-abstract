@@ -13,8 +13,9 @@ interface FilePathLocatorInterface
      * Add a path to this locator.
      *
      * @since [*next-version*]
+     *
      * @param string|\Traversable $path A path or glob expression (no brace syntax),
-     *  or an instance of an iterator which returns file paths.
+     *                                  or an instance of an iterator which returns file paths.
      */
     public function addPath($path);
 }

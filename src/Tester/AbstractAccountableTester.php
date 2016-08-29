@@ -19,7 +19,8 @@ class AbstractAccountableTester extends AbstractTester implements
     protected $timeTaken;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getAssertionCount()
@@ -36,7 +37,8 @@ class AbstractAccountableTester extends AbstractTester implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getMemoryTaken()
@@ -45,7 +47,8 @@ class AbstractAccountableTester extends AbstractTester implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTimeTaken()
@@ -54,7 +57,8 @@ class AbstractAccountableTester extends AbstractTester implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTestCount()
@@ -71,7 +75,8 @@ class AbstractAccountableTester extends AbstractTester implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTestCountByStatus($status)
@@ -88,12 +93,13 @@ class AbstractAccountableTester extends AbstractTester implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     protected function _runAll()
     {
-        $timeBeforeRun = microtime(true);
+        $timeBeforeRun   = microtime(true);
         $memoryBeforeRun = memory_get_usage();
         parent::_runAll();
         $this->_setMemoryTaken(memory_get_usage() - $memoryBeforeRun);
@@ -104,7 +110,9 @@ class AbstractAccountableTester extends AbstractTester implements
      * Set the amount of memory taken by this tester.
      *
      * @since [*next-version*]
+     *
      * @param int $bytes The amount of memory, in bytes, taken by this tester.
+     *
      * @return AbstractAccountableTester This instance.
      */
     protected function _setMemoryTaken($bytes)
@@ -118,7 +126,9 @@ class AbstractAccountableTester extends AbstractTester implements
      * Set the amount of time taken by this tester.
      *
      * @since [*next-version*]
+     *
      * @param float $seconds The amount of time, in seconds, taken by this tester.
+     *
      * @return AbstractAccountableTester This instance.
      */
     protected function _setTimeTaken($seconds)

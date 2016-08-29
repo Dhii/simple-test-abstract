@@ -12,8 +12,10 @@ namespace Dhii\SimpleTest\Locator;
 class DefaultFilePathLocator extends AbstractFilePathLocator
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @return DefaultClassLocator
      */
     protected function _createClassLocator($className)
@@ -25,8 +27,10 @@ class DefaultFilePathLocator extends AbstractFilePathLocator
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
+     *
      * @return DefaultResultSet
      */
     protected function _createResultSet($items)
@@ -44,6 +48,7 @@ class DefaultFilePathLocator extends AbstractFilePathLocator
     protected function _matchFile($file)
     {
         $file = $this->_basename($file);
+
         return $this->_endsWith($file, 'Test');
     }
 }

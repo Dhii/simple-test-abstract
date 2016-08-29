@@ -12,11 +12,12 @@ namespace Dhii\SimpleTest\Collection;
  */
 abstract class AbstractIterableCollection extends AbstractCollection implements \Iterator
 {
-    protected $itemIndex = 0;
+    protected $itemIndex   = 0;
     protected $cachedItems = null;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function current()
@@ -25,7 +26,8 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function key()
@@ -34,7 +36,8 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function next()
@@ -43,7 +46,8 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function rewind()
@@ -52,7 +56,8 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function valid()
@@ -66,6 +71,7 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      * If no items are cached, populates the cache first.
      *
      * @since [*next-version*]
+     *
      * @return array The array of items.
      */
     protected function &_getCachedItems()
@@ -82,11 +88,13 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      * Retrieves items that are prepared to be cached and worked with.
      *
      * @since [*next-version*]
+     *
      * @return array The array of prepared items.
      */
     protected function _getItemsForCache()
     {
         $items = $this->getItems();
+
         return $items instanceof \Traversable
                 ? iterator_to_array($items, true)
                 : $items;
@@ -96,6 +104,7 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      * Clears and resents the iterable item cache.
      *
      * @since [*next-version*]
+     *
      * @return AbstractIterableCollection This instance.
      */
     protected function _clearItemCache()

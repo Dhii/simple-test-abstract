@@ -14,6 +14,7 @@ class DefaultResultSet extends AbstractResultSet
 {
     /**
      * @since [*next-version*]
+     *
      * @param Test\TestInterface[]|\Traversable $items The items for this set.
      */
     public function __construct($items)
@@ -22,7 +23,8 @@ class DefaultResultSet extends AbstractResultSet
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     protected function _validateItem($item)

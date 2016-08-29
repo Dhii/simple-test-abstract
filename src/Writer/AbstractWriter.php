@@ -19,17 +19,20 @@ abstract class AbstractWriter implements WriterInterface
     protected $level = 1;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function setLevel($level)
     {
         $this->level = $level;
+
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getLevel()
@@ -38,7 +41,8 @@ abstract class AbstractWriter implements WriterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function writeLine($text, $level = self::LVL_1)
@@ -50,9 +54,11 @@ abstract class AbstractWriter implements WriterInterface
      * Checks whether messages of a specified level should be written by this instane.
      *
      * @since [*next-version*]
+     *
      * @param int $level The level to check.
+     *
      * @return bool True if this instance should write messages of the specified level;
-     *  false otherwise.
+     *              false otherwise.
      */
     protected function _isShouldWriteLevel($level)
     {
@@ -65,7 +71,9 @@ abstract class AbstractWriter implements WriterInterface
      * This helps to understand the type and possibly a scalar value of something.
      *
      * @since [*next-version*]
+     *
      * @param mixed $object The value to generate a simple string representation of.
+     *
      * @return string A simplified representation of the specified value.
      */
     protected function _simpleDebug($object)
@@ -79,7 +87,7 @@ abstract class AbstractWriter implements WriterInterface
         }
 
         if (is_numeric($object)) {
-            return sprintf('number(%1$s)', $object+0);
+            return sprintf('number(%1$s)', $object + 0);
         }
 
         return gettype($object);

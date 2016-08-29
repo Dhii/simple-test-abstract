@@ -12,14 +12,20 @@ namespace Dhii\SimpleTest\TestCase;
 abstract class AbstractCase implements CaseInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
-    public function beforeTest() {}
+    public function beforeTest()
+    {
+    }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
-    public function afterTest() {}
+    public function afterTest()
+    {
+    }
 }

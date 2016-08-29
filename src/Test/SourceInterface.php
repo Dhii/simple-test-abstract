@@ -15,6 +15,7 @@ interface SourceInterface
      * Retrieve tests.
      *
      * @since [*next-version*]
+     *
      * @return Test\TestInterface[] An array of tests.
      */
     public function getTests();

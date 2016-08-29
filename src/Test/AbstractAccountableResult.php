@@ -17,7 +17,8 @@ class AbstractAccountableResult extends AbstractResult implements
     protected $memoryTaken;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTimeTaken()
@@ -29,18 +30,21 @@ class AbstractAccountableResult extends AbstractResult implements
      * Set the amount of time taken to run the test.
      *
      * @since [*next-version*]
+     *
      * @param int $seconds The number of seconds taken to run the test.
+     *
      * @return AbstractResult This instance.
      */
     protected function _setTimeTaken($seconds)
     {
         $this->timeTaken = $seconds;
 
-       return $this;
+        return $this;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getMemoryTaken()
@@ -52,7 +56,9 @@ class AbstractAccountableResult extends AbstractResult implements
      * Set the amount of memory allocated to run the test.
      *
      * @since [*next-version*]
+     *
      * @param int $bytes The number of bytes that was taken to run the test.
+     *
      * @return AbstractResult This instance.
      */
     protected function _setMemoryTaken($bytes)

@@ -16,7 +16,7 @@ abstract class AbstractAccountable extends AbstractSuite implements
     Test\AccountableInterface,
     Test\UsageAccountableInterface
 {
-    protected $cases = array();
+    protected $cases    = array();
     protected $caseSets = array();
     protected $code;
     protected $tests;
@@ -26,7 +26,8 @@ abstract class AbstractAccountable extends AbstractSuite implements
     protected $memoryTaken;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTimeTaken()
@@ -38,7 +39,9 @@ abstract class AbstractAccountable extends AbstractSuite implements
      * Set the amount of time taken by this suite to run the tests.
      *
      * @since [*next-version*]
+     *
      * @param float $seconds The amount of time, in seconds, taken to run tests of this suite.
+     *
      * @return AbstractExtended This instance.
      */
     protected function _setTimeTaken($seconds)
@@ -49,7 +52,8 @@ abstract class AbstractAccountable extends AbstractSuite implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getMemoryTaken()
@@ -60,7 +64,9 @@ abstract class AbstractAccountable extends AbstractSuite implements
      * Set the amount of memory taken by this suite to run the tests.
      *
      * @since [*next-version*]
+     *
      * @param int $bytes The amount of memory, in bytes, taken to run tests of this suite.
+     *
      * @return AbstractExtended This instance.
      */
     protected function _setMemoryTaken($bytes)
@@ -71,13 +77,14 @@ abstract class AbstractAccountable extends AbstractSuite implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     protected function _runAll()
     {
         $memoryBeforeTests = memory_get_usage();
-        $timeBeforeTests = microtime(true);
+        $timeBeforeTests   = microtime(true);
         parent::_runAll();
         $this->_setMemoryTaken(memory_get_usage() - $memoryBeforeTests);
         $this->_setTimeTaken(microtime(true) - $timeBeforeTests);
@@ -86,7 +93,8 @@ abstract class AbstractAccountable extends AbstractSuite implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTestCount()
@@ -95,7 +103,8 @@ abstract class AbstractAccountable extends AbstractSuite implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getTestCountByStatus($status)
@@ -104,7 +113,8 @@ abstract class AbstractAccountable extends AbstractSuite implements
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getAssertionCount()
@@ -121,15 +131,17 @@ abstract class AbstractAccountable extends AbstractSuite implements
     }
 
     /**
-     * Retrieve results that match a given status
+     * Retrieve results that match a given status.
      *
      * @since [*next-version*]
+     *
      * @param string $status The status code to search for.
+     *
      * @return Test\ResultInterface[] Results that match the specified status.
      */
     protected function _getResultsByStatus($status)
     {
-        return $this->_search(function(Test\ResultInterface $result, &$isContinue) use ($status) {
+        return $this->_search(function (Test\ResultInterface $result, &$isContinue) use ($status) {
             return $result->getStatus() === $status
                     ? $result
                     : null;
@@ -138,6 +150,7 @@ abstract class AbstractAccountable extends AbstractSuite implements
 
     /**
      * @since [*next-version*]
+     *
      * @return Runner\RunnerInterface
      */
     protected function _getRunner()
@@ -147,12 +160,15 @@ abstract class AbstractAccountable extends AbstractSuite implements
 
     /**
      * @since [*next-version*]
+     *
      * @param Runner\RunnerInterface $runner
+     *
      * @return AbstractAccountable
      */
     protected function _setRunner(Runner\RunnerInterface $runner)
     {
         $this->runner = $runner;
+
         return $this;
     }
 }

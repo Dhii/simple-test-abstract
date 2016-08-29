@@ -15,6 +15,7 @@ interface WriterAwareInterface
      * Retrieves the writer used by this instance.
      *
      * @since [*next-version*]
+     *
      * @return WriterInterface
      */
     public function getWriter();

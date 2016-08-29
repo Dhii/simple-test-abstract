@@ -27,14 +27,15 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * files, depending on the form of specification.
      *
      * @since [*next-version*]
+     *
      * @param string|array|\Traversable $path The path specification to add.
-     *  - If a string is specified, it will be treated as a glob expression;
-     *  - If an array is specified, it will be treated as a list of file names;
-     *  - If an iterator is given, it will be iterated over;
-     *  - If a filesystem iterator is given, the following modes will be set:
-     *      SKIP_DOTS, FOLLOW_SYMLINKS, KEY_AS_PATHNAME, CURRENT_AS_SELF
-     *  - If an iterator iterator is given, it will be iterated over after setting the following modes:
-     *      SELF_FIRST, LEAVES_ONLY
+     *                                        - If a string is specified, it will be treated as a glob expression;
+     *                                        - If an array is specified, it will be treated as a list of file names;
+     *                                        - If an iterator is given, it will be iterated over;
+     *                                        - If a filesystem iterator is given, the following modes will be set:
+     *                                        SKIP_DOTS, FOLLOW_SYMLINKS, KEY_AS_PATHNAME, CURRENT_AS_SELF
+     *                                        - If an iterator iterator is given, it will be iterated over after setting the following modes:
+     *                                        SELF_FIRST, LEAVES_ONLY
      *
      * For each path that the specification resolves to, naming and recognition rules apply:
      *  - The file name must correlate to the class name, as per PSR-4.
@@ -53,8 +54,9 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      *      by this class - the consumer of this locator must take care of class
      *      loading.
      *
-     * @return AbstractFilePathLocator This instance.
      * @throws InvalidArgumentException If path is already added.
+     *
+     * @return AbstractFilePathLocator This instance.
      */
     public function addPath($path)
     {
@@ -76,7 +78,8 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function locate()
@@ -88,6 +91,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
         }
 
         $items = $this->_createResultSet($items);
+
         return $items;
     }
 
@@ -97,10 +101,12 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * Necessary primarily because {@see array_merge()} does not work on traversables.
      *
      * @since [*next-version*]
-     * @param array $array The array to merge into.
+     *
+     * @param array              $array       The array to merge into.
      * @param array|\Traversable $traversable The second traversable structure.
+     *
      * @return array The original array, with elements from the second array added.
-     *  Elements with same key will be overwrittenю
+     *               Elements with same key will be overwrittenю
      */
     public function _arrayMerge($array, $traversable)
     {
@@ -118,7 +124,9 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * be treated, see {@see addPath()}.
      *
      * @since [*next-version*]
+     *
      * @param string $path A full path to the class file.
+     *
      * @return Test\TestInterface[]|\Traversable A list of tests.
      */
     protected function _getFileTests($path)
@@ -129,6 +137,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
             }
 
             $classLocator = $this->_createClassLocator($className);
+
             return $classLocator->locate();
         } catch (\Exception $ex) {
             return array();
@@ -145,10 +154,13 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * after this method runs.
      *
      * @since [*next-version*]
+     *
      * @param string $path The path to a file that may contain a test case.
-     * @return string The fully qualified name of the class, if recognized;
-     *  otherwise, null.
+     *
      * @throws \RuntimeException If the file cannot be read.
+     *
+     * @return string The fully qualified name of the class, if recognized;
+     *                otherwise, null.
      */
     protected function _retrieveFileClassName($path)
     {
@@ -158,14 +170,14 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
         }
 
         $fileContents = file_get_contents($path, false, null, 0, static::FILE_READ_LIMIT);
-        $matches = array();
-        if (!preg_match('!class[\s]+'.preg_quote($basename, '!').'!', $fileContents, $matches)) {
-            return null;
+        $matches      = array();
+        if (!preg_match('!class[\s]+' . preg_quote($basename, '!') . '!', $fileContents, $matches)) {
+            return;
         }
 
         $matches = array();
         if (preg_match('!namespace ([\w\d_\\\]+);!', $fileContents, $matches)) {
-            return $matches[1].'\\'.$basename;
+            return $matches[1] . '\\' . $basename;
         }
 
         return $basename;
@@ -177,7 +189,9 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * That locator would locate tests in the class.
      *
      * @since [*next-version*]
+     *
      * @param string $className Name of the class, for which to create the locator.
+     *
      * @return ClassLocatorInterface The new class locator.
      */
     abstract protected function _createClassLocator($className);
@@ -187,6 +201,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      *
      * @since [*next-version*]
      * @see addPath()
+     *
      * @return string[]|\Traversible A list of path specifications.
      */
     protected function _getPathsSpecs()
@@ -199,14 +214,14 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      *
      * @since [*next-version*]
      * @see addPath()
+     *
      * @return string[]|\Traversable A list of unique full paths resolved from the path specs.
-     *  Only paths that pass evaluation by {@see _matchFile()} are contained here.
+     *                               Only paths that pass evaluation by {@see _matchFile()} are contained here.
      */
     protected function _getFilePaths()
     {
         $results = array();
-        foreach ($this->_getPathsSpecs() as $_pathExpr)
-        {
+        foreach ($this->_getPathsSpecs() as $_pathExpr) {
             $paths = $this->_resolvePathSpec($_pathExpr);
             foreach ($paths as $_path) {
                 if ($this->_matchFile($_path)) {
@@ -222,6 +237,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * Determine if a file matches the criteria of this locator.
      *
      * @since [*next-version*]
+     *
      * @return bool True if the file matches this locator's criterie; false otherwise.
      */
     abstract protected function _matchFile($file);
@@ -230,15 +246,17 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * Determine if a string ends with a suffix.
      *
      * @since [*next-version*]
-     * @param string $string The string to check.
+     *
+     * @param string $string         The string to check.
      * @param string $requiredSuffix The suffix to check for.
+     *
      * @return bool True if the specified string ends with the specified suffix;
-     *  false otherwise.
+     *              false otherwise.
      */
     protected function _endsWith($string, $requiredSuffix)
     {
         $requiredLength = strlen($requiredSuffix);
-        $suffix = substr($string, -$requiredLength, $requiredLength);
+        $suffix         = substr($string, -$requiredLength, $requiredLength);
 
         return $suffix === $requiredSuffix;
     }
@@ -248,9 +266,11 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      *
      * @see addPath()
      * @since [*next-version*]
+     *
      * @param string[]|\Traversable $paths The path spec to resolve.
+     *
      * @return array|\Traversable A list of full paths for existing files.
-     * Possibly contains zero, one, or any other number of elements.
+     *                            Possibly contains zero, one, or any other number of elements.
      */
     protected function _resolvePathSpec($paths)
     {
@@ -290,7 +310,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
             // Guarantees full canonical normalized path
             $path = $this->_normalizePath(realpath($_path));
             if (is_file($path)) { // Only existing paths allowed
-                $key = $this->_hashPath($path);
+                $key            = $this->_hashPath($path);
                 $resolved[$key] = $path;
             }
         }
@@ -302,13 +322,16 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * Normalizes a path expression.
      *
      * @since [*next-version*]
+     *
      * @param string $path The path expression to normalize.
+     *
      * @return string The normalized expression.
      */
     protected function _normalizePath($path)
     {
         $path = trim($path);
         $path = str_replace('\\/', DIRECTORY_SEPARATOR, $path);
+
         return rtrim($path, '/');
     }
 
@@ -317,7 +340,9 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      *
      * @since [*next-version*]
      * @see _hash()
+     *
      * @param string $path A string representing a filesystem path.
+     *
      * @return string The path's hash.
      */
     protected function _hashPath($path)
@@ -331,7 +356,9 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * @since [*next-version*]
      * @see _hashScalar()
      * @see _hashNonScalar()
+     *
      * @param mixed $value Any value.
+     *
      * @return The value's hash.
      */
     protected function _hash($value)
@@ -346,7 +373,9 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      *
      * @since [*next-version*]
      * @see sha1()
+     *
      * @param int|float|string $value The scalar value to hash.
+     *
      * @return string The value's {@link sha1() SHA1} hash.
      */
     protected function _hashScalar($value)
@@ -358,10 +387,12 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * Creates a hash of a non-scalar value.
      *
      * @since [*next-version*]
+     *
      * @param object|array $value The non-scalar value to hash.
+     *
      * @return string The value's hash. Always same for same object, but
-     *  different for different identical objects. Same for identical arrays,
-     *  but different for arrays with same data in a different order.
+     *                different for different identical objects. Same for identical arrays,
+     *                but different for arrays with same data in a different order.
      */
     protected function _hashNonScalar($value)
     {
@@ -374,13 +405,16 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * Gets a basename of a file path, clean of any extensions.
      *
      * @since [*next-version*]
+     *
      * @param string $fileName File path to get the basename of.
+     *
      * @return string The basename without extension.
      */
     protected function _basename($fileName)
     {
         $basename = basename($fileName);
         $basename = explode('.', $basename);
+
         return isset($basename[0])
                 ? $basename[0]
                 : $fileName;

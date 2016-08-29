@@ -12,7 +12,8 @@ class AbstractAccountableMaker extends AbstractMaker implements AccountableInter
     protected $assertionCount = 0;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getAssertionCount()
@@ -21,13 +22,14 @@ class AbstractAccountableMaker extends AbstractMaker implements AccountableInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     protected function _processAssertionResult($result)
     {
         $result = parent::_processAssertionResult($result);
-        $this->assertionCount++;
+        ++$this->assertionCount;
 
         return $result;
     }

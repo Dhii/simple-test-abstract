@@ -13,6 +13,7 @@ class DefaultTester extends AbstractAccountableTester
 {
     /**
      * @since [*next-version*]
+     *
      * @param Coordinator\CoordinatorInterface $coordinator A writer that will be used by this tester to output data.
      */
     public function __construct(Coordinator\CoordinatorInterface $coordinator)
