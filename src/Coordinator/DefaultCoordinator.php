@@ -162,10 +162,18 @@ class DefaultCoordinator extends AbstractCoordinator
         }
 
         $writer->writeH4('PROBLEMS!');
-        $summary = sprintf('%1$d failed, %2$d erred, %3$d successful',
-                $tester->getTestCountByStatus(Test\AccountableInterface::TEST_FAILURE),
-                $tester->getTestCountByStatus(Test\AccountableInterface::TEST_ERROR),
-                $tester->getTestCountByStatus(Test\AccountableInterface::TEST_SUCCESS));
+        $totalTestCount = $tester->getTestCount();
+        $failedTestCount = $tester->getTestCountByStatus(Test\AccountableInterface::TEST_FAILURE);
+        $erredTestCount = $tester->getTestCountByStatus(Test\AccountableInterface::TEST_ERROR);
+        $passedTestCount = $tester->getTestCountByStatus(Test\AccountableInterface::TEST_SUCCESS);
+        $summary = sprintf('%1$d failed (%2$d%%), %3$d erred (%4$d%%), %5$d passed (%6$d%%), %7$d total',
+                $failedTestCount,
+                $failedTestCount/$totalTestCount * 100,
+                $erredTestCount,
+                $erredTestCount/$totalTestCount * 100,
+                $passedTestCount,
+                $passedTestCount/$totalTestCount * 100,
+                $totalTestCount);
 
         if ($tester instanceof Assertion\AccountableInterface) {
             $summary .= sprintf(', %1$d assertions', $tester->getAssertionCount());
