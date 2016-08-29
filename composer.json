@@ -11,6 +11,9 @@
     ],
     "minimum-stability": "dev",
     "require": {},
+    "require-dev": {
+        "dhii/php-cs-fixer-config": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "Dhii\\SimpleTest\\": "src/"
@@ -20,5 +23,11 @@
         "psr-4": {
             "Dhii\\SimpleTest\\FuncTest\\": "test/functional/"
         }
-    }
+    },
+    "repositories": [
+        {
+            "url": "https://github.com/Dhii/php-cs-fixer-config.git",
+            "type": "git"
+        }
+    ]
 }
