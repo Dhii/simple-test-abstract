@@ -71,10 +71,11 @@ class MyTestSource extends AbstractSource
 
 // Demonstrates how everything is de-coupled, and uses DI
 $writer = new SimpleTest\Writer\DefaultWriter();
-$tester = new SimpleTest\Tester\DefaultTester($writer);
+$coordinator = new SimpleTest\Coordinator\DefaultCoordinator($writer);
+$tester = new SimpleTest\Tester\DefaultTester($coordinator);
 $assertionMaker = new SimpleTest\Assertion\DefaultMaker();
-$runner = new SimpleTest\Runner\DefaultRunner($writer, $assertionMaker);
-$suite = new SimpleTest\Suite\DefaultSuite('default', $runner);
+$runner = new SimpleTest\Runner\DefaultRunner($coordinator, $assertionMaker);
+$suite = new SimpleTest\Suite\DefaultSuite('default', $runner, $coordinator);
 
 /* Demonstrates how tests can be added from any Traversable or array.
  * However, tests cannot be added to a suite from another suite,
@@ -84,6 +85,7 @@ $suite = new SimpleTest\Suite\DefaultSuite('default', $runner);
 $testSource = new MyTestSource();
 // The below statements are equivalend
 //$suite->addTests($testSource);
+//$suite->addTests($testSource->getItems());
 $suite->addTests($testSource->getItems());
 
 // Demonstrates how a suite can be iterable to access each test in it.
