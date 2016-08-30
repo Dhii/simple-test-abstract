@@ -118,7 +118,9 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      * Retrieve the current element from a list.
      *
      * @since [*next-version*]
+     *
      * @param array|\Traversable $array The list to get the current element of.
+     *
      * @return mixed The current element in the list.
      */
     protected function _arrayCurrent(&$array)
@@ -132,7 +134,9 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      * Retrieve the current key from a list.
      *
      * @since [*next-version*]
+     *
      * @param array|\Traversable $array The list to get the current key of.
+     *
      * @return string|int The current key in the list.
      */
     protected function _arrayKey(&$array)
@@ -142,12 +146,13 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
             : key($array);
     }
 
-
     /**
-     * Move the pointer of the list to the beginning
+     * Move the pointer of the list to the beginning.
      *
      * @since [*next-version*]
+     *
      * @param array|\Traversable $array The list to rewind.
+     *
      * @return mixed|bool The value of the first list item.
      */
     protected function _arrayRewind(&$array)
@@ -157,12 +162,13 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
             : reset($array);
     }
 
-
     /**
      * Move the pointer of the list forward and return the element there.
      *
      * @since [*next-version*]
+     *
      * @param array|\Traversable $array The list to move the pointer of.
+     *
      * @return mixed|null The element at the next position in the list.
      */
     protected function _arrayNext(&$array)
@@ -180,7 +186,9 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
      *
      *
      * @since [*next-version*]
+     *
      * @param \Traversable $iterator An iterator.
+     *
      * @return \Iterator The final iterator.
      */
     protected function _getIterator(\Traversable $iterator)
