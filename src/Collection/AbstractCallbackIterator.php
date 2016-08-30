@@ -12,6 +12,7 @@ use UnexpectedValueException;
 abstract class AbstractCallbackIterator extends AbstractIterableCollection implements CallbackIteratorInterface
 {
     protected $callback;
+    protected $isHalted = false;
 
     /**
      * Sets the callback that will be applied to each element of this collection.
@@ -46,7 +47,14 @@ abstract class AbstractCallbackIterator extends AbstractIterableCollection imple
     {
         $item = parent::current();
 
-        return $this->_applyCallback($this->key(), $item);
+        $isContinue = true;
+        $item = $this->_applyCallback($this->key(), $item, $isContinue);
+
+        if (!$isContinue) {
+            $this->_halt();
+        }
+
+        return $item;
     }
 
     /**
@@ -61,12 +69,12 @@ abstract class AbstractCallbackIterator extends AbstractIterableCollection imple
      *
      * @return mixed The return value of the callback.
      */
-    public function _applyCallback($key, $item)
+    public function _applyCallback($key, $item, &$isContinue)
     {
         $callback = $this->getCallback();
         $this->_validateCallback($callback);
 
-        return call_user_func_array($callback, array($key, $item));
+        return call_user_func_array($callback, array($key, $item, &$isContinue));
     }
 
     /**
@@ -101,5 +109,31 @@ abstract class AbstractCallbackIterator extends AbstractIterableCollection imple
         }
 
         return true;
+    }
+
+    protected function _halt($isHalted = true)
+    {
+        $wasHalted = (bool)$this->isHalted;
+        $this->isHalted = (bool)$isHalted;
+
+        return $wasHalted;
+    }
+
+    protected function _isHalted()
+    {
+        return $this->isHalted;
+    }
+
+    public function rewind()
+    {
+        $this->_halt(false);
+        parent::rewind();
+    }
+
+    public function valid()
+    {
+        return $this->_isHalted()
+            ? false
+            : parent::valid();
     }
 }

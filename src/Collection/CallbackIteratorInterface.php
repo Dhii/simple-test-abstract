@@ -21,7 +21,8 @@ interface CallbackIteratorInterface extends Iterator
      *
      * The callback will be called with 2 parameters:
      *  1. The key of the current item;
-     *  2. The current item.
+     *  2. The current item;
+     *  3. The reference to the $isContinue pointer, which, if set to false, will cause the loop to terminate.
      *
      * @since [*next-version*]
      *
