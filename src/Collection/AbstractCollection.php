@@ -72,6 +72,13 @@ abstract class AbstractCollection implements CollectionInterface
         return $this;
     }
 
+    /**
+     * Get the key of an item to use for consistency checks.
+     *
+     * @param mixed $item Get the key of an item.
+     *
+     * @return string|int The key of an item.
+     */
     protected function _getItemKey($item)
     {
         return count($this->items);
