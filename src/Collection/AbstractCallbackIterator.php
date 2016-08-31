@@ -31,7 +31,8 @@ abstract class AbstractCallbackIterator extends AbstractIterableCollection imple
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function getCallback()
@@ -40,7 +41,8 @@ abstract class AbstractCallbackIterator extends AbstractIterableCollection imple
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @since [*next-version*]
      */
     public function current()
@@ -48,7 +50,7 @@ abstract class AbstractCallbackIterator extends AbstractIterableCollection imple
         $item = parent::current();
 
         $isContinue = true;
-        $item = $this->_applyCallback($this->key(), $item, $isContinue);
+        $item       = $this->_applyCallback($this->key(), $item, $isContinue);
 
         if (!$isContinue) {
             $this->_halt();
@@ -113,8 +115,8 @@ abstract class AbstractCallbackIterator extends AbstractIterableCollection imple
 
     protected function _halt($isHalted = true)
     {
-        $wasHalted = (bool)$this->isHalted;
-        $this->isHalted = (bool)$isHalted;
+        $wasHalted      = (bool) $this->isHalted;
+        $this->isHalted = (bool) $isHalted;
 
         return $wasHalted;
     }
