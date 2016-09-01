@@ -79,16 +79,16 @@ abstract class AbstractAggregator implements AggregatorInterface
     protected function _aggregateStats($totals, $items, $calculators)
     {
         foreach ($items as $_item) {
-            foreach ($newTotals as $_stat => $_total) {
+            foreach ($totals as $_stat => $_total) {
                 if (!isset($calculators[$_stat])) {
                     throw new RuntimeException(sprintf('Could not aggregate stat: No aggregator defined for stat "%1$s"', $_stat));
                 }
 
-                $newTotals[$_stat] = $this->_aggregateStat($newTotals, $_stat, $_item, $calculators[$_stat]);
+                $totals[$_stat] = $this->_aggregateStat($totals, $_stat, $_item, $calculators[$_stat]);
             }
         }
 
-        return $newTotals;
+        return $totals;
     }
 
     /**
