@@ -2,51 +2,72 @@
 
 namespace Dhii\SimpleTest\Collection;
 
+use InvalidArgumentException;
+
 /**
  * Common functionality for collection searching.
  *
  * @since [*next-version*]
  */
-abstract class AbstractSearchableCollection extends AbstractIterableCollection
+abstract class AbstractSearchableCollection extends AbstractCallbackCollectionBase
 {
     /**
      * Search the items of a collection according to arbitrary criteria.
      *
      * @since [*next-version*]
      *
-     * @param callable $eval A callable that evaluates an item to determine whether it matches a criteria.
-     *                       This callable must return the item passed as the first argument, the validity of which will be evaluated by {@see _isValidItem()}, if it is a match.
-     *                       The second argument is a boolean value passed by reference which, if set to false, will prevent any further evaluation, and cause the search to stop.
+     * @param callable $eval See {@see SearchableCollectionInterface::search()} for details on the callback.
      * @param object[]|\Traversable
      *
-     * @throws \InvalidArgumentException If the evaluator is not callable.
+     * @throws InvalidArgumentException If the evaluator is not callable.
      *
-     * @return object[]\|\Traversable
+     * @return object[]|\Traversable
      */
     protected function _search($eval, $items = null)
     {
-        if (!is_callable($eval)) {
-            throw new \InvalidArgumentException('Could not search for test: The evaluator is not callable');
-        }
-
         if (is_null($items)) {
-            $items = $this->getItems();
+            $items = $this;
         }
-        $results    = array();
-        $isContinue = true;
-        foreach ($items as $_key => $_item) {
-            /* @var $_test Test\ResultInterface */
-            $item = call_user_func_array($eval, array($_item, &$isContinue));
-
-            if ($this->_isValidItem($item)) {
-                $results[$this->_getItemKey($item)] = $item;
-            }
-
-            if (!$isContinue) {
-                break;
+        $results = array();
+        foreach ($this->_each($eval, $items) as $_key => $_item) {
+            if ($this->_isValidSearchResult($_item)) {
+                $results[$_key] = $_item;
             }
         }
 
-        return $results;
+        return $this->_createSearchResultsIterator($results);
+    }
+
+    /**
+     * Creates an iterator of set of items that are are result of a search.
+     *
+     * @since [*next-version*]
+     *
+     * @param mixed[] The array of items.
+     *
+     * @return AbstractSearchableCollection The new collection that contains search results.
+     */
+    protected function _createSearchResultsIterator($results)
+    {
+        $class    = get_class($this);
+        $instance = new $class();
+        /* @var $instance AbstractSearchableCollection */
+        $instance->_setItems($results);
+
+        return $instance;
+    }
+
+    /**
+     * Determines whether an item is a valid search item.
+     *
+     * @since [*next-version*]
+     *
+     * @param mixed $item The item to validate.
+     *
+     * @return bool True if item is a valid search result item; false otherwise.
+     */
+    protected function _isValidSearchResult($item)
+    {
+        return $this->_isValidItem($item);
     }
 }
