@@ -31,7 +31,7 @@ abstract class AbstractSearchableCollection extends AbstractCallbackCollectionBa
         $results = array();
         foreach ($this->_each($eval, $items) as $_key => $_item) {
             if ($this->_isValidSearchResult($_item)) {
-                $results[$_key] = $_item;
+                $results[] = $_item;
             }
         }
 
