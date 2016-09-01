@@ -7,7 +7,9 @@ namespace Dhii\SimpleTest\Test;
  *
  * @since [*next-version*]
  */
-abstract class AbstractResult extends AbstractTestBase implements ResultInterface
+abstract class AbstractResult extends AbstractTestBase implements
+    ResultInterface,
+    AccountableInterface
 {
     protected $status;
     protected $message;
@@ -69,7 +71,17 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
      *
      * @since [*next-version*]
      */
-    public function getStatusCodes()
+    public function getTestStatusCodes()
+    {
+        return static::getAllTestStatusCodes();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    public static function getAllTestStatusCodes()
     {
         return array(
             self::ERROR,
@@ -139,6 +151,8 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
     /**
      * Sets the code name of the suite that ran the test, of which this instance represents the result.
      *
+     * @since [*next-version*]
+     *
      * @param string $code The code name of the suite that ran the test.
      *
      * @return AbstractResult This instance.
@@ -148,5 +162,27 @@ abstract class AbstractResult extends AbstractTestBase implements ResultInterfac
         $this->suiteCode = $code;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    public function getTestCount()
+    {
+        return 1;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    public function getTestCountByStatus($status)
+    {
+        return $this->getStatus() === $status
+                ? 1
+                : 0;
     }
 }
