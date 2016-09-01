@@ -31,7 +31,7 @@ interface ResultInterface extends TestBaseInterface
      *
      * @return string[] A numeric array, each value of which is unique and reresents a status code.
      */
-    public function getStatusCodes();
+    public function getTestStatusCodes();
 
     /**
      * Get the message of this test.
