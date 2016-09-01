@@ -2,6 +2,7 @@
 
 namespace Dhii\SimpleTest\Runner;
 
+use Dhii\SimpleTest\Stats;
 use Dhii\SimpleTest\Coordinator;
 use Dhii\SimpleTest\Assertion;
 
@@ -18,10 +19,14 @@ class DefaultRunner extends AbstractRunner
      * @param Coordinator\CoordinatorInterface $coordinator    The coordinator that this runner will notify.
      * @param Assertion\MakerInterface         $assertionMaker The assertion maker that test cases run by this runner will use.
      */
-    public function __construct(Coordinator\CoordinatorInterface $coordinator, Assertion\MakerInterface $assertionMaker)
+    public function __construct(
+            Coordinator\CoordinatorInterface $coordinator,
+            Assertion\MakerInterface $assertionMaker,
+            Stats\AggregatorInterface $statAggregator)
     {
         $this->_setCoordinator($coordinator);
         $this->_setAssertionMaker($assertionMaker);
+        $this->_setStatAggregator($statAggregator);
     }
 
     /**

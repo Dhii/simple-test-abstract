@@ -3,10 +3,12 @@
 namespace Dhii\SimpleTest\Runner;
 
 use Dhii\SimpleTest;
+use Dhii\SimpleTest\Stats;
 use Dhii\SimpleTest\Test;
 use Dhii\SimpleTest\TestCase;
 use Dhii\SimpleTest\Assertion;
 use Dhii\SimpleTest\Coordinator;
+use UnexpectedValueException;
 
 /**
  * Common functionality for test runners.
@@ -17,6 +19,7 @@ abstract class AbstractRunner implements RunnerInterface
 {
     protected $coordinator;
     protected $assertionMaker;
+    protected $statAggregator;
 
     /**
      * Sets the coordinator to be used by this instance.
@@ -75,6 +78,38 @@ abstract class AbstractRunner implements RunnerInterface
     }
 
     /**
+     * Retrieve the stat aggregator that this instance uses.
+     *
+     * This aggregator is assigned to test result sets.
+     *
+     * @since [*next-version*]
+     *
+     * @return Stats\AggregatorInterface The stat aggregator used by this instance.
+     */
+    protected function _getStatAggregator()
+    {
+        return $this->statAggregator;
+    }
+
+    /**
+     * Assigns a stat aggregator to this instance.
+     *
+     * When a test list is run, this aggregator will be assigned to the result set.
+     *
+     * @since [*next-version*]
+     *
+     * @param Stats\AggregatorInterface $aggregator The stat aggregator to assign to this instance.
+     *
+     * @return AbstractRunner This instance.
+     */
+    protected function _setStatAggregator(Stats\AggregatorInterface $aggregator)
+    {
+        $this->statAggregator = $aggregator;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @since [*next-version*]
@@ -95,6 +130,113 @@ abstract class AbstractRunner implements RunnerInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     *
+     * @return Test\ResultSetInterface The results of the tests that were run.
+     */
+    public function runAll($tests)
+    {
+        if ($tests instanceof Test\SourceInterface) {
+            $tests = $tests->getTests();
+        }
+
+        $this->_beforeRunAll($tests);
+        $results = $this->_runAll($tests);
+        $results = $this->_createResultSet($results);
+        $this->_afterRunAll($results);
+
+        return $results;
+    }
+
+    /**
+     * Create a result set, populated with results.
+     *
+     * @param array|\Traversable $results A list of test results.
+     *
+     * @return Test\ResultSetInterface The new results set, populated with results.
+     */
+    protected function _createResultSet($results)
+    {
+        return new Test\ResultSet($results, $this->_getStatAggregator());
+    }
+
+    /**
+     * Executes before this suite runs all tests in it.
+     *
+     * @since [*next-version*]
+     *
+     * @param Test\TestInterface[]|\Traversable $tests The tests that are about to be ran.
+     *
+     * @return AbstractSuite This instance.
+     */
+    protected function _beforeRunAll($tests)
+    {
+        $this->_getCoordinator()->beforeRunTestList($tests, $this);
+
+        return $this;
+    }
+
+    /**
+     * Executes after this suite runs all tests in it.
+     *
+     * @since [*next-version*]
+     *
+     * @param Test\ResultInterface[]|\Traversable $results The results of the tests that were run.
+     *
+     * @return AbstractSuite This instance.
+     */
+    protected function _afterRunAll($results)
+    {
+        $this->_getCoordinator()->beforeRunTestList($results, $this);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     *
+     * @param Test\TestInterface[]|\Traversable The list of tests to run.
+     *
+     * @return Test\ResultSetInterface[]|\Traversable This instance.
+     */
+    protected function _runAll($tests)
+    {
+        $this->_validateTestList($tests);
+
+        $results = array();
+        foreach ($tests as $_test) {
+            /* @var $_test Test\TestInterface */
+            $this->_beforeTest($_test);
+            $result = $this->_runTest($_test);
+            $this->_afterTest($result);
+
+            $results[$result->getKey()] = $result;
+        }
+
+        return $results;
+    }
+
+    /**
+     * Throws an exception if the argument is not a valid test list.
+     *
+     * @since [*next-version*]
+     *
+     * @param mixed $tests The test list to validate.
+     *
+     * @throws UnexpectedValueException
+     */
+    protected function _validateTestList($tests)
+    {
+        if (!is_array($tests) && !($tests instanceof \Traversable)) {
+            throw new UnexpectedValueException(sprintf('Tests must be a valid traversable structure'));
+        }
+    }
+
+    /**
      * Low-level running of a test.
      *
      * @since [*next-version*]
@@ -103,7 +245,7 @@ abstract class AbstractRunner implements RunnerInterface
      *
      * @return Test\ResultInterface The result of the test run.
      */
-    protected function _run(Test\TestBaseInterface $test)
+    protected function _runTest(Test\TestBaseInterface $test)
     {
         $assertionMaker  = $this->_getAssertionMaker();
         $countAssertions = $assertionMaker instanceof Assertion\AccountableInterface;
@@ -126,7 +268,6 @@ abstract class AbstractRunner implements RunnerInterface
                 $case->setAssertionMaker($assertionMaker);
             }
 
-            $this->_beforeTest($test);
             $case->beforeTest();
             $case->{$methodName}();
         } catch (Assertion\FailedExceptionInterface $exF) {
@@ -141,7 +282,6 @@ abstract class AbstractRunner implements RunnerInterface
                     microtime(true) - $timeBeforeTest, // Time taken
                     memory_get_usage() - $memoryBeforeTest // Memory taken
             );
-            $this->_afterTest($result);
 
             return $result;
         } catch (\Exception $exE) {
@@ -156,7 +296,6 @@ abstract class AbstractRunner implements RunnerInterface
                     microtime(true) - $timeBeforeTest, // Time taken
                     memory_get_usage() - $memoryBeforeTest // Memory taken
             );
-            $this->_afterTest($result);
 
             return $result;
         }
@@ -172,7 +311,6 @@ abstract class AbstractRunner implements RunnerInterface
                 microtime(true) - $timeBeforeTest, // Time taken
                 memory_get_usage() - $memoryBeforeTest // Memory taken
         );
-        $this->_afterTest($result);
 
         return $result;
     }

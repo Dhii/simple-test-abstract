@@ -4,6 +4,8 @@ namespace Dhii\SimpleTest\Tester;
 
 use Dhii\SimpleTest\Suite;
 use Dhii\SimpleTest\Coordinator;
+use Dhii\SimpleTest\Runner;
+use Dhii\SimpleTest\Test;
 
 /**
  * Common functionality for testers.
@@ -14,6 +16,7 @@ abstract class AbstractTester implements TesterInterface
 {
     protected $suites;
     protected $coordinator;
+    protected $runner;
 
     /**
      * Sets the coordinator to be used by this instance.
@@ -44,6 +47,32 @@ abstract class AbstractTester implements TesterInterface
     }
 
     /**
+     * Retrieve the runner used by this instance.
+     *
+     * @since [*next-version*]
+     *
+     * @return Runner\RunnerInterface The runner used by this instance.
+     */
+    protected function _getRunner()
+    {
+        return $this->runner;
+    }
+
+    /**
+     * Set the runner to be used by this instance.
+     *
+     * @since [*next-version*]
+     *
+     * @param Runner\RunnerInterface $runner The runner to be used by this instance.
+     */
+    protected function _setRunner(Runner\RunnerInterface $runner)
+    {
+        $this->runner = $runner;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @since [*next-version*]
@@ -64,15 +93,16 @@ abstract class AbstractTester implements TesterInterface
      *
      * @since [*next-version*]
      *
-     * @return AbstractTester This instance.
+     * @return \AppendIterator|Test\ResultSetInterface A list of test result lists, by suite code.
      */
     public function runAll()
     {
         $this->_beforeRunAll();
-        $this->_runAll();
-        $this->_afterRunAll();
+        $results = $this->_runAll();
+        $results = $this->_createResultSetIterator($results);
+        $this->_afterRunAll($results);
 
-        return $this;
+        return $results;
     }
 
     /**
@@ -80,18 +110,42 @@ abstract class AbstractTester implements TesterInterface
      *
      * @since [*next-version*]
      *
-     * @return AbstractTester This instance.
+     * @return Test\ResultInterface[]|\Traversable A list of test result lists, by suite code.
      */
     protected function _runAll()
     {
+        $runner  = $this->_getRunner();
+        $results = array();
         foreach ($this->_getSuites() as $_code => $_suite) {
             /* @var $_suite SuiteInterface */
             $this->_beforeRunSuite($_suite);
-            $_suite->runAll();
+            $suiteResults = $runner->runAll($_suite);
             $this->_afterRunSuite($_suite);
+
+            $results[$_suite->getCode()] = $suiteResults;
         }
 
-        return $this;
+        return $results;
+    }
+
+    /**
+     * Create a new iterator of test result sets.
+     *
+     * @since [*next-version*]
+     *
+     * @param Test\ResultInterface[]|\Traversable $results A traversible list of result sets.
+     *
+     * @return \AppendIterator|Test\ResultSetInterface The list of result sets.
+     */
+    protected function _createResultSetIterator($results)
+    {
+        $iterator = new \AppendIterator();
+        foreach ($results as $_suiteCode => $_results) {
+            /* @var $_results Test\ResultInterface */
+            $iterator->append($_results);
+        }
+
+        return $iterator;
     }
 
     /**

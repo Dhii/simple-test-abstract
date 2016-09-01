@@ -39,33 +39,4 @@ interface SuiteInterface
      *                This is unique tester-wide.
      */
     public function getCode();
-
-    /**
-     * Run all the tests in this suite.
-     *
-     * @since [*next-version*]
-     *
-     * @return int Number of tests that were run.
-     */
-    public function runAll();
-
-    /**
-     * Retrieve all results of tests that were run.
-     *
-     * @since [*next-version*]
-     *
-     * @return Test\ResultInterface[] All results for tests ran by this suite.
-     */
-    public function getResults();
-
-    /**
-     * Retrieve a result for a test with the specified code.
-     *
-     * @since [*next-version*]
-     *
-     * @param string $code Code of the test, for which to retrieve the result.
-     *
-     * @return Test\ResultInterface|null The test result, or null if no such result exists.
-     */
-    public function getResult($code);
 }

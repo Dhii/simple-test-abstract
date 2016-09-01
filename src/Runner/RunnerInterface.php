@@ -28,4 +28,15 @@ interface RunnerInterface
      * @return Test\ResultInterface The result of the test.
      */
     public function run(Test\TestBaseInterface $test);
+
+    /**
+     * Run all the tests in this suite.
+     *
+     * @since [*next-version*]
+     *
+     * @param Test\SourceInterface|\Traversable $tests The list of tests to run.
+     *
+     * @return Test\ResultSetInterface The results of running the tests.
+     */
+    public function runAll($tests);
 }
