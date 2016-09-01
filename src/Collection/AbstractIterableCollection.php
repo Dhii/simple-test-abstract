@@ -2,6 +2,7 @@
 
 namespace Dhii\SimpleTest\Collection;
 
+use RuntimeException;
 use UnexpectedValueException;
 
 /**
@@ -65,6 +66,11 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
     public function valid()
     {
         return $this->_arrayKey($this->_getCachedItems()) !== null;
+    }
+
+    protected function _count()
+    {
+        return $this->_arrayCount($this->_getCachedItems());
     }
 
     /**
@@ -176,6 +182,40 @@ abstract class AbstractIterableCollection extends AbstractCollection implements 
         return $array instanceof \Traversable
             ? $this->_getIterator($array)->next()
             : next($array);
+    }
+
+    /**
+     * Get the amount of all elements in the given list.
+     *
+     * @since [*next-version*]
+     *
+     * @param array|\Countable|\Traversable $array The list to get the count of
+     *
+     * @throws RuntimeException If the given list is not something that can be counted.
+     *
+     * @return int The number of items in the list.
+     */
+    public function _arrayCount(&$list)
+    {
+        if (is_array($list)) {
+            return count($list);
+        }
+
+        if ($list instanceof \Countable) {
+            return $list->count();
+        }
+
+        if ($list instanceof \Traversable) {
+            $count = 0;
+            $list  = $this->_getIterator($list);
+            foreach ($list as $_item) {
+                ++$count;
+            }
+
+            return $count;
+        }
+
+        throw new RuntimeException(sprintf('Could not count elements: the given list is not someting that can be counted'));
     }
 
     /**
