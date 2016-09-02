@@ -2,6 +2,7 @@
 
 namespace Dhii\SimpleTest\Tester;
 
+use Dhii\SimpleTest\Test;
 use Dhii\SimpleTest\Suite;
 
 /**
@@ -26,6 +27,8 @@ interface TesterInterface
      * Runs all suites of tests in this tester.
      *
      * @since [*next-version*]
+     *
+     * @return Test\ResultSetInterface A list containing results of all tests that were run.
      */
     public function runAll();
 }

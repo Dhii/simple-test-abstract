@@ -92,8 +92,6 @@ abstract class AbstractTester implements TesterInterface
      * {@inheritdoc}
      *
      * @since [*next-version*]
-     *
-     * @return \AppendIterator|Test\ResultSetInterface A list of test result lists, by suite code.
      */
     public function runAll()
     {
@@ -135,18 +133,9 @@ abstract class AbstractTester implements TesterInterface
      *
      * @param Test\ResultInterface[]|\Traversable $results A traversible list of result sets.
      *
-     * @return \AppendIterator|Test\ResultSetInterface The list of result sets.
+     * @return Test\ResultSetInterface The list of result sets.
      */
-    protected function _createResultSetIterator($results)
-    {
-        $iterator = new \AppendIterator();
-        foreach ($results as $_suiteCode => $_results) {
-            /* @var $_results Test\ResultInterface */
-            $iterator->append($_results);
-        }
-
-        return $iterator;
-    }
+    abstract protected function _createResultSetIterator($results);
 
     /**
      * Executes after tests in one of this tester's suites are executed.
