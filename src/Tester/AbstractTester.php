@@ -172,9 +172,9 @@ abstract class AbstractTester implements TesterInterface
      *
      * @return AbstractTester This instance.
      */
-    protected function _afterRunAll()
+    protected function _afterRunAll(Test\ResultSetInterface $results)
     {
-        $this->_getCoordinator()->afterRunAllSuites($this, $this);
+        $this->_getCoordinator()->afterRunAllSuites($results, $this);
 
         return $this;
     }
