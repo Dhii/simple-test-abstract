@@ -142,7 +142,7 @@ abstract class AbstractAggregatableCollection extends AbstractIterableCollection
         if (is_null($this->stats)) {
             $this->stats = $this->_getStatAggregator()->aggregate(
                 $this->_getAggregatableStatCodes(),
-                $this->getItems());
+                $this->_getCachedItems());
         }
 
         if (is_null($code)) {
