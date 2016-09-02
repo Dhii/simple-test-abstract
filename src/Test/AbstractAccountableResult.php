@@ -11,6 +11,7 @@ use Dhii\SimpleTest\Assertion;
  */
 class AbstractAccountableResult extends AbstractResult implements
     UsageAccountableInterface,
+    AccountableInterface,
     Assertion\AccountableInterface
 {
     protected $timeTaken;
@@ -66,5 +67,27 @@ class AbstractAccountableResult extends AbstractResult implements
         $this->memoryTaken = $bytes;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    public function getTestCount()
+    {
+        return 1;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    public function getTestCountByStatus($status)
+    {
+        return $this->getStatus() === $status
+                ? 1
+                : 0;
     }
 }

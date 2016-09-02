@@ -8,8 +8,7 @@ namespace Dhii\SimpleTest\Test;
  * @since [*next-version*]
  */
 abstract class AbstractResult extends AbstractTestBase implements
-    ResultInterface,
-    AccountableInterface
+    ResultInterface
 {
     protected $status;
     protected $message;
@@ -162,27 +161,5 @@ abstract class AbstractResult extends AbstractTestBase implements
         $this->suiteCode = $code;
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @since [*next-version*]
-     */
-    public function getTestCount()
-    {
-        return 1;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @since [*next-version*]
-     */
-    public function getTestCountByStatus($status)
-    {
-        return $this->getStatus() === $status
-                ? 1
-                : 0;
     }
 }
