@@ -9,7 +9,7 @@ use InvalidArgumentException;
  *
  * @since [*next-version*]
  */
-abstract class AbstractSearchableCollection extends AbstractCallbackCollectionBase
+abstract class AbstractSearchableCollection extends AbstractCallbackCollection
 {
     /**
      * Search the items of a collection according to arbitrary criteria.
