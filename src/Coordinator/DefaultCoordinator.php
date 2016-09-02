@@ -145,29 +145,29 @@ class DefaultCoordinator extends AbstractCoordinator
      *
      * @since [*next-version*]
      *
-     * @param Tester\TesterInterface $tester The tester that is about to run the suites.
+     * @param Tester\ResultSetInterface $results The tester that is about to run the suites.
      * @param mixed                  $source The source of this event.
      */
-    public function afterRunAllSuites(Tester\TesterInterface $tester, $source = null)
+    public function afterRunAllSuites(Test\ResultSetInterface $results, $source = null)
     {
         $writer = $this->_getWriter();
 
         // If we can't know what happened, finish
-        if (!($tester instanceof Test\AccountableInterface)) {
+        if (!($results instanceof Test\AccountableInterface)) {
             $writer->writeLine('Finished');
 
             return $this;
         }
 
         // Notify if nothing to test
-        if (!$tester->getTestCount()) {
+        if (!$results->getTestCount()) {
             $writer->writeLine('No tests were ran');
 
             return $this;
         }
 
-        $unsuccessfulTestCount = $tester->getTestCountByStatus(Test\AccountableInterface::TEST_FAILURE)
-                + $tester->getTestCountByStatus(Test\AccountableInterface::TEST_ERROR);
+        $unsuccessfulTestCount = $results->getTestCountByStatus(Test\AccountableInterface::TEST_FAILURE)
+                + $results->getTestCountByStatus(Test\AccountableInterface::TEST_ERROR);
 
         if (!$unsuccessfulTestCount) {
             $writer->writeH4('OK!');
@@ -176,10 +176,10 @@ class DefaultCoordinator extends AbstractCoordinator
         }
 
         $writer->writeH4('PROBLEMS!');
-        $totalTestCount  = $tester->getTestCount();
-        $failedTestCount = $tester->getTestCountByStatus(Test\AccountableInterface::TEST_FAILURE);
-        $erredTestCount  = $tester->getTestCountByStatus(Test\AccountableInterface::TEST_ERROR);
-        $passedTestCount = $tester->getTestCountByStatus(Test\AccountableInterface::TEST_SUCCESS);
+        $totalTestCount  = $results->getTestCount();
+        $failedTestCount = $results->getTestCountByStatus(Test\AccountableInterface::TEST_FAILURE);
+        $erredTestCount  = $results->getTestCountByStatus(Test\AccountableInterface::TEST_ERROR);
+        $passedTestCount = $results->getTestCountByStatus(Test\AccountableInterface::TEST_SUCCESS);
         $summary         = sprintf('%1$d failed (%2$d%%), %3$d erred (%4$d%%), %5$d passed (%6$d%%), %7$d total',
                 $failedTestCount,
                 $failedTestCount / $totalTestCount * 100,
@@ -189,16 +189,16 @@ class DefaultCoordinator extends AbstractCoordinator
                 $passedTestCount / $totalTestCount * 100,
                 $totalTestCount);
 
-        if ($tester instanceof Assertion\AccountableInterface) {
-            $summary .= sprintf(', %1$d assertions', $tester->getAssertionCount());
+        if ($results instanceof Assertion\AccountableInterface) {
+            $summary .= sprintf(', %1$d assertions', $results->getAssertionCount());
         }
 
         $writer->writeLine($summary);
 
-        if ($tester instanceof Test\UsageAccountableInterface) {
+        if ($results instanceof Test\UsageAccountableInterface) {
             $writer->writeLine(sprintf('%1$s, %2$.3Fs',
-                    $this->_humanSize($tester->getMemoryTaken(), 3),
-                    $tester->getTimeTaken()));
+                    $this->_humanSize($results->getMemoryTaken(), 3),
+                    $results->getTimeTaken()));
         }
     }
 
