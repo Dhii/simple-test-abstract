@@ -49,11 +49,13 @@ class AbstractAggregator extends Stats\AbstractAggregator
                     $counts = is_array($totals[$code])
                             ? $totals[$code]
                             : array();
-                    $status = $source->getStatus();
 
-                    $counts[$status] = 1 + (isset($counts[$status])
-                            ? intval($counts[$status])
-                            : 0);
+                    foreach ($source->getTestStatusCodes() as $_status) {
+                        $count = $source->getTestCountByStatus($_status);
+                        $counts[$_status] = $count + (isset($counts[$_status])
+                                ? intval($counts[$_status])
+                                : 0);
+                    }
                 }
 
                 return $counts;
