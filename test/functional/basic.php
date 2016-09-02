@@ -104,9 +104,12 @@ class BasicTestCase
         return $runner;
     }
 
-    public function createTester(SimpleTest\Coordinator\CoordinatorInterface $coordinator, SimpleTest\Runner\RunnerInterface $runner)
+    public function createTester(
+            SimpleTest\Coordinator\CoordinatorInterface $coordinator,
+            SimpleTest\Runner\RunnerInterface $runner,
+            SimpleTest\Stats\AggregatorInterface $statAggregator)
     {
-        $tester = new SimpleTest\Tester\DefaultTester($coordinator, $runner);
+        $tester = new SimpleTest\Tester\Tester($coordinator, $runner, $statAggregator);
 
         return $tester;
     }
@@ -137,15 +140,16 @@ class BasicTestCase
 
     public function generateTester(
         $writer = 1,
-        SimpleTest\Coordinator\CoordinatorInterface $coordinator = null
+        SimpleTest\Coordinator\CoordinatorInterface $coordinator = null,
+        SimpleTest\Stats\AggregatorInterface $statAggregator = null
     ) {
         $verbosity = is_numeric($writer) ? intval($writer) : 1;
         $writer = $writer instanceof SimpleTest\Writer\WriterInterface ? $writer : $this->createWriter($verbosity);
         $coordinator = $coordinator ? $coordinator : $this->createCoordinator($writer);
+        $statAggregator = $statAggregator ? $statAggregator : $this->createStatAggregator();
         $assertionMaker = $this->createAssertionMaker();
-        $statAggregator = $this->createStatAggregator();
         $runner = $this->createRunner($coordinator, $assertionMaker, $statAggregator);
-        $tester = $this->createTester($coordinator, $runner);
+        $tester = $this->createTester($coordinator, $runner, $statAggregator);
 
         return $tester;
     }
@@ -179,7 +183,8 @@ class BasicTestCase
     {
         $writer = $this->createWriter(2);
         $coordinator = $this->createCoordinator($writer);
-        $tester = $this->generateTester($writer, $coordinator);
+        $statAggregator = $this->createStatAggregator();
+        $tester = $this->generateTester($writer, $coordinator, $statAggregator);
 
         /* Demonstrates how tests can be added from any Traversable or array.
          * However, tests cannot be added to a suite from another suite,
@@ -209,7 +214,7 @@ class BasicTestCase
 //            var_dump(sprintf('%1$s -> %2$s', $_result->getSuiteCode(), $_result->getKey()));
         }
 
-        /* @var $results \AppendIterator */
+        /* @var $results SimpleTest\Collection\SequenceIteratorIteratorInterface */
         /**
          * Iterate over results of each test suite, and display aggregated stats for each suite,
          * then take the first result of each suite and display its suite code.
@@ -224,7 +229,7 @@ class BasicTestCase
 //            var_dump('Assertions', $_results->getAssertionCount());
             foreach ($suiteResults as $_result) {
 //                var_dump($_result->getSuiteCode());
-                
+
                 break;
             }
 
@@ -244,6 +249,16 @@ class BasicTestCase
 //                var_dump($_result->getKey());
             }
         }
+
+        /*
+         * Display totals for all tests.
+         *
+         * Demonstrates how the product of Tester::runAll() is still a valid test result.
+         */
+        /* @var $results ResultSet */
+//        var_dump('Total tests', $results->getTestCount());
+//        var_dump('Total time', $results->getTimeTaken());
+//        var_dump('Total memory', $results->getMemoryTaken());
     }
 
     /**
