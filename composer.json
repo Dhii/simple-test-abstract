@@ -16,7 +16,7 @@
         "dhii/collections-abstract": "dev-master"
     },
     "require-dev": {
-        "dhii/php-cs-fixer-config": "dev-master"
+        "dhii/php-cs-fixer-config": "dev-php-5.3"
     },
     "autoload": {
         "psr-4": {

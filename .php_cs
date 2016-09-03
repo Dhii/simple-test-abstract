@@ -4,7 +4,7 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'vendor/autoload.php';
 $config = Dhii\Configuration\PHPCSFixer\Config::create();
 $fixers = $config->getFixers();
 
-$toRemove = array('short_array_syntax');
+$toRemove = array();
 foreach ($toRemove as $_fixer) {
     if (($removeIndex = array_search($_fixer, $fixers)) === false) {
         continue;
@@ -13,7 +13,7 @@ foreach ($toRemove as $_fixer) {
     unset($fixers[$removeIndex]);
 }
 
-$toAdd = array('long_array_syntax');
+$toAdd = array();
 foreach ($toAdd as $_fixer) {
     if (($removeIndex = array_search($_fixer, $fixers)) !== false) {
         continue;
