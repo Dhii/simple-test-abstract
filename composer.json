@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php":  "^5.3.3",
         "dhii/stats-abstract": "dev-master",
         "dhii/collections-abstract": "dev-master"
     },
