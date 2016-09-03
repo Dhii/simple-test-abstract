@@ -3,7 +3,7 @@
 namespace Dhii\SimpleTest\Runner;
 
 use Dhii\SimpleTest;
-use Dhii\SimpleTest\Stats;
+use Dhii\Stats;
 use Dhii\SimpleTest\Test;
 use Dhii\SimpleTest\TestCase;
 use Dhii\SimpleTest\Assertion;

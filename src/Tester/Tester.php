@@ -4,9 +4,9 @@ namespace Dhii\SimpleTest\Tester;
 
 use Dhii\SimpleTest\Coordinator;
 use Dhii\SimpleTest\Runner;
-use Dhii\SimpleTest\Collection;
+use Dhii\Collection;
 use Dhii\SimpleTest\Test;
-use Dhii\SimpleTest\Stats;
+use Dhii\Stats;
 
 /**
  * A default tester implementation.

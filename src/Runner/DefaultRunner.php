@@ -2,7 +2,7 @@
 
 namespace Dhii\SimpleTest\Runner;
 
-use Dhii\SimpleTest\Stats;
+use Dhii\Stats;
 use Dhii\SimpleTest\Coordinator;
 use Dhii\SimpleTest\Assertion;
 

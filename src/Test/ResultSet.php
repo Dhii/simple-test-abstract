@@ -2,7 +2,7 @@
 
 namespace Dhii\SimpleTest\Test;
 
-use Dhii\SimpleTest\Stats;
+use Dhii\Stats;
 
 /**
  * A default implementation of a test result set.

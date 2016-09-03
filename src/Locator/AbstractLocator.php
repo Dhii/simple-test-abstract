@@ -2,7 +2,7 @@
 
 namespace Dhii\SimpleTest\Locator;
 
-use Dhii\SimpleTest\Collection;
+use Dhii\Collection;
 
 /**
  * Common functionality for test locators.

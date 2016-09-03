@@ -2,7 +2,7 @@
 
 namespace Dhii\SimpleTest\Test;
 
-use Dhii\SimpleTest\Stats;
+use Dhii\Stats;
 use Dhii\SimpleTest\Assertion;
 
 /**

@@ -3,7 +3,7 @@
 namespace Dhii\SimpleTest\Test;
 
 use InvalidArgumentException;
-use Dhii\SimpleTest\Collection;
+use Dhii\Collection;
 
 /**
  * Common functionality for test sources.

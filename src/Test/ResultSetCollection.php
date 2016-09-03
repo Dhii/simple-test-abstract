@@ -3,7 +3,7 @@
 namespace Dhii\SimpleTest\Test;
 
 use UnexpectedValueException;
-use Dhii\SimpleTest\Stats;
+use Dhii\Stats;
 
 /**
  * An implementation of a result set that abstracts access to

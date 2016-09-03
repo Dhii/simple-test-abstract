@@ -4,7 +4,7 @@ namespace Dhii\SimpleTest\Test;
 
 use Iterator;
 use AppendIterator;
-use Dhii\SimpleTest\Collection;
+use Dhii\Collection;
 
 /**
  * Common functionality for test result set collections.

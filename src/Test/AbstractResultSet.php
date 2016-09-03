@@ -3,7 +3,7 @@
 namespace Dhii\SimpleTest\Test;
 
 use Dhii\SimpleTest\Assertion;
-use Dhii\SimpleTest\Collection;
+use Dhii\Collection;
 use UnexpectedValueException;
 
 /**

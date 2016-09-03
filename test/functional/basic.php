@@ -97,7 +97,7 @@ class BasicTestCase
     public function createRunner(
             SimpleTest\Coordinator\CoordinatorInterface $coordinator,
             SimpleTest\Assertion\MakerInterface $assertionMaker,
-            SimpleTest\Stats\AggregatorInterface $statAggregator)
+            \Dhii\Stats\AggregatorInterface $statAggregator)
     {
         $runner = new SimpleTest\Runner\DefaultRunner($coordinator, $assertionMaker, $statAggregator);
 
@@ -107,7 +107,7 @@ class BasicTestCase
     public function createTester(
             SimpleTest\Coordinator\CoordinatorInterface $coordinator,
             SimpleTest\Runner\RunnerInterface $runner,
-            SimpleTest\Stats\AggregatorInterface $statAggregator)
+            \Dhii\Stats\AggregatorInterface $statAggregator)
     {
         $tester = new SimpleTest\Tester\Tester($coordinator, $runner, $statAggregator);
 
@@ -141,7 +141,7 @@ class BasicTestCase
     public function generateTester(
         $writer = 1,
         SimpleTest\Coordinator\CoordinatorInterface $coordinator = null,
-        SimpleTest\Stats\AggregatorInterface $statAggregator = null
+        \Dhii\Stats\AggregatorInterface $statAggregator = null
     ) {
         $verbosity = is_numeric($writer) ? intval($writer) : 1;
         $writer = $writer instanceof SimpleTest\Writer\WriterInterface ? $writer : $this->createWriter($verbosity);
