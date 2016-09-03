@@ -146,7 +146,7 @@ class DefaultCoordinator extends AbstractCoordinator
      * @since [*next-version*]
      *
      * @param Tester\ResultSetInterface $results The tester that is about to run the suites.
-     * @param mixed                  $source The source of this event.
+     * @param mixed                     $source  The source of this event.
      */
     public function afterRunAllSuites(Test\ResultSetInterface $results, $source = null)
     {
