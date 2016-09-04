@@ -147,10 +147,7 @@ abstract class AbstractRunner implements RunnerInterface
      *
      * @return Test\ResultSetInterface The new results set, populated with results.
      */
-    protected function _createResultSet($results)
-    {
-        return new Test\ResultSet($results, $this->_getStatAggregator());
-    }
+    abstract protected function _createResultSet($results);
 
     /**
      * Executes before this suite runs all tests in it.
