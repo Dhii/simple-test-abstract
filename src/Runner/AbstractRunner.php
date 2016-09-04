@@ -114,16 +114,6 @@ abstract class AbstractRunner implements RunnerInterface
      *
      * @since [*next-version*]
      */
-    public function getAssertionStatusCount($status = null)
-    {
-        return $this->_getAssertionMaker()->getAssertionStatusCount($status);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @since [*next-version*]
-     */
     public function run(Test\TestBaseInterface $test)
     {
         return $this->_run($test);
