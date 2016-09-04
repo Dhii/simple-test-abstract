@@ -47,7 +47,18 @@ abstract class AbstractWriter implements WriterInterface
      */
     public function writeLine($text, $level = self::LVL_1)
     {
-        $this->write($text . static::EOL, $level);
+        $this->write($text . $this->_getEol(), $level);
+    }
+
+    /**
+     * Retrieve the EOL (end of line) sequence that is used by this instance.
+     *
+     * @since [*next-version*]
+     * @return string The string that signifies EOL.
+     */
+    protected function _getEol()
+    {
+        return static::EOL;
     }
 
     /**
