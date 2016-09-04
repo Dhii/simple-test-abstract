@@ -5,6 +5,7 @@ namespace Dhii\SimpleTest\Test;
 use Dhii\SimpleTest\Assertion;
 use Dhii\Collection;
 use UnexpectedValueException;
+use Countable;
 
 /**
  * Common functionality for test result sets.
@@ -12,6 +13,7 @@ use UnexpectedValueException;
  * @since [*next-version*]
  */
 abstract class AbstractResultSet extends Collection\AbstractSearchableCollection implements
+    Countable,
     ResultSetInterface,
     AccountableInterface,
     UsageAccountableInterface,
@@ -145,5 +147,15 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     public function search($eval)
     {
         return $this->_search($eval, $this);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    public function count()
+    {
+        return $this->getTestCount();
     }
 }
