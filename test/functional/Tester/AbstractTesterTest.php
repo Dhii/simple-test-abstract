@@ -22,6 +22,28 @@ class AbstractTesterTest extends \Xpmock\TestCase
     }
 
     /**
+     * Creates a new result set instance.
+     *
+     * @since [*next-version*]
+     * @param \Dhii\SimpleTest\Test\ResultInterface[] $results The results to go into the set.
+     * @param \Dhii\SimpleTest\Test\AbstractAggregator $statAggregator Aggregator of stats.
+     * @return \Dhii\SimpleTest\Test\ResultSetInterface The new result set.
+     */
+    public function createResultSet($results, \Dhii\SimpleTest\Test\AbstractAggregator $statAggregator)
+    {
+        $me = $this;
+        $mock = $this->mock('Dhii\SimpleTest\Test\AbstractResultSet')
+                ->_createSearchResultsIterator(function($results) use ($me, $statAggregator) {
+                    return $me->_createResultSet($results, $statAggregator);
+                })
+                ->_getStatAggregator($statAggregator)
+                ->new();
+        $this->reflect($mock)->_setItems($results);
+
+        return $mock;
+    }
+
+    /**
      * Creates a new result set iterator, which coombines result sets.
      *
      * @since [*next-version*]
@@ -40,7 +62,7 @@ class AbstractTesterTest extends \Xpmock\TestCase
                 ->new();
 
         $reflection = $this->reflect($mock);
-        $reflection->items = $items;
+        $reflection->_addItems($items);
 
         return $mock;
     }
@@ -68,12 +90,28 @@ class AbstractTesterTest extends \Xpmock\TestCase
             \Dhii\SimpleTest\Coordinator\CoordinatorInterface $coordinator,
             \Dhii\SimpleTest\Assertion\MakerInterface $assertionMaker)
     {
-        return $this->mock('Dhii\\SimpleTest\\Runner\\AbstractRunner')
+        $me = $this;
+        $mock = $this->mock('Dhii\\SimpleTest\\Runner\\AbstractRunner')
                 ->_getStatAggregator($aggregator)
                 ->_getCoordinator($coordinator)
                 ->_getAssertionMaker($assertionMaker)
+                ->_createResultFromTest(function(\Dhii\SimpleTest\Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode, $time, $memory) use ($me) {
+                    return $me->createTestResult(
+                            $test,
+                            $message,
+                            $status,
+                            $assertionCount,
+                            $runnerCode,
+                            $time,
+                            $memory);
+                })
+                ->_createResultSet(function($results) use ($me, $aggregator) {
+                    return $me->createResultSet($results, $aggregator);
+                })
                 ->getCode(uniqid('testrunner-'))
                 ->new();
+
+        return $mock;
     }
 
     /**
@@ -84,7 +122,7 @@ class AbstractTesterTest extends \Xpmock\TestCase
      */
     public function createAssertionMaker()
     {
-        return $this->mock('Dhii\\SimpleTest\\Assertion\\AbstractMaker')
+        return $this->mock('Dhii\\SimpleTest\\Assertion\\AbstractAccountableMaker')
                 ->new();
     }
 
@@ -120,6 +158,36 @@ class AbstractTesterTest extends \Xpmock\TestCase
                 ->getCaseName($class)
                 ->getMethodName($method)
                 ->new();
+    }
+
+    /**
+     *
+     * @since [*next-version*]
+     * @param \Dhii\SimpleTest\Test\TestBaseInterface $test
+     * @param mixed $message
+     * @param string $status
+     * @param int $assertionCount
+     * @param string $runnerCode
+     * @param float $time
+     * @param int $memory
+     * @return \Dhii\SimpleTest\Test\AbstractAccountableResult
+     */
+    public function createTestResult(\Dhii\SimpleTest\Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode, $time, $memory)
+    {
+        $mock = $this->mock('Dhii\SimpleTest\Test\AbstractAccountableResult')
+                ->getCaseName($test->getCaseName())
+                ->getMethodName($test->getMethodName())
+                ->getKey($test->getKey())
+                ->getMessage($message)
+                ->getStatus($status)
+                ->getAssertionCount($assertionCount)
+                ->getRunnerCode($runnerCode)
+                ->getTimeTaken($time)
+                ->getMemoryTaken($memory)
+                ->getSuiteCode($test->getSuiteCode())
+                ->new();
+
+        return $mock;
     }
 
     /**
@@ -163,9 +231,25 @@ class AbstractTesterTest extends \Xpmock\TestCase
         $reflection = $this->reflect($subject);
 
         $tests = array(
-            $this->createTest('Dhii\\SimpleTest\\Test\\Stub\\MyTestCaseTest', 'testSuccess')
+            $this->createTest('Dhii\\SimpleTest\\Test\\Stub\\More\\MyTestCase1Test', 'testFailure'),
+            $this->createTest('Dhii\\SimpleTest\\Test\\Stub\\More\\MyTestCase1Test', 'testSuccess'),
+            $this->createTest('Dhii\\SimpleTest\\Test\\Stub\\More\\MyTestCase1Test', 'testError')
         );
         $subject->addSuite($this->createSuite($tests, $this->createCoordinator()));
-        $subject->runAll();
+        $result = $subject->runAll();
+
+        $this->assertInstanceOf('Dhii\SimpleTest\Test\ResultSetInterface', $result, 'Run result is not a valid result set');
+        $this->assertInstanceOf('Dhii\SimpleTest\Test\AccountableInterface', $result, 'Run result is not accountable for test amount');
+        $this->assertInstanceOf('Dhii\SimpleTest\Test\UsageAccountableInterface', $result, 'Run result is not accountable for test usage');
+
+        $this->assertEquals(count($tests), $result->getTestCount(), 'Wrong result count reported');
+        $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_ERROR), 'Wrong erred result count reported');
+        $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_FAILURE), 'Wrong failed result count reported');
+        $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_SUCCESS), 'Wrong successful result count reported');
+        $this->assertEquals(3, $result->getAssertionCount(), 'Wrong assertion count reported');
+        $this->assertInternalType('float', $result->getTimeTaken(), 'Time reporting is incorrect');
+        $this->assertGreaterThan(0, $result->getTimeTaken(), 'Wrong time taken reported');
+        $this->assertInternalType('int', $result->getMemoryTaken(), 'Memory reporting is incorrect');
+        $this->assertGreaterThan(0, $result->getMemoryTaken(), 'Wrong memory taken reported');
     }
 }
