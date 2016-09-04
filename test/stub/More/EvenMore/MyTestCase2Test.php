@@ -1,6 +1,6 @@
 <?php
 
-namespace Dhii\SimpleTest\FuncTest\More\EvenMore;
+namespace Dhii\SimpleTest\Test\Stub\More\EvenMore;
 
 use Dhii\SimpleTest\TestCase;
 

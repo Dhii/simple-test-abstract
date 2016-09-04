@@ -60,7 +60,7 @@ class MyTestSource extends AbstractSource
 //        $locator->addPath($dir); // All files in a specific directory and subdirectories
         $locator->addPath(array(
 //            __DIR__.'/MyTestCaseTest.php',
-            __DIR__.'/More/MyTestCase1Test.php',
+            dirname(__DIR__).'/stub/More/MyTestCase1Test.php',
 //            __DIR__.'/More/EvenMore/MyTestCase2Test.php',
         )); // A set of specific test files
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dhii\SimpleTest\FuncTest\More;
+namespace Dhii\SimpleTest\Test\Stub;
 
 use Dhii\SimpleTest\TestCase;
 
@@ -9,7 +9,7 @@ use Dhii\SimpleTest\TestCase;
  * 
  * @since [*next-version*]
  */
-class MyTestCase1Test extends TestCase\AbstractCaseAssertive
+class MyTestCaseTest extends TestCase\AbstractCaseAssertive
 {
     /**
      * @inheritdoc
@@ -49,8 +49,7 @@ class MyTestCase1Test extends TestCase\AbstractCaseAssertive
     public function testFailure()
     {
 //        var_dump('Testing failure');
-        $this->assertTrue(true, 'Gotta be right 1');
-        $this->assertTrue(false, 'Gotta be right 2');
+        $this->assertTrue(false, 'Gotta be right');
     }
 
     /**

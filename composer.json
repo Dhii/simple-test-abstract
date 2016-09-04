@@ -16,7 +16,8 @@
         "dhii/collections-abstract": "dev-master"
     },
     "require-dev": {
-        "dhii/php-cs-fixer-config": "dev-php-5.3"
+        "dhii/php-cs-fixer-config": "dev-php-5.3",
+        "ptrofimov/xpmock": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -25,7 +26,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Dhii\\SimpleTest\\FuncTest\\": "test/functional/"
+            "Dhii\\SimpleTest\\Test\\Stub\\": "test/stub/"
         }
     },
     "repositories": [
