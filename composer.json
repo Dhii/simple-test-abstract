@@ -1,6 +1,6 @@
 {
-    "name": "dhii/simple-test",
-    "description": "A simple unit testing framework, for inclusion with other tools.",
+    "name": "dhii/simple-test-abstract",
+    "description": "Base classes for SimpleTest",
     "type": "library",
     "license": "MIT",
     "authors": [
