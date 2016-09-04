@@ -79,7 +79,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
      *
      * @param ResultSet $resultSet The result set to add.
      */
-    protected function _addItem(ResultSet $resultSet)
+    protected function _addItem($resultSet)
     {
         $this->getInnerIterator()->append($resultSet);
 
