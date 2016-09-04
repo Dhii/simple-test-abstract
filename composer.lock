@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d13d6f3ac0ea0469c99d1cc544455ff",
-    "content-hash": "969926830c439a23bc51f362eca7a1bb",
+    "hash": "aa84e61ff188889a67f9560397206d27",
+    "content-hash": "fa187a1a21fc38a66c39060bf6ac4bf9",
     "packages": [
         {
             "name": "dhii/collections-abstract",
@@ -14,6 +14,12 @@
                 "type": "git",
                 "url": "https://github.com/Dhii/collections-abstract.git",
                 "reference": "0932f23365ff9461a140a841f48398d746b746d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/collections-abstract/zipball/0932f23365ff9461a140a841f48398d746b746d7",
+                "reference": "0932f23365ff9461a140a841f48398d746b746d7",
+                "shasum": ""
             },
             "require": {
                 "dhii/collections-interface": "dev-master",
@@ -28,6 +34,7 @@
                     "Dhii\\Collection\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -48,6 +55,12 @@
                 "url": "https://github.com/Dhii/collections-abstract-base.git",
                 "reference": "bd52fe7bb1abcf9c01ae834d9de130e8536fabd3"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/collections-abstract-base/zipball/bd52fe7bb1abcf9c01ae834d9de130e8536fabd3",
+                "reference": "bd52fe7bb1abcf9c01ae834d9de130e8536fabd3",
+                "shasum": ""
+            },
             "require": {
                 "dhii/collections-interface": "dev-master"
             },
@@ -60,6 +73,7 @@
                     "Dhii\\Collection\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -80,6 +94,12 @@
                 "url": "https://github.com/Dhii/collections-interface.git",
                 "reference": "d023f8e2150dc25ad3d514be5c70a184f63d6451"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/collections-interface/zipball/d023f8e2150dc25ad3d514be5c70a184f63d6451",
+                "reference": "d023f8e2150dc25ad3d514be5c70a184f63d6451",
+                "shasum": ""
+            },
             "require": {
                 "php": "^5.3 | ^7.0"
             },
@@ -94,12 +114,7 @@
                     "Dhii\\Collection\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Dhii\\Collection\\UnitTest\\": "test/unit",
-                    "Dhii\\Collection\\FuncTest\\": "test/functional"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -120,6 +135,12 @@
                 "url": "https://github.com/Dhii/stats-abstract.git",
                 "reference": "c62a6d88451adab469873716631a7c6231df8a76"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/stats-abstract/zipball/c62a6d88451adab469873716631a7c6231df8a76",
+                "reference": "c62a6d88451adab469873716631a7c6231df8a76",
+                "shasum": ""
+            },
             "require": {
                 "dhii/collections-abstract-base": "dev-master",
                 "dhii/stats-interface": "dev-master"
@@ -133,6 +154,7 @@
                     "Dhii\\Stats\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -153,6 +175,12 @@
                 "url": "https://github.com/Dhii/stats-interface.git",
                 "reference": "afb71a15096e9857e78d6a85d317f3e7a1dc350f"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/stats-interface/zipball/afb71a15096e9857e78d6a85d317f3e7a1dc350f",
+                "reference": "afb71a15096e9857e78d6a85d317f3e7a1dc350f",
+                "shasum": ""
+            },
             "require-dev": {
                 "dhii/php-cs-fixer-config": "dev-master"
             },
@@ -162,6 +190,7 @@
                     "Dhii\\Stats\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -184,6 +213,12 @@
                 "url": "https://github.com/Dhii/php-cs-fixer-config.git",
                 "reference": "ee3cc6c906a1aa4dca2bcbfcfef684dbd1ebb8ca"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/php-cs-fixer-config/zipball/ee3cc6c906a1aa4dca2bcbfcfef684dbd1ebb8ca",
+                "reference": "ee3cc6c906a1aa4dca2bcbfcfef684dbd1ebb8ca",
+                "shasum": ""
+            },
             "require": {
                 "friendsofphp/php-cs-fixer": ">=1.11 <1.12",
                 "php": "^5.3 | ^7.0"
@@ -197,11 +232,7 @@
                     "Dhii\\Configuration\\PHPCSFixer\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Dhii\\Configuration\\PHPCSFixer\\UnitTest\\": "test/unit"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],

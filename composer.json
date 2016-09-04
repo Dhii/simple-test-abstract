@@ -29,30 +29,5 @@
             "Dhii\\SimpleTest\\Test\\Stub\\": "test/stub/"
         }
     },
-    "repositories": [
-        {
-            "url": "https://github.com/Dhii/php-cs-fixer-config.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/Dhii/collections-interface.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/Dhii/collections-abstract-base.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/Dhii/stats-interface.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/Dhii/stats-abstract.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/Dhii/collections-abstract.git",
-            "type": "git"
-        }
-    ]
+    "repositories": []
 }
