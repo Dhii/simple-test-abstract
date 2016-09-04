@@ -92,9 +92,6 @@ class AbstractTesterTest extends \Xpmock\TestCase
     {
         $me = $this;
         $mock = $this->mock('Dhii\\SimpleTest\\Runner\\AbstractRunner')
-                ->_getStatAggregator($aggregator)
-                ->_getCoordinator($coordinator)
-                ->_getAssertionMaker($assertionMaker)
                 ->_createResultFromTest(function(\Dhii\SimpleTest\Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode, $time, $memory) use ($me) {
                     return $me->createTestResult(
                             $test,
@@ -110,6 +107,10 @@ class AbstractTesterTest extends \Xpmock\TestCase
                 })
                 ->getCode(uniqid('testrunner-'))
                 ->new();
+        $reflection = $this->reflect($mock);
+        $reflection->_setStatAggregator($aggregator);
+        $reflection->_setCoordinator($coordinator);
+        $reflection->_setAssertionMaker($assertionMaker);
 
         return $mock;
     }
@@ -156,11 +157,14 @@ class AbstractTesterTest extends \Xpmock\TestCase
      */
     public function createTest($class, $method)
     {
-        return $this->mock('Dhii\\SimpleTest\\Test\\AbstractTest')
-                ->getKey(uniqid('testkey-'))
-                ->getCaseName($class)
-                ->getMethodName($method)
+        $mock = $this->mock('Dhii\\SimpleTest\\Test\\AbstractTest')
                 ->new();
+        $reflection = $this->reflect($mock);
+        $reflection->_setKey(uniqid('testkey-'));
+        $reflection->_setCaseName($class);
+        $reflection->_setMethodName($method);
+
+        return $mock;
     }
 
     /**
@@ -178,17 +182,18 @@ class AbstractTesterTest extends \Xpmock\TestCase
     public function createTestResult(\Dhii\SimpleTest\Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode, $time, $memory)
     {
         $mock = $this->mock('Dhii\SimpleTest\Test\AbstractAccountableResult')
-                ->getCaseName($test->getCaseName())
-                ->getMethodName($test->getMethodName())
-                ->getKey($test->getKey())
-                ->getMessage($message)
-                ->getStatus($status)
-                ->getAssertionCount($assertionCount)
-                ->getRunnerCode($runnerCode)
-                ->getTimeTaken($time)
-                ->getMemoryTaken($memory)
-                ->getSuiteCode($test->getSuiteCode())
                 ->new();
+        $reflection = $this->reflect($mock);
+        $reflection->_setCaseName($test->getCaseName());
+        $reflection->_setMethodName($test->getMethodName());
+        $reflection->_setKey($test->getKey());
+        $reflection->_setMessage($message);
+        $reflection->_setStatus($status);
+        $reflection->_setAssertionCount($assertionCount);
+        $reflection->_setRunnerCode($runnerCode);
+        $reflection->_setTimeTaken($time);
+        $reflection->_setMemoryTaken($memory);
+        $reflection->_setSuiteCode($test->getSuiteCode());
 
         return $mock;
     }
@@ -284,9 +289,10 @@ class AbstractTesterTest extends \Xpmock\TestCase
             ->_createResultSetIterator(function($results) use ($me, $aggregator) {
                 return $me->createResultSetIterator($results, $aggregator);
             })
-            ->_getCoordinator($coordinator)
-            ->_getRunner($runner)
             ->new();
+        $reflection = $this->reflect($mock);
+        $reflection->_setCoordinator($coordinator);
+        $reflection->_setRunner($runner);
 
         return $mock;
     }
