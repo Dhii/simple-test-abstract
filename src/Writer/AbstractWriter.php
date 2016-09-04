@@ -103,4 +103,25 @@ abstract class AbstractWriter implements WriterInterface
 
         return gettype($object);
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    public function write($text, $level = self::LVL_1)
+    {
+        if ($this->_isShouldWriteLevel($level)) {
+            $this->_write($text);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Write the text to the output channel.
+     *
+     * @since [*next-version*]
+     */
+    abstract protected function _write($text);
 }
