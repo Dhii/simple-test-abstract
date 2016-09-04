@@ -350,20 +350,7 @@ abstract class AbstractRunner implements RunnerInterface
      *
      * @return Test\ResultInterface
      */
-    protected function _createResultFromTest(Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode, $time, $memory)
-    {
-        return new Test\DefaultResult(
-                $test->getCaseName(),
-                $test->getMethodName(),
-                $test->getKey(),
-                $message,
-                $status,
-                $assertionCount,
-                $test->getSuiteCode(),
-                $runnerCode,
-                $time,
-                $memory);
-    }
+    abstract protected function _createResultFromTest(Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode, $time, $memory);
 
     /**
      * Runs right before a test is run.
