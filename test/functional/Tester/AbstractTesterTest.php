@@ -136,11 +136,14 @@ class AbstractTesterTest extends \Xpmock\TestCase
      */
     public function createSuite($tests, \Dhii\SimpleTest\Coordinator\CoordinatorInterface $coordinator)
     {
-        return $this->mock('Dhii\\SimpleTest\\Suite\\AbstractSuite')
-                ->getCode(uniqid('testsuite-'))
-                ->_getCoordinator($coordinator)
-                ->_getTests($tests)
+        $mock = $this->mock('Dhii\\SimpleTest\\Suite\\AbstractSuite')
                 ->new();
+        $reflection = $this->reflect($mock);
+        $reflection->_setCode(uniqid('testsuite-'));
+        $reflection->_setCoordinator($coordinator);
+        $reflection->addTests($tests);
+
+        return $mock;
     }
 
     /**
@@ -191,6 +194,80 @@ class AbstractTesterTest extends \Xpmock\TestCase
     }
 
     /**
+     * Creates a new locator result set.
+     *
+     * @since [*next-version*]
+     * @param \Dhii\SimpleTest\Test\TestInterface[] $results The result set.
+     * @return \Dhii\SimpleTest\Locator\AbstractResultSet The new locator result set.
+     */
+    public function createLocatorResultSet($results)
+    {
+        $mock = $this->mock('Dhii\SimpleTest\Locator\AbstractResultSet')
+                ->new();
+        $reflection = $this->reflect($mock);
+        $reflection->_addItems($results);
+
+        return $mock;
+    }
+
+    /**
+     * Create a new class locator.
+     *
+     * @since [*next-version*]
+     * @param string $className Name of the class, for which to create the locator.
+     * @return \Dhii\SimpleTest\Locator\AbstractClassLocator The new class locator.
+     */
+    public function createClassLocator($className)
+    {
+        $me = $this;
+        $mock = $this->mock('Dhii\SimpleTest\Locator\AbstractClassLocator')
+                ->_matchMethod(function($method) {
+                    return strpos($method->getName(), 'test') === 0;
+                })
+                ->_createTest(function($className, $methodName, $key) use ($me) {
+                    return $me->createTest($className, $methodName);
+                })
+                ->_createResultSet(function($results) use ($me) {
+                    return $me->createLocatorResultSet($results);
+                })
+                ->new();
+        $mock->setClass($className);
+
+        return $mock;
+    }
+
+    /**
+     * Creates a new file path locator.
+     *
+     * @since [*next-version*]
+     * @return \Dhii\SimpleTest\Locator\AbstractFilePathLocator The new file locator instance.
+     */
+    public function createFileLocator()
+    {
+        $me = $this;
+        $mock = $this->mock('Dhii\SimpleTest\Locator\AbstractFilePathLocator')
+                ->_createClassLocator(function($className) use ($me) {
+                    return $me->createClassLocator($className);
+                })
+                ->_createResultSet(function($results) use ($me) {
+                    return $me->createLocatorResultSet($results);
+                })
+                ->_matchFile(function($fileName) {
+                    $fileName = basename($fileName, '.php');
+                    $suffix = 'Test';
+                    // Length of $suffix from the end
+                    $offset = strlen($fileName) - strlen($suffix);
+                    // Position in whole filename, not from offset
+                    $position = strpos($fileName, $suffix, $offset);
+                    // Is the string found, and at the very end?
+                    return $position === $offset;
+                })
+                ->new();
+
+        return $mock;
+    }
+
+    /**
      * Creates a new test subject.
      *
      * @since [*next-version*]
@@ -214,6 +291,11 @@ class AbstractTesterTest extends \Xpmock\TestCase
         return $mock;
     }
 
+    /**
+     * Tests whether a valid isntance of the test subject can be created.
+     *
+     * @since [*next-version*]
+     */
     public function testCanBeCreated()
     {
         $subject = $this->createInstance();
@@ -230,11 +312,8 @@ class AbstractTesterTest extends \Xpmock\TestCase
         $subject = $this->createInstance();
         $reflection = $this->reflect($subject);
 
-        $tests = array(
-            $this->createTest('Dhii\\SimpleTest\\Test\\Stub\\More\\MyTestCase1Test', 'testFailure'),
-            $this->createTest('Dhii\\SimpleTest\\Test\\Stub\\More\\MyTestCase1Test', 'testSuccess'),
-            $this->createTest('Dhii\\SimpleTest\\Test\\Stub\\More\\MyTestCase1Test', 'testError')
-        );
+        $path = (dirname(dirname(__DIR__)) . '/stub/More/MyTestCase1Test.php');
+        $tests = $this->createFileLocator()->addPath($path)->locate();
         $subject->addSuite($this->createSuite($tests, $this->createCoordinator()));
         $result = $subject->runAll();
 
@@ -242,10 +321,10 @@ class AbstractTesterTest extends \Xpmock\TestCase
         $this->assertInstanceOf('Dhii\SimpleTest\Test\AccountableInterface', $result, 'Run result is not accountable for test amount');
         $this->assertInstanceOf('Dhii\SimpleTest\Test\UsageAccountableInterface', $result, 'Run result is not accountable for test usage');
 
-        $this->assertEquals(count($tests), $result->getTestCount(), 'Wrong result count reported');
+        $this->assertEquals(4, $result->getTestCount(), 'Wrong result count reported');
         $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_ERROR), 'Wrong erred result count reported');
         $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_FAILURE), 'Wrong failed result count reported');
-        $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_SUCCESS), 'Wrong successful result count reported');
+        $this->assertEquals(2, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_SUCCESS), 'Wrong successful result count reported');
         $this->assertEquals(3, $result->getAssertionCount(), 'Wrong assertion count reported');
         $this->assertInternalType('float', $result->getTimeTaken(), 'Time reporting is incorrect');
         $this->assertGreaterThan(0, $result->getTimeTaken(), 'Wrong time taken reported');
