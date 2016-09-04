@@ -285,12 +285,20 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
 
         //  Certain file iteration modes apply
         if ($paths instanceof FilesystemIterator) {
-            $paths->setFlags(
-                FilesystemIterator::SKIP_DOTS |
-                FilesystemIterator::FOLLOW_SYMLINKS |
-                FilesystemIterator::KEY_AS_PATHNAME |
-                FilesystemIterator::CURRENT_AS_SELF
-            );
+            try {
+                $paths->setFlags(
+                    FilesystemIterator::SKIP_DOTS |
+                    FilesystemIterator::FOLLOW_SYMLINKS |
+                    FilesystemIterator::KEY_AS_PATHNAME |
+                    FilesystemIterator::CURRENT_AS_SELF
+                );
+            }
+            /* No files found, return empty array
+             * https://bugs.php.net/bug.php?id=55701
+             */
+            catch (\LogicException $lx) {
+                return array();
+            }
         }
 
         // Normalize array to iterator
