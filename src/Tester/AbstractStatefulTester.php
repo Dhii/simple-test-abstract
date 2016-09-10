@@ -141,7 +141,10 @@ abstract class AbstractStatefulTester extends AbstractTester
      *
      * @return Runner\DefaultRunner The new runner.
      */
-    abstract protected function _createRunner($coordinator, $assertionMaker, $statAggregator);
+    abstract protected function _createRunner(
+            Coordinator\CoordinatorInterface $coordinator,
+            Assertion\MakerInterface $assertionMaker,
+            Stats\AggregatorInterface $statAggregator);
 
     /**
      * Retrieve the runner used by this instance.
