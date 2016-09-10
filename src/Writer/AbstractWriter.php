@@ -54,6 +54,7 @@ abstract class AbstractWriter implements WriterInterface
      * Retrieve the EOL (end of line) sequence that is used by this instance.
      *
      * @since [*next-version*]
+     *
      * @return string The string that signifies EOL.
      */
     protected function _getEol()
@@ -82,6 +83,7 @@ abstract class AbstractWriter implements WriterInterface
      * This helps to understand the type and possibly a scalar value of something.
      *
      * @codeCoverageIgnore
+     *
      * @since [*next-version*]
      *
      * @param mixed $object The value to generate a simple string representation of.
