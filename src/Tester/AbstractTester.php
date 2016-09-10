@@ -8,85 +8,29 @@ use Dhii\SimpleTest\Runner;
 use Dhii\SimpleTest\Test;
 
 /**
- * Common functionality for testers.
+ * Common base functionality for testers.
  *
  * @since [*next-version*]
  */
 abstract class AbstractTester implements TesterInterface
 {
-    protected $suites;
-    protected $coordinator;
-    protected $runner;
-
     /**
-     * Sets the coordinator to be used by this instance.
+     * Higher-level coordinator retrieval.
      *
      * @since [*next-version*]
      *
-     * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
-     *
-     * @return AbstractTester This instance.
+     * @return Coordinator\CoordinatorInterface
      */
-    protected function _setCoordinator(Coordinator\CoordinatorInterface $coordinator)
-    {
-        $this->coordinator = $coordinator;
-
-        return $this;
-    }
+    abstract protected function _getCoordinatorInstance();
 
     /**
-     * Retrieve the coordinator that is used by this instance.
-     *
-     * @since [*next-version*]
-     *
-     * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
-     */
-    protected function _getCoordinator()
-    {
-        return $this->coordinator;
-    }
-
-    /**
-     * Retrieve the runner used by this instance.
+     * Higher-level runner retrieval.
      *
      * @since [*next-version*]
      *
      * @return Runner\RunnerInterface The runner used by this instance.
      */
-    protected function _getRunner()
-    {
-        return $this->runner;
-    }
-
-    /**
-     * Set the runner to be used by this instance.
-     *
-     * @since [*next-version*]
-     *
-     * @param Runner\RunnerInterface $runner The runner to be used by this instance.
-     */
-    protected function _setRunner(Runner\RunnerInterface $runner)
-    {
-        $this->runner = $runner;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @since [*next-version*]
-     *
-     * @return AbstractTester This instance.
-     */
-    public function addSuite(Suite\SuiteInterface $suite)
-    {
-        $this->_getCoordinator()->beforeAddSuite($suite, $this);
-        $this->suites[$suite->getCode()] = $suite;
-        $this->_getCoordinator()->afterAddSuite($suite, $this);
-
-        return $this;
-    }
+    abstract protected function _getRunnerInstance();
 
     /**
      * {@inheritdoc}
@@ -97,7 +41,7 @@ abstract class AbstractTester implements TesterInterface
     {
         $this->_beforeRunAll();
         $results = $this->_runAll();
-        $results = $this->_createResultSetIterator($results);
+        $results = $this->_prepareResults($results);
         $this->_afterRunAll($results);
 
         return $results;
@@ -112,7 +56,7 @@ abstract class AbstractTester implements TesterInterface
      */
     protected function _runAll()
     {
-        $runner  = $this->_getRunner();
+        $runner  = $this->_getRunnerInstance();
         $results = array();
         foreach ($this->_getSuites() as $_code => $_suite) {
             /* @var $_suite SuiteInterface */
@@ -127,7 +71,7 @@ abstract class AbstractTester implements TesterInterface
     }
 
     /**
-     * Create a new iterator of test result sets.
+     * Prepares a result set from an array of results.
      *
      * @since [*next-version*]
      *
@@ -135,7 +79,10 @@ abstract class AbstractTester implements TesterInterface
      *
      * @return Test\ResultSetInterface The list of result sets.
      */
-    abstract protected function _createResultSetIterator($results);
+    protected function _prepareResults($results)
+    {
+        return $this->_createResultSetIterator($results);
+    }
 
     /**
      * Executes after tests in one of this tester's suites are executed.
@@ -146,7 +93,7 @@ abstract class AbstractTester implements TesterInterface
      */
     protected function _beforeRunSuite(Suite\SuiteInterface $suite)
     {
-        $this->_getCoordinator()->beforeRunSuite($suite, $this);
+        $this->_getCoordinatorInstance()->beforeRunSuite($suite, $this);
 
         return $this;
     }
@@ -160,7 +107,7 @@ abstract class AbstractTester implements TesterInterface
      */
     protected function _afterRunSuite(Suite\SuiteInterface $suite)
     {
-        $this->_getCoordinator()->afterRunSuite($suite, $this);
+        $this->_getCoordinatorInstance()->afterRunSuite($suite, $this);
 
         return $this;
     }
@@ -174,7 +121,7 @@ abstract class AbstractTester implements TesterInterface
      */
     protected function _afterRunAll(Test\ResultSetInterface $results)
     {
-        $this->_getCoordinator()->afterRunAllSuites($results, $this);
+        $this->_getCoordinatorInstance()->afterRunAllSuites($results, $this);
 
         return $this;
     }
@@ -188,18 +135,17 @@ abstract class AbstractTester implements TesterInterface
      */
     protected function _beforeRunAll()
     {
-        $this->_getCoordinator()->beforeRunAllSuites($this, $this);
+        $this->_getCoordinatorInstance()->beforeRunAllSuites($this, $this);
 
         return $this;
     }
 
     /**
+     * Retrieves the suites of this tester.
+     *
      * @since [*next-version*]
      *
      * @return Suite\SuiteInterface[]
      */
-    protected function _getSuites()
-    {
-        return $this->suites;
-    }
+    abstract protected function _getSuites();
 }

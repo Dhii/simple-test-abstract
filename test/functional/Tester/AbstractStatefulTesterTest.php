@@ -3,11 +3,11 @@
 namespace Dhii\SimpleTest\FuncTest\Tester;
 
 /**
- * Testing {@see Dhii\SimpleTest\Tester\AbstractTester}.
+ * Testing {@see Dhii\SimpleTest\Tester\AbstractStatefulTester}.
  *
  * @since [*next-version*]
  */
-class AbstractTesterTest extends \Xpmock\TestCase
+class AbstractStatefulTesterTest extends \Xpmock\TestCase
 {
     /**
      * Creates a new stats aggreagator.
@@ -17,8 +17,10 @@ class AbstractTesterTest extends \Xpmock\TestCase
      */
     public function createStatsAggregator()
     {
-        return $this->mock('Dhii\\SimpleTest\\Test\\AbstractAggregator')
+        $mock = $this->mock('Dhii\\SimpleTest\\Test\\AbstractAggregator')
                 ->new();
+
+        return $mock;
     }
 
     /**
@@ -86,9 +88,9 @@ class AbstractTesterTest extends \Xpmock\TestCase
      * @return \Dhii\SimpleTest\Runner\AbstractRunner
      */
     public function createRunner(
-            \Dhii\Stats\AggregatorInterface $aggregator,
             \Dhii\SimpleTest\Coordinator\CoordinatorInterface $coordinator,
-            \Dhii\SimpleTest\Assertion\MakerInterface $assertionMaker)
+            \Dhii\SimpleTest\Assertion\MakerInterface $assertionMaker,
+            \Dhii\Stats\AggregatorInterface $aggregator)
     {
         $me = $this;
         $mock = $this->mock('Dhii\\SimpleTest\\Runner\\AbstractRunner')
@@ -273,26 +275,51 @@ class AbstractTesterTest extends \Xpmock\TestCase
     }
 
     /**
+     * Creates a new writer.
+     *
+     * @since [*next-version*]
+     *
+     * @return \Dhii\SimpleTest\Writer\WriterInterface The new writer instance.
+     */
+    public function createWriter()
+    {
+        $mock = $this->mock('Dhii\SimpleTest\Writer\AbstractWriter')
+                ->_write()
+                ->new();
+
+        return $mock;
+    }
+
+    /**
      * Creates a new test subject.
      *
      * @since [*next-version*]
-     * @return \Dhii\SimpleTest\Tester\AbstractTester
+     * @return \Dhii\SimpleTest\Tester\AbstractStatefulTester
      */
     public function createInstance()
     {
         $aggregator = $this->createStatsAggregator();
-        $coordinator = $this->createCoordinator();
-        $assertionMaker = $this->createAssertionMaker();
-        $runner = $this->createRunner($aggregator, $coordinator, $assertionMaker);
         $me = $this;
-        $mock = $this->mock('Dhii\\SimpleTest\\Tester\\AbstractTester')
-            ->_createResultSetIterator(function($results) use ($me, $aggregator) {
+        $mock = $this->mock('Dhii\\SimpleTest\\Tester\\AbstractStatefulTester')
+            ->_prepareResults(function($results) use ($me, $aggregator) {
                 return $me->createResultSetIterator($results, $aggregator);
             })
+            ->_createCoordinator(function() use ($me) {
+                return $me->createCoordinator();
+            })
+            ->_createRunner(function($coordinator, $assertionMaker, $aggregator) use ($me) {
+                return $me->createRunner($coordinator, $assertionMaker, $aggregator);
+            })
+            ->_createWriter(function() use ($me) {
+                return $me->createWriter();
+            })
+            ->_createStatAggregator(function() use ($me) {
+                return $me->createStatsAggregator();
+            })
+            ->_createAssertionMaker(function() use ($me) {
+                return $me->createAssertionMaker();
+            })
             ->new();
-        $reflection = $this->reflect($mock);
-        $reflection->_setCoordinator($coordinator);
-        $reflection->_setRunner($runner);
 
         return $mock;
     }
@@ -313,10 +340,11 @@ class AbstractTesterTest extends \Xpmock\TestCase
      *
      * @since [*next-version*]
      */
-    public function testRunAll()
+    public function testRunAll($subject = null)
     {
-        $subject = $this->createInstance();
-        $reflection = $this->reflect($subject);
+        if (is_null($subject)) {
+            $subject = $this->createInstance();
+        }
 
         $path = (dirname(dirname(__DIR__)) . '/stub/More/MyTestCase1Test.php');
         $tests = $this->createFileLocator()->addPath($path)->locate();
