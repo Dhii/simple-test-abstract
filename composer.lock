@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "32979f475dab154c58ef7a17380b8fc5",
-    "content-hash": "365ab45bdae26185d5a20da858637c70",
+    "hash": "803714be28eddee747047206b0346466",
+    "content-hash": "623dee942b29ca24df882c55c8f3fa3c",
     "packages": [
         {
             "name": "dhii/collections-abstract",
@@ -126,6 +126,44 @@
             ],
             "description": "Interfaces for collections",
             "time": "2016-09-03 14:02:49"
+        },
+        {
+            "name": "dhii/simple-test-interface",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/simple-test-interface.git",
+                "reference": "45a57e27734c73628a477ef2c96cdc3b71f820ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/simple-test-interface/zipball/45a57e27734c73628a477ef2c96cdc3b71f820ea",
+                "reference": "45a57e27734c73628a477ef2c96cdc3b71f820ea",
+                "shasum": ""
+            },
+            "require-dev": {
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "4.*",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\SimpleTest\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for Dhii SimpleTest",
+            "time": "2016-09-15 15:39:15"
         },
         {
             "name": "dhii/stats-abstract",
@@ -2103,6 +2141,7 @@
     "stability-flags": {
         "dhii/stats-abstract": 20,
         "dhii/collections-abstract": 20,
+        "dhii/simple-test-interface": 20,
         "dhii/php-cs-fixer-config": 20,
         "codeclimate/php-test-reporter": 20
     },

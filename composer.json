@@ -13,7 +13,8 @@
     "require": {
         "php":  "^5.3.3 | ^7.0",
         "dhii/stats-abstract": "dev-master",
-        "dhii/collections-abstract": "dev-master"
+        "dhii/collections-abstract": "dev-master",
+        "dhii/simple-test-interface": "dev-master"
     },
     "require-dev": {
         "dhii/php-cs-fixer-config": "dev-php-5.3",
