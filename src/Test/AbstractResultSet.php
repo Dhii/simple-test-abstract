@@ -72,7 +72,9 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
      */
     public function getTestCount()
     {
-        return array_sum($this->_getStats('test_count'));
+        $counts = $this->_getStats('test_count');
+
+        return is_array($counts) ? array_sum($counts) : $counts;
     }
 
     /**
