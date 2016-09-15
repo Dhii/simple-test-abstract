@@ -133,12 +133,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/simple-test-interface.git",
-                "reference": "45a57e27734c73628a477ef2c96cdc3b71f820ea"
+                "reference": "63d98dd026999a97eab9e9f7c56a7f0903aa2691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/simple-test-interface/zipball/45a57e27734c73628a477ef2c96cdc3b71f820ea",
-                "reference": "45a57e27734c73628a477ef2c96cdc3b71f820ea",
+                "url": "https://api.github.com/repos/Dhii/simple-test-interface/zipball/63d98dd026999a97eab9e9f7c56a7f0903aa2691",
+                "reference": "63d98dd026999a97eab9e9f7c56a7f0903aa2691",
                 "shasum": ""
             },
             "require-dev": {
@@ -163,7 +163,7 @@
                 }
             ],
             "description": "Interfaces for Dhii SimpleTest",
-            "time": "2016-09-15 15:39:15"
+            "time": "2016-09-15 16:05:09"
         },
         {
             "name": "dhii/stats-abstract",
