@@ -351,9 +351,22 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
         $subject->addSuite($this->createSuite($tests, $this->createCoordinator()));
         $result = $subject->runAll();
 
+        $this->assertInstanceOf('OuterIterator', $result, 'Run result is not an outer iterator, and cannot iterate over individual result instances');
         $this->assertInstanceOf('Dhii\SimpleTest\Test\ResultSetInterface', $result, 'Run result is not a valid result set');
         $this->assertInstanceOf('Dhii\SimpleTest\Test\AccountableInterface', $result, 'Run result is not accountable for test amount');
         $this->assertInstanceOf('Dhii\SimpleTest\Test\UsageAccountableInterface', $result, 'Run result is not accountable for test usage');
+
+        foreach ($result as $_result) {
+            /* @var $_result Dhii\SimpleTest\Test\ResultInterface */
+            $this->assertInstanceOf('Dhii\SimpleTest\Test\ResultInterface', $_result, 'Looping over tester result does not yield result instances');
+            break;
+        }
+
+        foreach ($result->getArrayIterator() as $_resultSet) {
+            /* @var $_result Dhii\SimpleTest\Test\ResultSetInterface */
+            $this->assertInstanceOf('Dhii\SimpleTest\Test\ResultSetInterface', $_resultSet, 'Tester result does not expose individual result sets');
+            break;
+        }
 
         $this->assertEquals(4, $result->getTestCount(), 'Wrong result count reported');
         $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_ERROR), 'Wrong erred result count reported');
