@@ -117,4 +117,14 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     {
         return $this->getInnerIterator()->getIteratorIndex();
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    protected function _getItemsForCache()
+    {
+        return $this->getInnerIterator();
+    }
 }
