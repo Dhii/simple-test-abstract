@@ -131,19 +131,13 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      */
     protected function _getFileTests($path)
     {
-        try {
-            if (!($className = $this->_retrieveFileClassName($path))) {
-                return array();
-            }
-
-            $classLocator = $this->_createClassLocator($className);
-
-            return $classLocator->locate();
-        } catch (\Exception $ex) {
+        if (!($className = $this->_retrieveFileClassName($path))) {
             return array();
         }
 
-        return array();
+        $classLocator = $this->_createClassLocator($className);
+
+        return $classLocator->locate();
     }
 
     /**
