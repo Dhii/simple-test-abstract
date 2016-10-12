@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/collections-abstract.git",
-                "reference": "19dc56c9e60488c8b25039e377c5196438faa1da"
+                "reference": "d63b920b960b3b1176cac17d402e6aaf7f9b3c29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/collections-abstract/zipball/19dc56c9e60488c8b25039e377c5196438faa1da",
-                "reference": "19dc56c9e60488c8b25039e377c5196438faa1da",
+                "url": "https://api.github.com/repos/Dhii/collections-abstract/zipball/d63b920b960b3b1176cac17d402e6aaf7f9b3c29",
+                "reference": "d63b920b960b3b1176cac17d402e6aaf7f9b3c29",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
                 }
             ],
             "description": "A collections library",
-            "time": "2016-10-01 15:37:33"
+            "time": "2016-10-12 12:02:52"
         },
         {
             "name": "dhii/collections-abstract-base",
@@ -56,16 +56,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/collections-abstract-base.git",
-                "reference": "1b7f4f11eb5db50e6dad76356012e1567f5f65dc"
+                "reference": "699430c5bd24f0bd5a886ac77484a5271f6a6527"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/collections-abstract-base/zipball/1b7f4f11eb5db50e6dad76356012e1567f5f65dc",
-                "reference": "1b7f4f11eb5db50e6dad76356012e1567f5f65dc",
+                "url": "https://api.github.com/repos/Dhii/collections-abstract-base/zipball/699430c5bd24f0bd5a886ac77484a5271f6a6527",
+                "reference": "699430c5bd24f0bd5a886ac77484a5271f6a6527",
                 "shasum": ""
             },
             "require": {
-                "dhii/collections-interface": "dev-develop"
+                "dhii/collections-interface": "dev-master"
             },
             "require-dev": {
                 "dhii/php-cs-fixer-config": "dev-php-5.3",
@@ -176,20 +176,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/stats-abstract.git",
-                "reference": "f905e5a791bf4e7d8e3d891abb24957aa0dbe0ae"
+                "reference": "28fa46e5fa92c4bbfb6b030b04db06a34a42dbb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/stats-abstract/zipball/f905e5a791bf4e7d8e3d891abb24957aa0dbe0ae",
-                "reference": "f905e5a791bf4e7d8e3d891abb24957aa0dbe0ae",
+                "url": "https://api.github.com/repos/Dhii/stats-abstract/zipball/28fa46e5fa92c4bbfb6b030b04db06a34a42dbb1",
+                "reference": "28fa46e5fa92c4bbfb6b030b04db06a34a42dbb1",
                 "shasum": ""
             },
             "require": {
                 "dhii/collections-abstract-base": "dev-develop",
-                "dhii/stats-interface": "dev-master"
+                "dhii/stats-interface": "dev-develop"
             },
             "require-dev": {
-                "dhii/php-cs-fixer-config": "dev-php-5.3"
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
             },
             "type": "library",
             "autoload": {
@@ -208,11 +210,11 @@
                 }
             ],
             "description": "Abstract base for stats",
-            "time": "2016-09-25 07:24:24"
+            "time": "2016-10-12 11:44:09"
         },
         {
             "name": "dhii/stats-interface",
-            "version": "dev-master",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/stats-interface.git",
