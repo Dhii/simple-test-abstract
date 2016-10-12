@@ -40,7 +40,9 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
                 })
                 ->_getStatAggregator($statAggregator)
                 ->new();
-        $this->reflect($mock)->_setItems($results);
+        $reflection = $this->reflect($mock);
+        $reflection->_construct();
+        $reflection->_setItems($results);
 
         return $mock;
     }
@@ -64,6 +66,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
                 ->new();
 
         $reflection = $this->reflect($mock);
+        $reflection->_construct();
         $reflection->_addItems($items);
 
         return $mock;
@@ -142,6 +145,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
         $mock = $this->mock('Dhii\\SimpleTest\\Suite\\AbstractSuite')
                 ->new();
         $reflection = $this->reflect($mock);
+        $reflection->_construct();
         $reflection->_setCode(uniqid('testsuite-'));
         $reflection->_setCoordinator($coordinator);
         $reflection->addTests($tests);
@@ -212,6 +216,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
         $mock = $this->mock('Dhii\SimpleTest\Locator\AbstractResultSet')
                 ->new();
         $reflection = $this->reflect($mock);
+        $reflection->_construct();
         $reflection->_addItems($results);
 
         return $mock;
