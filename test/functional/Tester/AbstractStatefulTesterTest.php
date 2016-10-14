@@ -34,7 +34,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     public function createResultSet($results, \Dhii\SimpleTest\Test\AbstractAggregator $statAggregator)
     {
         $me = $this;
-        $mock = $this->mock('Dhii\SimpleTest\Test\AbstractResultSet')
+        $mock = $this->mock('Dhii\\SimpleTest\\Test\\AbstractResultSet')
                 ->_createSearchResultsIterator(function($results) use ($me, $statAggregator) {
                     return $me->_createResultSet($results, $statAggregator);
                 })
@@ -187,7 +187,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
      */
     public function createTestResult(\Dhii\SimpleTest\Test\TestBaseInterface $test, $message, $status, $assertionCount, $runnerCode, $time, $memory)
     {
-        $mock = $this->mock('Dhii\SimpleTest\Test\AbstractAccountableResult')
+        $mock = $this->mock('Dhii\\SimpleTest\\Test\\AbstractAccountableResult')
                 ->new();
         $reflection = $this->reflect($mock);
         $reflection->_setCaseName($test->getCaseName());
@@ -213,7 +213,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
      */
     public function createLocatorResultSet($results)
     {
-        $mock = $this->mock('Dhii\SimpleTest\Locator\AbstractResultSet')
+        $mock = $this->mock('Dhii\\SimpleTest\\Locator\\AbstractResultSet')
                 ->new();
         $reflection = $this->reflect($mock);
         $reflection->_construct();
@@ -232,7 +232,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     public function createClassLocator($className)
     {
         $me = $this;
-        $mock = $this->mock('Dhii\SimpleTest\Locator\AbstractClassLocator')
+        $mock = $this->mock('Dhii\\SimpleTest\\Locator\\AbstractClassLocator')
                 ->_matchMethod(function($method) {
                     return strpos($method->getName(), 'test') === 0;
                 })
@@ -257,7 +257,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     public function createFileLocator()
     {
         $me = $this;
-        $mock = $this->mock('Dhii\SimpleTest\Locator\AbstractFilePathLocator')
+        $mock = $this->mock('Dhii\\SimpleTest\\Locator\\AbstractFilePathLocator')
                 ->_createClassLocator(function($className) use ($me) {
                     return $me->createClassLocator($className);
                 })
@@ -288,7 +288,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
      */
     public function createWriter()
     {
-        $mock = $this->mock('Dhii\SimpleTest\Writer\AbstractWriter')
+        $mock = $this->mock('Dhii\\SimpleTest\\Writer\\AbstractWriter')
                 ->_write()
                 ->new();
 
@@ -357,19 +357,19 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
         $result = $subject->runAll();
 
         $this->assertInstanceOf('OuterIterator', $result, 'Run result is not an outer iterator, and cannot iterate over individual result instances');
-        $this->assertInstanceOf('Dhii\SimpleTest\Test\ResultSetInterface', $result, 'Run result is not a valid result set');
-        $this->assertInstanceOf('Dhii\SimpleTest\Test\AccountableInterface', $result, 'Run result is not accountable for test amount');
-        $this->assertInstanceOf('Dhii\SimpleTest\Test\UsageAccountableInterface', $result, 'Run result is not accountable for test usage');
+        $this->assertInstanceOf('Dhii\\SimpleTest\\Test\\ResultSetInterface', $result, 'Run result is not a valid result set');
+        $this->assertInstanceOf('Dhii\\SimpleTest\Test\\AccountableInterface', $result, 'Run result is not accountable for test amount');
+        $this->assertInstanceOf('Dhii\\SimpleTest\\Test\\UsageAccountableInterface', $result, 'Run result is not accountable for test usage');
 
         foreach ($result as $_result) {
             /* @var $_result Dhii\SimpleTest\Test\ResultInterface */
-            $this->assertInstanceOf('Dhii\SimpleTest\Test\ResultInterface', $_result, 'Looping over tester result does not yield result instances');
+            $this->assertInstanceOf('Dhii\\SimpleTest\\Test\\ResultInterface', $_result, 'Looping over tester result does not yield result instances');
             break;
         }
 
         foreach ($result->getArrayIterator() as $_resultSet) {
             /* @var $_result Dhii\SimpleTest\Test\ResultSetInterface */
-            $this->assertInstanceOf('Dhii\SimpleTest\Test\ResultSetInterface', $_resultSet, 'Tester result does not expose individual result sets');
+            $this->assertInstanceOf('Dhii\\SimpleTest\\Test\\ResultSetInterface', $_resultSet, 'Tester result does not expose individual result sets');
             break;
         }
 
