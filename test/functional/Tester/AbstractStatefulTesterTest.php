@@ -351,9 +351,12 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
             $subject = $this->createInstance();
         }
 
-        $path = (dirname(dirname(__DIR__)) . '/stub/More/MyTestCase1Test.php');
-        $tests = $this->createFileLocator()->addPath($path)->locate();
-        $subject->addSuite($this->createSuite($tests, $this->createCoordinator()));
+        $path1 = (dirname(dirname(__DIR__)) . '/stub/More/MyTestCase1Test.php');
+        $tests1 = $this->createFileLocator()->addPath($path1)->locate();
+        $subject->addSuite($this->createSuite($tests1, $this->createCoordinator()));
+        $path2 = (dirname(dirname(__DIR__)) . '/stub/MyTestCaseTest.php');
+        $tests2 = $this->createFileLocator()->addPath($path2)->locate();
+        $subject->addSuite($this->createSuite($tests2, $this->createCoordinator()));
         $result = $subject->runAll();
 
         $this->assertInstanceOf('OuterIterator', $result, 'Run result is not an outer iterator, and cannot iterate over individual result instances');
@@ -361,23 +364,29 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
         $this->assertInstanceOf('Dhii\\SimpleTest\Test\\AccountableInterface', $result, 'Run result is not accountable for test amount');
         $this->assertInstanceOf('Dhii\\SimpleTest\\Test\\UsageAccountableInterface', $result, 'Run result is not accountable for test usage');
 
+        $allResults = iterator_to_array($result);
+        $this->assertEquals(8, count($allResults), 'Incorrect number of result set iterations');
+
         foreach ($result as $_result) {
             /* @var $_result Dhii\SimpleTest\Test\ResultInterface */
             $this->assertInstanceOf('Dhii\\SimpleTest\\Test\\ResultInterface', $_result, 'Looping over tester result does not yield result instances');
             break;
         }
 
-        foreach ($result->getArrayIterator() as $_resultSet) {
+        $resultSets = $result->getIterators();
+        $this->assertEquals(2, count($resultSets), 'Incorrect number of result sets produced');
+
+        foreach ($result->getIterators() as $_resultSet) {
             /* @var $_result Dhii\SimpleTest\Test\ResultSetInterface */
             $this->assertInstanceOf('Dhii\\SimpleTest\\Test\\ResultSetInterface', $_resultSet, 'Tester result does not expose individual result sets');
             break;
         }
 
-        $this->assertEquals(4, $result->getTestCount(), 'Wrong result count reported');
-        $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_ERROR), 'Wrong erred result count reported');
-        $this->assertEquals(1, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_FAILURE), 'Wrong failed result count reported');
-        $this->assertEquals(2, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_SUCCESS), 'Wrong successful result count reported');
-        $this->assertEquals(3, $result->getAssertionCount(), 'Wrong assertion count reported');
+        $this->assertEquals(8, $result->getTestCount(), 'Wrong result count reported');
+        $this->assertEquals(2, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_ERROR), 'Wrong erred result count reported');
+        $this->assertEquals(2, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_FAILURE), 'Wrong failed result count reported');
+        $this->assertEquals(4, $result->getTestCountByStatus(\Dhii\SimpleTest\Test\AccountableInterface::TEST_SUCCESS), 'Wrong successful result count reported');
+        $this->assertEquals(5, $result->getAssertionCount(), 'Wrong assertion count reported');
         $this->assertInternalType('float', $result->getTimeTaken(), 'Time reporting is incorrect');
         $this->assertGreaterThan(0, $result->getTimeTaken(), 'Wrong time taken reported');
         $this->assertInternalType('int', $result->getMemoryTaken(), 'Memory reporting is incorrect');
