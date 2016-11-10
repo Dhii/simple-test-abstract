@@ -15,9 +15,28 @@ use Dhii\Collection;
  *
  * @since [*next-version*]
  */
-abstract class AbstractResultSetCollection extends AbstractResultSet implements Collection\SequenceIteratorIteratorInterface
+abstract class AbstractResultSetCollection extends AbstractResultSet implements Collection\SequentialIteratorInterface
 {
-    protected $innerIterator;
+    /** @var Collection\AbstractCollectionGroup */
+    protected $resultSets;
+
+    /**
+     *
+     * @return Collection\SequentialIteratorInterface|\
+     */
+    protected function _getResultSets()
+    {
+        if (is_null($this->resultSets)) {
+            $this->resultSets = $this->_createResultSetGroup();
+        }
+
+        return $this->resultSets;
+    }
+
+    /**
+     * @return Collection\SequentialIteratorInterface|\
+     */
+    abstract protected function _createResultSetGroup();
 
     /**
      * {@inheritdoc}
@@ -103,7 +122,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
      *
      * @since [*next-version*]
      */
-    public function getArrayIterator()
+    public function getIterators()
     {
         return $this->getInnerIterator()->getArrayIterator();
     }
