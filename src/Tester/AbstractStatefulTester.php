@@ -13,7 +13,7 @@ use Dhii\Stats;
 /**
  * Common functionality for testers that are able to generate their own components.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractStatefulTester extends AbstractTester
 {
@@ -33,7 +33,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return AbstractTester This instance.
      */
@@ -49,7 +49,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     protected function _getSuites()
     {
@@ -59,7 +59,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Sets the coordinator to be used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
      *
@@ -75,7 +75,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Retrieve the coordinator that is used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
      */
@@ -89,7 +89,7 @@ abstract class AbstractStatefulTester extends AbstractTester
      *
      * If coordinator not assigned, creates a new coordinator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
      */
@@ -105,7 +105,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Creates a new coordinator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Writer\WriterInterface The writer that the new corrdinator will use.
      *
@@ -116,7 +116,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     protected function _getRunnerInstance()
     {
@@ -133,7 +133,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Create a new runner.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Coordinator\CoordinatorInterface $coordinator    The coordinator that the runner will use.
      * @param Assertion\MakerInterface         $assertionMaker The assertion maker that the runner will use.
@@ -149,7 +149,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Retrieve the runner used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Runner\RunnerInterface The runner used by this instance.
      */
@@ -161,7 +161,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Set the runner to be used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Runner\RunnerInterface $runner The runner to be used by this instance.
      */
@@ -175,7 +175,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Retrieve the writer that this instance uses.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Writer\WriterInterface The writer used by this instance.
      */
@@ -187,7 +187,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Assign the writer for this instance to use.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Writer\WriterInterface $writer The writer for this instance to use.
      *
@@ -205,7 +205,7 @@ abstract class AbstractStatefulTester extends AbstractTester
      *
      * If no writer assigned, creates a new default writer.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Writer\WriterInterface The writer used by this instance.
      */
@@ -221,7 +221,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Creates a new writer.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Writer\WriterInterface The new writer.
      */
@@ -230,7 +230,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Assign the stat aggregator to be used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Stats\AggregatorInterface $statAggregator The stat aggregator that will be assigned to test results.
      *
@@ -246,7 +246,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Retrieve the stat aggregator used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Stats\AggregatorInterface The stat aggregator that is used by this instance.
      */
@@ -260,7 +260,7 @@ abstract class AbstractStatefulTester extends AbstractTester
      *
      * If no stat aggregator assigned, creates a new default aggregator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Stats\AggregatorInterface The stat aggregator that is used by this instance.
      */
@@ -276,7 +276,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Create a new stat aggregator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Stats\AggregatorInterface The new stat aggregator.
      */
@@ -285,7 +285,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Retrieve the assertion maker used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Assertion\MakerInterface The assertion maker used by this instance.
      */
@@ -297,7 +297,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Assign the assertion maker to be used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Assertion\MakerInterface $assertionMaker The assertion maker to be used by this instance.
      *
@@ -313,7 +313,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Retrieve the assertion maker used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Assertion\MakerInterface The assertion maker used by this instance.
      */
@@ -329,7 +329,7 @@ abstract class AbstractStatefulTester extends AbstractTester
     /**
      * Creates a new assertion maker.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Assertion\MakerInterface The new assertion maker.
      */

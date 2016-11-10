@@ -8,7 +8,7 @@ use Dhii\SimpleTest\Coordinator;
 /**
  * Most basic common test suite functionality.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterface
 {
@@ -17,7 +17,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * Sets the coordinator to be used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
      *
@@ -33,7 +33,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * Retrieve the coordinator that is used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
      */
@@ -45,7 +45,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTests()
     {
@@ -55,7 +55,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * Low-level multiple tests retrieval.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Test\TestInterface[]|\Traversable The tests in this suite.
      */
@@ -67,7 +67,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function addTest(Test\TestInterface $test)
     {
@@ -85,7 +85,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * Low-level single test adding.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\TestInterface $test The test to add.
      *
@@ -102,7 +102,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function addTests($tests)
     {
@@ -114,7 +114,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * Low-level multiple test adding.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\TestInterface[]|\Traversable $tests The tests to add.
      *
@@ -132,7 +132,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getCode()
     {
@@ -142,7 +142,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * Low-level suite code retrieval.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return string The code of this suite.
      */
@@ -154,7 +154,7 @@ abstract class AbstractSuite extends Test\AbstractSource implements SuiteInterfa
     /**
      * Low-level suite code setting.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $code The suite code to set.
      *

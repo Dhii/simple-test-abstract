@@ -7,7 +7,7 @@ use Dhii\SimpleTest\Assertion;
 /**
  * Common functionality for test cases that can make assertions.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveInterface
 {
@@ -16,7 +16,7 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function assertTrue($value, $message)
     {
@@ -28,7 +28,7 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function assertFalse($value, $message)
     {
@@ -40,7 +40,7 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function assert($assertion, $message)
     {
@@ -52,7 +52,7 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function setAssertionMaker(Assertion\MakerInterface $assertionMaker)
     {
@@ -64,7 +64,7 @@ abstract class AbstractCaseAssertive extends AbstractCase implements AssertiveIn
     /**
      * Retrieve the assertion maker used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Assertion\MakerInterface
      */
