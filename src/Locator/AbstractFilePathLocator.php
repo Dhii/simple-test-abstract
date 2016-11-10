@@ -12,7 +12,7 @@ use RecursiveArrayIterator;
 /**
  * Common functionality for path locators.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractFilePathLocator extends AbstractLocator implements FilePathLocatorInterface
 {
@@ -26,7 +26,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * The locator will process this specification by resolving it to a set of
      * files, depending on the form of specification.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string|array|\Traversable $path The path specification to add.
      *                                        - If a string is specified, it will be treated as a glob expression;
@@ -80,7 +80,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function locate()
     {
@@ -100,7 +100,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      *
      * Necessary primarily because {@see array_merge()} does not work on traversables.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param array              $array       The array to merge into.
      * @param array|\Traversable $traversable The second traversable structure.
@@ -123,7 +123,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * For naming and recognition rules, as well as for how the class file will
      * be treated, see {@see addPath()}.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $path A full path to the class file.
      *
@@ -147,7 +147,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * and therefore any classes declared in that file may not be available
      * after this method runs.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $path The path to a file that may contain a test case.
      *
@@ -182,7 +182,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      *
      * That locator would locate tests in the class.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $className Name of the class, for which to create the locator.
      *
@@ -193,7 +193,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     /**
      * Get the registered path specifications.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @see addPath()
      *
      * @return string[]|\Traversible A list of path specifications.
@@ -206,7 +206,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     /**
      * The eventual array of paths, which this locator will try to load tests from.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @see addPath()
      *
      * @return string[]|\Traversable A list of unique full paths resolved from the path specs.
@@ -230,7 +230,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     /**
      * Determine if a file matches the criteria of this locator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return bool True if the file matches this locator's criterie; false otherwise.
      */
@@ -239,7 +239,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     /**
      * Determine if a string ends with a suffix.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $string         The string to check.
      * @param string $requiredSuffix The suffix to check for.
@@ -259,7 +259,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
      * Resolve a path specification to a list of full paths.
      *
      * @see addPath()
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string[]|\Traversable $paths The path spec to resolve.
      *
@@ -323,7 +323,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     /**
      * Normalizes a path expression.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $path The path expression to normalize.
      *
@@ -340,7 +340,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     /**
      * Create a hash of a filesystem path.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @see _hash()
      *
      * @param string $path A string representing a filesystem path.
@@ -355,7 +355,7 @@ abstract class AbstractFilePathLocator extends AbstractLocator implements FilePa
     /**
      * Gets a basename of a file path, clean of any extensions.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $fileName File path to get the basename of.
      *

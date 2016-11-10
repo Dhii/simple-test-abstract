@@ -7,14 +7,14 @@ use Dhii\SimpleTest;
 /**
  * Common functionality for assertion makers.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractMaker implements MakerInterface
 {
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @throws SimpleTest\Exception If assertion is not callable.
      *
@@ -38,7 +38,7 @@ abstract class AbstractMaker implements MakerInterface
     /**
      * Process a made assertion according to its result.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param mixed $result A result of a made assertions.
      *
@@ -56,7 +56,7 @@ abstract class AbstractMaker implements MakerInterface
     /**
      * React to a failed assertion with the specified message.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $message The message for the failure exception.
      *

@@ -10,14 +10,14 @@ use Dhii\SimpleTest\Test;
 /**
  * Common base functionality for testers.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractTester implements TesterInterface
 {
     /**
      * Higher-level coordinator retrieval.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Coordinator\CoordinatorInterface
      */
@@ -26,7 +26,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * Higher-level runner retrieval.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Runner\RunnerInterface The runner used by this instance.
      */
@@ -35,7 +35,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function runAll()
     {
@@ -50,7 +50,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * Low-level running of tests in this tester's suites.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Test\ResultInterface[]|\Traversable A list of test result lists, by suite code.
      */
@@ -73,7 +73,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * Prepares a result set from an array of results.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\ResultInterface[]|\Traversable $results A traversible list of result sets.
      *
@@ -87,7 +87,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * Executes after tests in one of this tester's suites are executed.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return AbstractTester This instance.
      */
@@ -101,7 +101,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * Executes after tests in one of this tester's suites are executed.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return AbstractTester This instance.
      */
@@ -115,7 +115,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * Executes after tests in this tester's suites are executed.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return AbstractTester This instance.
      */
@@ -129,7 +129,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * Executes before tests in this tester's suites are executed.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return AbstractTester This instance.
      */
@@ -143,7 +143,7 @@ abstract class AbstractTester implements TesterInterface
     /**
      * Retrieves the suites of this tester.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Suite\SuiteInterface[]
      */

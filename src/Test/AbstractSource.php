@@ -8,14 +8,14 @@ use Dhii\Collection;
 /**
  * Common functionality for test sources.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractSource extends Collection\AbstractSearchableCollection implements SourceInterface
 {
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTests()
     {
@@ -25,7 +25,7 @@ abstract class AbstractSource extends Collection\AbstractSearchableCollection im
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     protected function _validateItem($item)
     {
@@ -37,7 +37,7 @@ abstract class AbstractSource extends Collection\AbstractSearchableCollection im
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\TestInterface $item
      */

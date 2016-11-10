@@ -5,7 +5,7 @@ namespace Dhii\SimpleTest\Coordinator;
 /**
  * A default coordinator implementation.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 class AbstractCoordinator implements CoordinatorInterface
 {
@@ -14,7 +14,7 @@ class AbstractCoordinator implements CoordinatorInterface
      *
      * Triggers a "catch-all" `_any()` method.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $name      Name of the non-existing method.
      * @param array  $arguments The arguments for the method.
@@ -27,7 +27,7 @@ class AbstractCoordinator implements CoordinatorInterface
     /**
      * Handles calls to a non-defined method.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $target The method that was called
      * @param mixed  $data   The data to handle.

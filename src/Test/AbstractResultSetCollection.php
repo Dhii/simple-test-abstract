@@ -13,7 +13,7 @@ use Dhii\Collection;
  * over each result set; however, they also work as result sets, allowing searching and
  * stat aggregation in the way that any result set would.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractResultSetCollection extends AbstractResultSet implements Collection\SequenceIteratorIteratorInterface
 {
@@ -22,7 +22,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return AppendIterator The iterator that will iterate over results in result sets.
      */
@@ -38,7 +38,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     /**
      * Assigns the inner iterator instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Iterator $iterator The iterator to set.
      *
@@ -54,7 +54,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     /**
      * Retrieves the inner iterator instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return AppendIterator|null
      */
@@ -66,7 +66,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     /**
      * Creates a new instance of the inner iterator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return AppendIterator The inner append iterator.
      */
@@ -75,7 +75,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param ResultSet $resultSet The result set to add.
      */
@@ -91,7 +91,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
      *
      * Iterating over this instance MUST return results of the inner iterator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getItems()
     {
@@ -101,7 +101,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getArrayIterator()
     {
@@ -111,7 +111,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getIteratorIndex()
     {
@@ -121,7 +121,7 @@ abstract class AbstractResultSetCollection extends AbstractResultSet implements 
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     protected function _getItemsForCache()
     {

@@ -5,7 +5,7 @@ namespace Dhii\SimpleTest\Test;
 /**
  * Common functionality for test results.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractResult extends AbstractTestBase implements
     ResultInterface
@@ -18,7 +18,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getStatus()
     {
@@ -30,7 +30,7 @@ abstract class AbstractResult extends AbstractTestBase implements
      *
      * A status represents the outcome of a test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string A status for this test.
      */
@@ -44,7 +44,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getMessage()
     {
@@ -54,7 +54,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * Set the message for this test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param mixed Something that represents a message.
      */
@@ -68,7 +68,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTestStatusCodes()
     {
@@ -78,7 +78,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public static function getAllTestStatusCodes()
     {
@@ -92,7 +92,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function isSuccessful()
     {
@@ -102,7 +102,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getAssertionCount()
     {
@@ -112,7 +112,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * Set the amount of assertions that were made during this test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param int The code of the runner that ran this test.
      */
@@ -126,7 +126,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getRunnerCode()
     {
@@ -136,7 +136,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * Set the code of the runner that ran this test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string The code of the runner that ran this test.
      */
@@ -150,7 +150,7 @@ abstract class AbstractResult extends AbstractTestBase implements
     /**
      * Sets the code name of the suite that ran the test, of which this instance represents the result.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $code The code name of the suite that ran the test.
      *

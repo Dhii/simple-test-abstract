@@ -122,7 +122,7 @@ class BasicTestCase
     }
 
     /**
-     * @since [*next-version*]
+     * @since 0.1.0
      * @return \Dhii\SimpleTest\Test\MyTestSource
      */
     public function createTestSource()
@@ -157,7 +157,7 @@ class BasicTestCase
     /**
      * Demonstrates how a callback iterator can be used.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function demoCallbackIterator()
     {
@@ -177,7 +177,7 @@ class BasicTestCase
     /**
      * Demonstrates how the tests in suites can be run.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function demoTesterRunMultipleSuites()
     {
@@ -264,7 +264,7 @@ class BasicTestCase
     /**
      * Demonstrates how a suite can be iterable to access each test in it.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function demoSuiteItems()
     {
