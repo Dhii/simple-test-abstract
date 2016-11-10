@@ -5,14 +5,14 @@ namespace Dhii\SimpleTest\FuncTest\Tester;
 /**
  * Testing {@see Dhii\SimpleTest\Tester\AbstractStatefulTester}.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 class AbstractStatefulTesterTest extends \Xpmock\TestCase
 {
     /**
      * Creates a new stats aggreagator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @return Dhii\SimpleTest\Test\AbstractAggregator The new stats aggregator.
      */
     public function createStatsAggregator()
@@ -26,7 +26,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new result set instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @param \Dhii\SimpleTest\Test\ResultInterface[] $results The results to go into the set.
      * @param \Dhii\SimpleTest\Test\AbstractAggregator $statAggregator Aggregator of stats.
      * @return \Dhii\SimpleTest\Test\ResultSetInterface The new result set.
@@ -50,7 +50,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new result set iterator, which coombines result sets.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @param \Dhii\SimpleTest\Locator\ResultSetInterface[] The result sets for the iterator.
      * @param \Dhii\Stats\AggregatorInterface $aggregator The aggregator for use of the iterator.
      * @return \Dhii\SimpleTest\Test\AbstractResultSetCollection The new result set iterator.
@@ -75,7 +75,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Create a new coordinator instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @return Dhii\SimpleTest\Coordinator\AbstractCoordinator The new coordinator.
      */
     public function createCoordinator()
@@ -87,7 +87,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Cretes a new runner instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @return \Dhii\SimpleTest\Runner\AbstractRunner
      */
     public function createRunner(
@@ -123,7 +123,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new assertion maker.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @return Dhii\SimpleTest\Assertion\AbstractMaker
      */
     public function createAssertionMaker()
@@ -135,7 +135,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new test suite.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @param \Dhii\SimpleTest\Test\TestInterface[] $tests The tests for the suite.
      * @param \Dhii\SimpleTest\Coordinator\CoordinatorInterface $coordinator The coordinator for the suite.
      * @return \Dhii\SimpleTest\Suite\AbstractSuite
@@ -156,7 +156,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @param string $class Name of the test case class.
      * @param string $method The method, which this test will run.
      * @return \Dhii\SimpleTest\Test\AbstractTest
@@ -175,7 +175,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
 
     /**
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @param \Dhii\SimpleTest\Test\TestBaseInterface $test
      * @param mixed $message
      * @param string $status
@@ -207,7 +207,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new locator result set.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @param \Dhii\SimpleTest\Test\TestInterface[] $results The result set.
      * @return \Dhii\SimpleTest\Locator\AbstractResultSet The new locator result set.
      */
@@ -225,7 +225,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Create a new class locator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @param string $className Name of the class, for which to create the locator.
      * @return \Dhii\SimpleTest\Locator\AbstractClassLocator The new class locator.
      */
@@ -251,7 +251,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new file path locator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @return \Dhii\SimpleTest\Locator\AbstractFilePathLocator The new file locator instance.
      */
     public function createFileLocator()
@@ -282,7 +282,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new writer.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return \Dhii\SimpleTest\Writer\WriterInterface The new writer instance.
      */
@@ -298,7 +298,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Creates a new test subject.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      * @return \Dhii\SimpleTest\Tester\AbstractStatefulTester
      */
     public function createInstance()
@@ -332,7 +332,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Tests whether a valid isntance of the test subject can be created.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function testCanBeCreated()
     {
@@ -343,7 +343,7 @@ class AbstractStatefulTesterTest extends \Xpmock\TestCase
     /**
      * Tests the main functionality.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function testRunAll($subject = null)
     {
