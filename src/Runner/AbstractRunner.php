@@ -13,7 +13,7 @@ use UnexpectedValueException;
 /**
  * Common functionality for test runners.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractRunner implements RunnerInterface
 {
@@ -24,7 +24,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Sets the coordinator to be used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Coordinator\CoordinatorInterface $coordinator The coordinator to set.
      *
@@ -40,7 +40,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Retrieve the coordinator that is used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Coordinator\CoordinatorInterface The coordinator used by this instance.
      */
@@ -52,7 +52,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Sets an assertion maker instance for this runner.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Assertion\MakerInterface $assertionMaker The assertion maker that this runner should pass to test cases that it runs.
      *
@@ -68,7 +68,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Retrieves the assertion maker instance used by this runner.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Assertion\MakerInterface The assertion maker that this runner uses.
      */
@@ -82,7 +82,7 @@ abstract class AbstractRunner implements RunnerInterface
      *
      * This aggregator is assigned to test result sets.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Stats\AggregatorInterface The stat aggregator used by this instance.
      */
@@ -96,7 +96,7 @@ abstract class AbstractRunner implements RunnerInterface
      *
      * When a test list is run, this aggregator will be assigned to the result set.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Stats\AggregatorInterface $aggregator The stat aggregator to assign to this instance.
      *
@@ -112,7 +112,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function run(Test\TestBaseInterface $test)
     {
@@ -122,7 +122,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Test\ResultSetInterface The results of the tests that were run.
      */
@@ -152,7 +152,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Executes before this suite runs all tests in it.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\TestInterface[]|\Traversable $tests The tests that are about to be ran.
      *
@@ -168,7 +168,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Executes after this suite runs all tests in it.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\ResultInterface[]|\Traversable $results The results of the tests that were run.
      *
@@ -184,7 +184,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\TestInterface[]|\Traversable The list of tests to run.
      *
@@ -210,7 +210,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Throws an exception if the argument is not a valid test list.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param mixed $tests The test list to validate.
      *
@@ -226,7 +226,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Low-level running of a test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\TestBaseInterface $test The test to run.
      *
@@ -307,7 +307,7 @@ abstract class AbstractRunner implements RunnerInterface
      *
      * Updates statistics, assigns statuses, etc.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\TestBaseInterface $test           The test, the result of which to process.
      * @param string                 $status         The status of the test.
@@ -343,7 +343,7 @@ abstract class AbstractRunner implements RunnerInterface
      * @param float                  $time           The time, in seconds, that was taken to run the test.
      * @param int                    $memory         The memory, in bytes, that was taken to run the test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return Test\ResultInterface
      */
@@ -352,7 +352,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Runs right before a test is run.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\TestInterface $test The test that is about to be run.
      *
@@ -369,7 +369,7 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * Runs right after a test is run.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param Test\ResultInterface $result The result of the test that was ran.
      */

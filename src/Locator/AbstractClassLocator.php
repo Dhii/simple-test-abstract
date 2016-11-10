@@ -10,7 +10,7 @@ use RuntimeException;
 /**
  * Common functionality for test locators that find tests in classes.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractClassLocator extends AbstractLocator implements ClassLocatorInterface
 {
@@ -19,7 +19,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @throws RuntimeException If class not specified.
      */
@@ -35,7 +35,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @throws InvalidArgumentException If class is not a class name or reflection.
      */
@@ -51,7 +51,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     /**
      * Retrieve the reflection of the class, in which to locate the tests.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return ReflectionClass|null A reflection of the class, in which to locate test methods, if class specified;
      *                              otherwise, null;
@@ -76,7 +76,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     /**
      * Creates a test instance from a class and method name.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string      $className  Name of the test case class.
      * @param string      $methodName Name of the test method.
@@ -89,7 +89,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     /**
      * Generates a test identifier.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $className  Name of the test case class.
      * @param string $methodName Name of the test method.
@@ -104,7 +104,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     }
 
     /**
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param ReflectionClass $class The reflection of the class, for which to get the tests.
      *                               That class must be a descendant of {@see CaseInterface}.
@@ -131,7 +131,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     /**
      * Determines if a method is a valid test method.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return bool True if the method matches; false otherwise.
      */
@@ -140,7 +140,7 @@ abstract class AbstractClassLocator extends AbstractLocator implements ClassLoca
     /**
      * Retrieve a reflection of a class by its name or from an instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param object|string $object An object, or a class name.
      *

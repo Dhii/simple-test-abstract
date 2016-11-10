@@ -5,7 +5,7 @@ namespace Dhii\SimpleTest\Assertion;
 /**
  * Common functionality for assertion makers that can have their assertion stats retrieved.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 class AbstractAccountableMaker extends AbstractMaker implements AccountableInterface
 {
@@ -14,7 +14,7 @@ class AbstractAccountableMaker extends AbstractMaker implements AccountableInter
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getAssertionCount()
     {
@@ -24,7 +24,7 @@ class AbstractAccountableMaker extends AbstractMaker implements AccountableInter
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     protected function _processAssertionResult($result)
     {

@@ -7,14 +7,14 @@ namespace Dhii\SimpleTest\TestCase;
  *
  * Test cases are what the user-written tests must go into.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractCase implements CaseInterface
 {
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function beforeTest()
     {
@@ -23,7 +23,7 @@ abstract class AbstractCase implements CaseInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function afterTest()
     {

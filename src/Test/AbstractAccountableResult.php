@@ -7,7 +7,7 @@ use Dhii\SimpleTest\Assertion;
 /**
  * Common functionality for test results that can have their assertion and usage stats retrieved.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 class AbstractAccountableResult extends AbstractResult implements
     UsageAccountableInterface,
@@ -20,7 +20,7 @@ class AbstractAccountableResult extends AbstractResult implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTimeTaken()
     {
@@ -30,7 +30,7 @@ class AbstractAccountableResult extends AbstractResult implements
     /**
      * Set the amount of time taken to run the test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param int $seconds The number of seconds taken to run the test.
      *
@@ -46,7 +46,7 @@ class AbstractAccountableResult extends AbstractResult implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getMemoryTaken()
     {
@@ -56,7 +56,7 @@ class AbstractAccountableResult extends AbstractResult implements
     /**
      * Set the amount of memory allocated to run the test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param int $bytes The number of bytes that was taken to run the test.
      *
@@ -72,7 +72,7 @@ class AbstractAccountableResult extends AbstractResult implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTestCount()
     {
@@ -82,7 +82,7 @@ class AbstractAccountableResult extends AbstractResult implements
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTestCountByStatus($status)
     {

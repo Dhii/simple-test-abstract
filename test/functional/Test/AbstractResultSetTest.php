@@ -5,14 +5,14 @@ namespace Dhii\SimpleTest\FuncTest\Tester;
 /**
  * Tests {@see \Dhii\SimpleTest\Test\AbstractResultSet}.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 class AbstractResultSetTest extends \Xpmock\TestCase
 {
     /**
      * Creates a new instance of the test subject.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return \Dhii\SimpleTest\Test\AbstractResultSet The new subject instance.
      */
@@ -31,7 +31,7 @@ class AbstractResultSetTest extends \Xpmock\TestCase
     /**
      * Creates a stat aggregator.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return \Dhii\Stats\AbstractAggregator The new stat aggregator instance.
      */
@@ -46,7 +46,7 @@ class AbstractResultSetTest extends \Xpmock\TestCase
     /**
      * Tests that a valid result set can be created.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function testCanBeCreated()
     {
@@ -58,7 +58,7 @@ class AbstractResultSetTest extends \Xpmock\TestCase
     /**
      * Tests that totals can be retrieved without error even if no test results recorded.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function testRetrieveTotalsEmpty()
     {

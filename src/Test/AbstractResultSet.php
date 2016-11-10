@@ -10,7 +10,7 @@ use Countable;
 /**
  * Common functionality for test result sets.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractResultSet extends Collection\AbstractSearchableCollection implements
     Countable,
@@ -23,7 +23,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     protected function _getAggregatableStatCodes()
     {
@@ -38,7 +38,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTestStatusCodes()
     {
@@ -48,7 +48,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTimeTaken()
     {
@@ -58,7 +58,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getMemoryTaken()
     {
@@ -68,7 +68,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTestCount()
     {
@@ -80,7 +80,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getTestCountByStatus($status)
     {
@@ -94,7 +94,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getAssertionCount()
     {
@@ -104,7 +104,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * Determines if given value is a valid item for this collection.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param mixed $item The item to validate.
      *
@@ -120,7 +120,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getResults()
     {
@@ -130,7 +130,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getResultsByStatus($status)
     {
@@ -144,7 +144,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function search($eval)
     {
@@ -154,7 +154,7 @@ abstract class AbstractResultSet extends Collection\AbstractSearchableCollection
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function count()
     {

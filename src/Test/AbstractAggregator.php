@@ -8,14 +8,14 @@ use Dhii\SimpleTest\Assertion;
 /**
  * Common functionality for aggregators of test stats.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 class AbstractAggregator extends Stats\AbstractAggregator
 {
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     protected function _getCalculators()
     {

@@ -5,7 +5,7 @@ namespace Dhii\SimpleTest\Test;
 /**
  * Common functionality for test-representing objects.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractTestBase implements TestInterface
 {
@@ -17,7 +17,7 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getCaseName()
     {
@@ -27,7 +27,7 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * Sets the name of the test case class for this test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $name Name of the case, to which this test belongs.
      *
@@ -43,7 +43,7 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getMethodName()
     {
@@ -53,7 +53,7 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * Sets the name of the method for this test.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $name Name of the method, which this case represents.
      *
@@ -69,7 +69,7 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getKey()
     {
@@ -79,7 +79,7 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * Set the key of this tets.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string $key Name of the method, which this case represents.
      *
@@ -95,7 +95,7 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getSuiteCode()
     {
@@ -105,7 +105,7 @@ abstract class AbstractTestBase implements TestInterface
     /**
      * Set the code for this test's suite.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param string The code of the suite to which this case belongs.
      *

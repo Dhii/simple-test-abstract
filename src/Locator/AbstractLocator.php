@@ -7,14 +7,14 @@ use Dhii\Collection;
 /**
  * Common functionality for test locators.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractLocator extends Collection\AbstractHasher implements LocatorInterface
 {
     /**
      * Creates a new result set with the given items.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return ResultSetInterface The new locator result set.
      */

@@ -5,7 +5,7 @@ namespace Dhii\SimpleTest\Writer;
 /**
  * Common functionality for writers.
  *
- * @since [*next-version*]
+ * @since 0.1.0
  */
 abstract class AbstractWriter implements WriterInterface
 {
@@ -21,7 +21,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function setLevel($level)
     {
@@ -33,7 +33,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function getLevel()
     {
@@ -43,7 +43,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function writeLine($text, $level = self::LVL_1)
     {
@@ -53,7 +53,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * Retrieve the EOL (end of line) sequence that is used by this instance.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @return string The string that signifies EOL.
      */
@@ -65,7 +65,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * Checks whether messages of a specified level should be written by this instane.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param int $level The level to check.
      *
@@ -84,7 +84,7 @@ abstract class AbstractWriter implements WriterInterface
      *
      * @codeCoverageIgnore
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      *
      * @param mixed $object The value to generate a simple string representation of.
      *
@@ -110,7 +110,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * {@inheritdoc}
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     public function write($text, $level = self::LVL_1)
     {
@@ -124,7 +124,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * Write the text to the output channel.
      *
-     * @since [*next-version*]
+     * @since 0.1.0
      */
     abstract protected function _write($text);
 }
