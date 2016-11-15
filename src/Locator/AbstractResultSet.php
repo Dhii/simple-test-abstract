@@ -14,7 +14,7 @@ abstract class AbstractResultSet extends Test\AbstractSource implements ResultSe
     /**
      * Makes the set unique by identifying each item by a key derived from the item.
      *
-     * @since [*next-version*]
+     * @since 0.1.1
      */
     protected function _getItemUniqueKey($item)
     {
