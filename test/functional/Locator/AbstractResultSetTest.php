@@ -5,14 +5,14 @@ namespace Dhii\SimpleTest\FuncTest\Locator;
 /**
  * Tests {@see \Dhii\SimpleTest\Locator\AbstractResultSet}.
  *
- * @since [*next-version*]
+ * @since 0.1.1
  */
 class AbstractResultSetTest extends \Xpmock\TestCase
 {
     /**
      * Creates a new instance of the test subject.
      *
-     * @since [*next-version*]
+     * @since 0.1.1
      *
      * @return \Dhii\SimpleTest\Locator\AbstractResultSet The new instance of the test subject.
      */
@@ -36,7 +36,7 @@ class AbstractResultSetTest extends \Xpmock\TestCase
     /**
      * Creates a new instance of a test.
      *
-     * @since [*next-version*]
+     * @since 0.1.1
      *
      * @param string $class Name of the class for this test.
      * @param string $method Name of the class's method for this test.
@@ -57,7 +57,7 @@ class AbstractResultSetTest extends \Xpmock\TestCase
     /**
      * Tests whether a valid instance of the test subject can be created.
      *
-     * @since [*next-version*]
+     * @since 0.1.1
      */
     public function testCanBeCreated()
     {
@@ -69,7 +69,7 @@ class AbstractResultSetTest extends \Xpmock\TestCase
     /**
      * Tests whether key-value relationships are honoured by the set when iterating over it.
      *
-     * @since [*next-version*]
+     * @since 0.1.1
      */
     public function testHonourKeys()
     {
